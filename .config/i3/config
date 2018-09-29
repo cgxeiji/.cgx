@@ -3,6 +3,9 @@
 set $term --no-startup-id urxvt 
 set $mod Mod1
 
+### INITIALIZATION
+exec --no-startup-id compton --config ~/.config/compton.conf -b
+
 ### CONTROL
 ## Mouse
 # use Mouse+$mod to drag floating windows to their wanted position
