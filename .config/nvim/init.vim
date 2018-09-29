@@ -104,6 +104,8 @@ nmap <silent> <Leader>a :wincmd =<CR>
 nmap <silent> <Leader>t :wincmd w<CR>
 " (q)uit current file
 nmap <silent> <Leader>q :q<CR>
+" ESC from home row
+imap kj <ESC>
 
 "" File Manager
 " open file in new tab
