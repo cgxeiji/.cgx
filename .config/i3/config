@@ -25,6 +25,8 @@ bindsym $mod+t exec $term -e /usr/bin/zsh
 bindsym $mod+e exec $term -e nvim
 # (x) file explorer
 bindsym $mod+x exec $term -e ranger
+# (i) internet
+bindsym $mod+i exec qutebrowser
 
 # (R) restart settings
 bindsym $mod+Shift+r restart
