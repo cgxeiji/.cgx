@@ -13,8 +13,8 @@ focus_follows_mouse no
 ## Keyboard
 # (q) kill window
 bindsym $mod+q kill
-# (l) launch a program
-bindsym $mod+l exec dmenu_run
+# (p) launch a program
+bindsym $mod+p exec dmenu_run
 
 # (t) terminal
 bindsym $mod+t exec $term -e /usr/bin/zsh
@@ -49,12 +49,12 @@ bindsym $mod+Shift+Down move down
 bindsym $mod+Shift+Up move up
 bindsym $mod+Shift+Right move right
 
-# (h) split horizontal
-bindsym $mod+h split h
+# (s) split horizontal
+bindsym $mod+s split h
 # (v) split vertical
 bindsym $mod+v split v
-# (H) grow horizontal
-bindsym $mod+Shift+h resize grow width 10 px or 10 ppt 
+# (S) grow horizontal
+bindsym $mod+Shift+s resize grow width 10 px or 10 ppt 
 # (V) grow vertical
 bindsym $mod+Shift+v resize grow height 10 px or 10 ppt
 
