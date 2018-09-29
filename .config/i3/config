@@ -1,0 +1,130 @@
+### VARIABLES
+
+set $term --no-startup-id urxvt 
+set $mod Mod1
+
+### CONTROL
+## Mouse
+# use Mouse+$mod to drag floating windows to their wanted position
+floating_modifier $mod
+# disable focus change when moving the mouse
+focus_follows_mouse no
+
+## Keyboard
+# (q) kill window
+bindsym $mod+q kill
+# (l) launch a program
+bindsym $mod+l exec dmenu_run
+
+# (t) terminal
+bindsym $mod+t exec $term -e /usr/bin/zsh
+# (e) editor
+bindsym $mod+e exec $term -e nvim
+# (x) file explorer
+bindsym $mod+x exec $term -e ranger
+
+# (R) restart settings
+bindsym $mod+Shift+r restart
+
+# navigation
+# hjkl - vim-like motions
+bindsym $mod+h focus left
+bindsym $mod+j focus down
+bindsym $mod+k focus up
+bindsym $mod+l focus right
+# arrow
+bindsym $mod+Left focus left
+bindsym $mod+Down focus down
+bindsym $mod+Up focus up
+bindsym $mod+Right focus right
+
+# HJKL - vim-like motions
+bindsym $mod+Shift+h move left
+bindsym $mod+Shift+j move down
+bindsym $mod+Shift+k move up
+bindsym $mod+Shift+l move right
+# arrow
+bindsym $mod+Shift+Left move left
+bindsym $mod+Shift+Down move down
+bindsym $mod+Shift+Up move up
+bindsym $mod+Shift+Right move right
+
+# (h) split horizontal
+bindsym $mod+h split h
+# (v) split vertical
+bindsym $mod+v split v
+# (H) grow horizontal
+bindsym $mod+Shift+h resize grow width 10 px or 10 ppt 
+# (V) grow vertical
+bindsym $mod+Shift+v resize grow height 10 px or 10 ppt
+
+# (f) toggle fullscreen
+bindsym $mod+f fullscreen toggle
+# (F) toggle tiling or floating window
+bindsym $mod+Shift+f floating toggle
+
+
+
+### LAYOUT
+## Window Layout
+smart_gaps on
+smart_borders no_gaps
+
+gaps inner 10
+gaps outer 5
+gaps outer top current minus 15
+
+## Window
+# title
+font pango:DejaVu Sans Mono 8
+# border
+for_window [class="^.*"] border pixel 2
+
+## Colors
+exec_always --no-startup-id exec xrdb -load ~/.Xresources
+
+# Set Xresources colors:
+set_from_resource $black			color0  #000000
+set_from_resource $darkblack		color8  #000000
+set_from_resource $red				color1  #000000
+set_from_resource $darkred			color9  #000000
+set_from_resource $green			color2  #000000
+set_from_resource $darkgreen		color10 #000000
+set_from_resource $yellow			color3  #000000
+set_from_resource $darkyellow		color11 #000000
+set_from_resource $blue				color4  #000000
+set_from_resource $darkblue			color12 #000000
+set_from_resource $magenta			color5  #000000
+set_from_resource $darkmagenta		color13 #000000
+set_from_resource $cyan				color6  #000000
+set_from_resource $darkcyan			color14 #000000
+set_from_resource $white			color7  #000000
+set_from_resource $darkwhite		color15 #000000
+set_from_resource $background		background #000000
+set_from_resource $foreground		foreground #000000
+set $transparent				#00000000
+
+#                       BORDER			BACKGROUND	TEXT		INDICATOR			CHILD_BORDER
+client.focused			$red			$red		$magenta	$black				$darkblue
+client.unfocused		$transparent	$blue		$white		$black				$transparent
+client.focused_inactive	$transparent	$blue		$white		$black				$darkblack
+client.urgent			$darkred		$darkred	$black		$darkred			$darkred
+client.background						$black
+
+## Status Bar
+bar {
+	font pango:DejaVu Sans Mono 9
+	colors {
+			background $background
+			statusline $darkwhite
+			separator $cyan
+			focused_workspace  $darkwhite $darkblack $white
+        		active_workspace   $blue $blue $darkwhite
+      			inactive_workspace $background $background $darkblack
+        		urgent_workspace   $darkblack $darkblack $white
+		}
+	position top
+	status_command i3status
+	mode dock
+	modifier None
+}
