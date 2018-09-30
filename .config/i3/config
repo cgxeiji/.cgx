@@ -68,6 +68,26 @@ bindsym $mod+f fullscreen toggle
 # (F) toggle tiling or floating window
 bindsym $mod+Shift+f floating toggle
 
+# (y) open youtube
+bindsym $mod+y exec --no-startup-id workspace $wsYT; exec $term -e ranger #qutebrowser youtube.com
+
+## WORKSPACE
+# variables
+set $wsAll  "1"
+set $wsTerm ">_"
+set $wsYT   "YT"
+
+# switch to workspace
+bindsym $mod+1	workspace $wsAll
+bindsym $mod+2	workspace $wsTerm
+bindsym $mod+3	workspace $wsYT
+
+# move to workspace
+bindsym $mod+Shift+1	move container to workspace $wsAll
+bindsym $mod+Shift+2	move container to workspace $wsTerm
+bindsym $mod+Shift+3	move container to workspace $wsYT
+
+
 ## VOLUME
 # volume control
 bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume 2 +5%
