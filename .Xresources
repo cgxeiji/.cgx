@@ -1,44 +1,44 @@
+!! Colorscheme: Flat-UI from WSLtty
 ! special
-*.foreground:   #c5c8c6
-*.background:   #1d1f21
-*.cursorColor:  #c5c8c6
-
+*.foreground:	#ecf0f1
+*.background:	#181818
+*.cursorColor:	#d35400
 ! black
-*.color8:       #282a2e
-*.color0:       #373b41
-
+*.color0:	#34495e
+*.color8:	#2c3e50
 ! red
-*.color9:       #a54242
-*.color1:       #cc6666
-
+*.color1:	#e74c3c
+*.color9:	#c0392b
 ! green
-*.color10:       #8c9440
-*.color2:      #b5bd68
-
+*.color2:	#2ecc71
+*.color10:	#27ae60
 ! yellow
-*.color11:       #de935f
-*.color3:      #f0c674
-
+*.color3:	#f1c40f
+*.color11:	#f39c12
 ! blue
-*.color12:       #5f819d
-*.color4:      #81a2be
-
+*.color4:	#3498db
+*.color12:	#2980b9
 ! magenta
-*.color13:       #85678f
-*.color5:      #b294bb
-
+*.color5:	#9b59b6
+*.color13:	#8e44ad
 ! cyan
-*.color14:       #5e8d87
-*.color6:      #8abeb7
-
+*.color6:	#1abc9c
+*.color14:	#7aa085
 ! white
-*.color15:       #707880
-*.color7:      #c5c8c6
+*.color7:	#ecf0f1
+*.color15:	#bdc3c7
 
-
-!!! URxvt CONFIG
-! remove scrollbar
-URxvt.scrollBar: false
-
+!! URxvt Config
 ! set font
 URxvt*font: xft:DejaVu\ Sans\ Mono\ for\ Powerline:style=Book:size=11,xft:Inconsolata\ for\ Powerline:size=11
+! remove scrollbar
+URxvt.scrollBar: false
+! set cursor color to green
+URxvt.cursorColor: green
+! resize font using keyboard
+URxvt.perl-ext-common: resize-font
+URxvt.resize-font.step: 10
+! (Up) font size
+URxvt.resize-font.bigger: C-Up
+! (Right) reset font size
+URxvt.resize-font.reset: C-Right
