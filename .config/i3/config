@@ -5,6 +5,7 @@ set $mod Mod1
 
 ### INITIALIZATION
 exec_always --no-startup-id compton --config ~/.config/compton.conf -b
+exec_always --no-startup-id feh --bg-fill ~/.cgx/img/wallpaper.png
 
 ### CONTROL
 ## Mouse
@@ -157,4 +158,3 @@ bar {
 }
 
 
-exec_always --no-startup-id feh --bg-scale ~/.cgx/img/wallpaper.png
