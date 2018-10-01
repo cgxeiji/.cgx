@@ -100,7 +100,6 @@ smart_borders no_gaps
 
 gaps inner 10
 gaps outer 5
-gaps outer top current minus 15
 
 ## Window
 # title
@@ -156,3 +155,6 @@ bar {
 	mode dock
 	modifier None
 }
+
+
+exec_always --no-startup-id feh --bg-scale ~/.cgx/img/wallpaper.png
