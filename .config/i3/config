@@ -4,7 +4,7 @@ set $term --no-startup-id urxvt
 set $mod Mod1
 
 ### INITIALIZATION
-exec --no-startup-id compton --config ~/.config/compton.conf -b
+exec_always --no-startup-id compton --config ~/.config/compton.conf -b
 
 ### CONTROL
 ## Mouse
