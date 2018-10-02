@@ -151,13 +151,13 @@ nnoremap ;; <Esc>/<++><Enter>ca<
 :    autocmd FileType plaintex,tex inoremap ;se \section{}<Enter><Enter><++><Esc>2kf}i
 :    autocmd FileType plaintex,tex inoremap ;sse \subsection{}<Enter><Enter><++><Esc>2kf}i
 :    autocmd FileType plaintex,tex inoremap ;sss \subsubsection{}<Enter><Enter><++><Esc>2kf}i
-:    autocmd FileType plaintex,tex inoremap <BS><BS><BS> <Esc>dbxi
+":    autocmd FileType plaintex,tex inoremap <BS><BS><BS> <Esc>dbxi
 :augroup END
 
 "" Markdown
 :augroup mdsnip
 :    autocmd!
-:    autocmd BufWritePost *.md !pandoc %:p --latex-engine=pdflatex -o %:r.pdf && pkill -HUP mupdf
+:    autocmd BufWritePost *.md !pandoc %:p -o %:r.pdf --template notes -V fontfamily=sans && pkill -HUP mupdf
 :    autocmd BufReadPre,FileReadPre *.md !mupdf %:r.pdf &
 :    autocmd FileType markdown,rmd inoremap ;b ****<++><Esc>F*hi
 :    autocmd FileType markdown,rmd inoremap ;i **<++><Esc>F*i
