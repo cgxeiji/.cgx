@@ -23,12 +23,16 @@ filetype plugin indent on
 "
 set backspace=indent,eol,start
 set textwidth=79
+set listchars=eol:$,tab:>-,trail:~,space:_
 
-" tab (Recommendation 1 of :help tabstop)
+" tab (Recommendation x of :help tabstop)
+set tabstop=4
 set softtabstop=4
 set shiftwidth=4
-set noexpandtab
+set expandtab
 set shiftround
+set autoindent
+set smartindent
 
 " fold
 setlocal foldmethod=syntax
@@ -55,6 +59,10 @@ set encoding=utf8
 """ PLUGINS SETTINGS
 "" Deoplete
 let g:deoplete#enable_at_startup = 1
+
+"" NerdTree
+let g:NERDTreeQuitOnOpen=1
+let NERDTreeShowHidden=1
 
 "" Airline
 let g:airline_powerline_fonts = 1
@@ -94,6 +102,8 @@ let mapleader = " "
 "" Edition
 " remove search highlighting
 nmap <silent> <Leader><Leader> :noh<cr>
+" toggle list characters
+nmap <silent> <Leader>; :set list!<CR>
 " (s)ave current file
 nmap <silent> <Leader>s :w<cr>
 " (z)oom in current pane
@@ -114,3 +124,45 @@ nmap  <Leader>ot :tabe
 nmap  <Leader>ov :vsplit  
 " open file in horizontal split
 nmap  <Leader>oh :split 
+" nerdtree mappings
+nmap <silent> <Leader>x :NERDTreeToggle<cr>
+nmap <silent> <Leader>h :NERDTreeFind<cr>
+
+""" MACROS
+"" General
+inoremap ;; <Esc>/<++><Enter>ca<
+vnoremap ;; <Esc>/<++><Enter>ca<
+nnoremap ;; <Esc>/<++><Enter>ca<
+
+" spell check for Markdown and Latex files
+:augroup spellgroup
+:    autocmd!
+:    autocmd BufRead,BufNewFile *.md,*.tex setlocal spell
+:augroup END
+
+"" Latex
+:augroup texsnip
+:    autocmd!
+:    autocmd BufWritePost *.tex silent !xelatex <afile> && pkill -HUP mupdf | execute 'redraw!'
+:    autocmd BufReadPre,FileReadPre *.tex !mupdf %:r.pdf &
+:    autocmd FileType plaintex,tex inoremap ;it \textit{}<++><Esc>T{i
+:    autocmd FileType plaintex,tex inoremap ;bf \textbf{}<++><Esc>T{i
+:    autocmd FileType plaintex,tex inoremap ;ch \chapter{}<Enter><Enter><++><Esc>2kf}i
+:    autocmd FileType plaintex,tex inoremap ;se \section{}<Enter><Enter><++><Esc>2kf}i
+:    autocmd FileType plaintex,tex inoremap ;sse \subsection{}<Enter><Enter><++><Esc>2kf}i
+:    autocmd FileType plaintex,tex inoremap ;sss \subsubsection{}<Enter><Enter><++><Esc>2kf}i
+:    autocmd FileType plaintex,tex inoremap <BS><BS><BS> <Esc>dbxi
+:augroup END
+
+"" Markdown
+:augroup mdsnip
+:    autocmd!
+:    autocmd BufWritePost *.md !pandoc %:p --latex-engine=pdflatex -o %:r.pdf && pkill -HUP mupdf
+:    autocmd BufReadPre,FileReadPre *.md !mupdf %:r.pdf &
+:    autocmd FileType markdown,rmd inoremap ;b ****<++><Esc>F*hi
+:    autocmd FileType markdown,rmd inoremap ;i **<++><Esc>F*i
+:    autocmd FileType markdown,rmd inoremap ;t #<Space><Enter><++><Esc>kA
+:    autocmd FileType markdown,rmd inoremap ;st ##<Space><Enter><++><Esc>kA
+:    autocmd FileType markdown,rmd inoremap ;sst ###<Space><Enter><++><Esc>kA
+:augroup END
+
