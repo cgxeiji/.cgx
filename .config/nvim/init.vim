@@ -144,9 +144,11 @@ nmap  <Leader>ot :tabe
 nmap  <Leader>ov :vsplit 
 " open file in horizontal split
 nmap  <Leader>oh :split 
+" open configuration (this) file
+nmap  <Leader>ocf :tabe ~/.config/nvim/init.vim<CR> 
 " nerdtree mappings
-nmap <silent> <Leader>x :NERDTreeToggle<cr>
-nmap <silent> <Leader>h :NERDTreeFind<cr>
+nmap <silent> <Leader>x :NERDTreeToggle<CR>
+nmap <silent> <Leader>h :NERDTreeFind<CR>
 
 """ MACROS
 "" General
@@ -163,14 +165,18 @@ nnoremap ;; <Esc>/<++><Enter>ca<
 "" Latex
 :augroup texsnip
 :    autocmd!
-:    autocmd BufWritePost *.tex silent !xelatex <afile> && pkill -HUP mupdf | execute 'redraw!'
-:    autocmd BufReadPre,FileReadPre *.tex !mupdf %:r.pdf &
+:    autocmd FileType plaintex,tex nnoremap <buffer> <Leader>r :w !xelatex %:p && pkill -HUP mupdf<CR><CR>
+" | execute ':redraw!'
+:    autocmd FileType plaintex,tex nnoremap <buffer> <Leader>v :!mupdf %:r.pdf &<CR><CR>
 :    autocmd FileType plaintex,tex inoremap <buffer> ;it \textit{}<++><Esc>T{i
 :    autocmd FileType plaintex,tex inoremap <buffer> ;bf \textbf{}<++><Esc>T{i
 :    autocmd FileType plaintex,tex inoremap <buffer> ;ch \chapter{}<Enter><Enter><++><Esc>2kf}i
 :    autocmd FileType plaintex,tex inoremap <buffer> ;se \section{}<Enter><Enter><++><Esc>2kf}i
 :    autocmd FileType plaintex,tex inoremap <buffer> ;sse \subsection{}<Enter><Enter><++><Esc>2kf}i
 :    autocmd FileType plaintex,tex inoremap <buffer> ;sss \subsubsection{}<Enter><Enter><++><Esc>2kf}i
+:    autocmd FileType plaintex,tex inoremap <buffer> ;ref \ref{}<++><Esc>F}i
+:    autocmd FileType plaintex,tex inoremap <buffer> ;rf Figure~\ref{fig:}<++><Esc>F}i
+:    autocmd FileType plaintex,tex inoremap <buffer> ;fig \begin{figure}<CR>\label{fig:}<CR>\centering<CR>\includegraphics{Figure/<++>}<CR>\caption[<++>]{<++>}<CR>\end{figure}<CR><++><Esc>5k$i
 ":    autocmd FileType plaintex,tex inoremap <BS><BS><BS> <Esc>dbxi
 :augroup END
 
