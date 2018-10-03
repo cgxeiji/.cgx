@@ -165,8 +165,8 @@ nnoremap ;; <Esc>/<++><Enter>ca<
 "" Latex
 :augroup texsnip
 :    autocmd!
-:    autocmd FileType plaintex,tex nnoremap <buffer> <Leader>r :w !xelatex %:p && pkill -HUP mupdf<CR><CR>
-" | execute ':redraw!'
+:    autocmd FileType plaintex,tex nnoremap <buffer> <Leader>r :w !rubber --pdf <C-r>=maintex<CR> && pkill -HUP mupdf<CR><CR>
+:    autocmd FileType plaintex,tex nnoremap <buffer> ;sm :let maintex=expand('%:t')<CR>:cd %:p:h<CR>
 :    autocmd FileType plaintex,tex nnoremap <buffer> <Leader>v :!mupdf %:r.pdf &<CR><CR>
 :    autocmd FileType plaintex,tex inoremap <buffer> ;it \textit{}<++><Esc>T{i
 :    autocmd FileType plaintex,tex inoremap <buffer> ;bf \textbf{}<++><Esc>T{i
@@ -177,6 +177,7 @@ nnoremap ;; <Esc>/<++><Enter>ca<
 :    autocmd FileType plaintex,tex inoremap <buffer> ;ref \ref{}<++><Esc>F}i
 :    autocmd FileType plaintex,tex inoremap <buffer> ;rf Figure~\ref{fig:}<++><Esc>F}i
 :    autocmd FileType plaintex,tex inoremap <buffer> ;fig \begin{figure}<CR>\label{fig:}<CR>\centering<CR>\includegraphics{Figure/<++>}<CR>\caption[<++>]{<++>}<CR>\end{figure}<CR><++><Esc>5k$i
+:    autocmd FileType plaintex,tex inoremap <buffer> ;eq \begin{equation}<CR>\label{eq:}<CR><++><CR>\end{equation}<CR><++><Esc>3k$i
 ":    autocmd FileType plaintex,tex inoremap <BS><BS><BS> <Esc>dbxi
 :augroup END
 
