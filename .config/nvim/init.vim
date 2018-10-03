@@ -15,6 +15,8 @@ Plugin 'vim-airline/vim-airline'
 Plugin 'Shougo/deoplete.nvim'
 " load file tree viewer
 Plugin 'scrooloose/nerdtree'
+" load go helper
+Plugin 'fatih/vim-go'
 
 call vundle#end()
 filetype plugin indent on
@@ -67,6 +69,24 @@ let NERDTreeShowHidden=1
 "" Airline
 let g:airline_powerline_fonts = 1
 
+"" Vim-Go
+let g:go_highlight_operators = 1
+let g:go_highlight_extra_types = 1
+let g:go_highlight_functions = 1
+let g:go_highlight_function_arguments = 1
+let g:go_highlight_function_calls = 1
+let g:go_highlight_types = 1
+let g:go_highlight_fields = 1
+let g:go_highlight_format_strings = 1
+let g:go_highlight_variable_declarations = 1
+let g:go_highlight_variable_assignments = 1
+
+let g:go_fmt_command = "goimports"
+let g:go_addtags_transform = "camelcase"
+let g:go_metalinter_autosave = 1
+let g:go_metalinter_autosave_enabled = ['golint']
+let g:go_auto_sameids = 1
+
 if !exists('g:airline_symbols')
     let g:airline_symbols = {}
 endif
@@ -103,7 +123,7 @@ let mapleader = " "
 " remove search highlighting
 nmap <silent> <Leader><Leader> :noh<cr>
 " toggle list characters
-nmap <silent> <Leader>; :set list!<CR>
+nmap <silent> <Leader>; :set list!<CR>:set number!<CR>
 " (s)ave current file
 nmap <silent> <Leader>s :w<cr>
 " (z)oom in current pane
@@ -121,7 +141,7 @@ imap kj <ESC>
 " open file in new tab
 nmap  <Leader>ot :tabe 
 " open file in vertical split
-nmap  <Leader>ov :vsplit  
+nmap  <Leader>ov :vsplit 
 " open file in horizontal split
 nmap  <Leader>oh :split 
 " nerdtree mappings
@@ -145,12 +165,12 @@ nnoremap ;; <Esc>/<++><Enter>ca<
 :    autocmd!
 :    autocmd BufWritePost *.tex silent !xelatex <afile> && pkill -HUP mupdf | execute 'redraw!'
 :    autocmd BufReadPre,FileReadPre *.tex !mupdf %:r.pdf &
-:    autocmd FileType plaintex,tex inoremap ;it \textit{}<++><Esc>T{i
-:    autocmd FileType plaintex,tex inoremap ;bf \textbf{}<++><Esc>T{i
-:    autocmd FileType plaintex,tex inoremap ;ch \chapter{}<Enter><Enter><++><Esc>2kf}i
-:    autocmd FileType plaintex,tex inoremap ;se \section{}<Enter><Enter><++><Esc>2kf}i
-:    autocmd FileType plaintex,tex inoremap ;sse \subsection{}<Enter><Enter><++><Esc>2kf}i
-:    autocmd FileType plaintex,tex inoremap ;sss \subsubsection{}<Enter><Enter><++><Esc>2kf}i
+:    autocmd FileType plaintex,tex inoremap <buffer> ;it \textit{}<++><Esc>T{i
+:    autocmd FileType plaintex,tex inoremap <buffer> ;bf \textbf{}<++><Esc>T{i
+:    autocmd FileType plaintex,tex inoremap <buffer> ;ch \chapter{}<Enter><Enter><++><Esc>2kf}i
+:    autocmd FileType plaintex,tex inoremap <buffer> ;se \section{}<Enter><Enter><++><Esc>2kf}i
+:    autocmd FileType plaintex,tex inoremap <buffer> ;sse \subsection{}<Enter><Enter><++><Esc>2kf}i
+:    autocmd FileType plaintex,tex inoremap <buffer> ;sss \subsubsection{}<Enter><Enter><++><Esc>2kf}i
 ":    autocmd FileType plaintex,tex inoremap <BS><BS><BS> <Esc>dbxi
 :augroup END
 
@@ -159,10 +179,10 @@ nnoremap ;; <Esc>/<++><Enter>ca<
 :    autocmd!
 :    autocmd BufWritePost *.md !pandoc %:p -o %:r.pdf --template notes -V fontfamily=sans && pkill -HUP mupdf
 :    autocmd BufReadPre,FileReadPre *.md !mupdf %:r.pdf &
-:    autocmd FileType markdown,rmd inoremap ;b ****<++><Esc>F*hi
-:    autocmd FileType markdown,rmd inoremap ;i **<++><Esc>F*i
-:    autocmd FileType markdown,rmd inoremap ;t #<Space><Enter><++><Esc>kA
-:    autocmd FileType markdown,rmd inoremap ;st ##<Space><Enter><++><Esc>kA
-:    autocmd FileType markdown,rmd inoremap ;sst ###<Space><Enter><++><Esc>kA
+:    autocmd FileType markdown,rmd inoremap <buffer> ;b ****<++><Esc>F*hi
+:    autocmd FileType markdown,rmd inoremap <buffer> ;i **<++><Esc>F*i
+:    autocmd FileType markdown,rmd inoremap <buffer> ;t #<Space><Enter><++><Esc>kA
+:    autocmd FileType markdown,rmd inoremap <buffer> ;st ##<Space><Enter><++><Esc>kA
+:    autocmd FileType markdown,rmd inoremap <buffer> ;sst ###<Space><Enter><++><Esc>kA
 :augroup END
 
