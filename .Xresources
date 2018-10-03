@@ -37,8 +37,10 @@ URxvt.scrollBar: false
 URxvt.cursorColor: green
 ! resize font using keyboard
 URxvt.perl-ext-common: resize-font
-URxvt.resize-font.step: 10
+URxvt.resize-font.step: 5
 ! (Up) font size
 URxvt.resize-font.bigger: C-Up
+! (Down) font size
+URxvt.resize-font.smaller: C-Down
 ! (Right) reset font size
 URxvt.resize-font.reset: C-Right
