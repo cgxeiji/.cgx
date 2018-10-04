@@ -17,7 +17,7 @@ ln -sf ~/.cgx/.config/i3/config ~/.config/i3/config
 echo -e "...... done!"
 
 # ranger configuration
-echo -e "... creating symlink for i3..."
+echo -e "... creating symlink for ranger..."
 echo -e "...... ln -sf ~/.cgx/.config/ranger/rc.conf ~/.config/ranger/rc.conf"
 ln -sf ~/.cgx/.config/ranger/rc.conf ~/.config/ranger/rc.conf
 echo -e "...... done!"
