@@ -165,9 +165,12 @@ nnoremap ;; <Esc>/<++><Enter>ca<
 "" Latex
 :augroup texsnip
 :    autocmd!
-:    autocmd FileType plaintex,tex nnoremap <buffer> <Leader>r :w !rubber --pdf <C-r>=maintex<CR> && pkill -HUP mupdf<CR><CR>
+:    autocmd BufRead,BufNewFile *.tex set filetype=tex
+:    autocmd FileType plaintex,tex nnoremap <buffer> <Leader>r :w<CR>:!rubber --pdf <C-r>=maintex<CR> && pkill -HUP mupdf<CR><CR>
 :    autocmd FileType plaintex,tex nnoremap <buffer> ;sm :let maintex=expand('%:t')<CR>:cd %:p:h<CR>
 :    autocmd FileType plaintex,tex nnoremap <buffer> <Leader>v :!mupdf %:r.pdf &<CR><CR>
+:    autocmd FileType plaintex,tex nnoremap <buffer> <Leader>f vipgq
+:    autocmd FileType plaintex,tex nnoremap <buffer> ;def "zyiw:!sdcv -n <C-r>z<CR>
 :    autocmd FileType plaintex,tex inoremap <buffer> ;it \textit{}<++><Esc>T{i
 :    autocmd FileType plaintex,tex inoremap <buffer> ;bf \textbf{}<++><Esc>T{i
 :    autocmd FileType plaintex,tex inoremap <buffer> ;ch \chapter{}<Enter><Enter><++><Esc>2kf}i
@@ -175,8 +178,10 @@ nnoremap ;; <Esc>/<++><Enter>ca<
 :    autocmd FileType plaintex,tex inoremap <buffer> ;sse \subsection{}<Enter><Enter><++><Esc>2kf}i
 :    autocmd FileType plaintex,tex inoremap <buffer> ;sss \subsubsection{}<Enter><Enter><++><Esc>2kf}i
 :    autocmd FileType plaintex,tex inoremap <buffer> ;ref \ref{}<++><Esc>F}i
+:    autocmd FileType plaintex,tex inoremap <buffer> ;cit \cite{}<++><Esc>F}i
+:    autocmd FileType plaintex,tex inoremap <buffer> ;fot \footnote{}<++><Esc>F}i
 :    autocmd FileType plaintex,tex inoremap <buffer> ;rf Figure~\ref{fig:}<++><Esc>F}i
-:    autocmd FileType plaintex,tex inoremap <buffer> ;fig \begin{figure}<CR>\label{fig:}<CR>\centering<CR>\includegraphics{Figure/<++>}<CR>\caption[<++>]{<++>}<CR>\end{figure}<CR><++><Esc>5k$i
+:    autocmd FileType plaintex,tex inoremap <buffer> ;fig \begin{figure}<CR>\centering<CR>\includegraphics[width=0.7\textwidth]{}<CR>\caption[<++>]{<++>}<CR>\label{fig:<++>}<CR>\end{figure}<CR><++><Esc>4k$i
 :    autocmd FileType plaintex,tex inoremap <buffer> ;eq \begin{equation}<CR>\label{eq:}<CR><++><CR>\end{equation}<CR><++><Esc>3k$i
 ":    autocmd FileType plaintex,tex inoremap <BS><BS><BS> <Esc>dbxi
 :augroup END
