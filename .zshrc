@@ -104,3 +104,5 @@ alias fd="cd ~/CGxWin/Downloads && ls -a"
 alias fw="cd ~/CGxWin && ls -a"
 alias ft="cd ~/Git/Thesis/doc && ls -a"
 alias cfx="cd ~/.cgx && ls -a"
+
+function papers() { curl -w 'Got: %{filename_effective}\n' -# -O $(curl -s http://sci-hub.tw/"$@" | grep location.href | grep -o 'http.*pdf') ;}
