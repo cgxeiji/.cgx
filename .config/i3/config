@@ -7,6 +7,15 @@ set $mod Mod1
 exec_always --no-startup-id compton --config ~/.config/compton.conf -b
 exec_always --no-startup-id feh --bg-fill ~/.cgx/img/wallpaper.png
 
+### SCRATCHPAD
+## Terminal
+exec $term -name auxterm
+for_window [instance="auxterm"] floating enable
+for_window [instance="auxterm"] resize set 80 ppt 80 ppt
+for_window [instance="auxterm"] move scratchpad
+for_window [instance="auxterm"] border pixel 5
+# binding set to Shift+t
+
 ### CONTROL
 ## Mouse
 # use Mouse+$mod to drag floating windows to their wanted position
@@ -22,6 +31,8 @@ bindsym $mod+p exec dmenu_run
 
 # (t) terminal
 bindsym $mod+t exec $term -e /usr/bin/zsh
+# (T) floating terminal
+bindsym $mod+Shift+t [instance="auxterm"] scratchpad show; [instance="auxterm"] move position center
 # (e) editor
 bindsym $mod+e exec $term -e nvim
 # (x) file explorer
