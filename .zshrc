@@ -109,8 +109,8 @@ function papers() { curl -w 'Got: %{filename_effective}\n' -# -O $(curl -s http:
 
 mergepdf() { gs -sDEVICE=pdfwrite -dNOPAUSE -dQUIET -dBATCH -dPDFSETTINGS=/prepress -sOutputFile=output.pdf "$@" ; echo output.pdf created!; }
 
-books() {
-    echo 'Searching for: '"$@"
+ibooks() {
+    echo "Waking up monkeys to look for: $@"
 
     page=$(curl -s 'http://libgen.io/search.php?req='$(echo "$@" | sed 's/ /+/g')'&open=0&res=25&view=simple&phrase=1&column=def')
 
@@ -134,8 +134,10 @@ books() {
             echo Cancelled
             break ;;
         *)
+            echo 
             echo Fetching: $option
-            curl -w 'Got: %{filename_effective}\n' -# -O -J -L $(curl -s 'http://download1.'${files[$REPLY]} | grep 'a href' | grep -m 1 -o "http://dl[^\']*")
+            echo "deploying bots to look for the file..."
+            curl -f -w 'Got: %{filename_effective}\n' -# -O -J -L $(curl -s 'http://download1.'${files[$REPLY]} | grep 'a href' | grep -m 1 -o "http://dl[^\']*") || echo Nothing found!
             break ;;
     esac
 }
