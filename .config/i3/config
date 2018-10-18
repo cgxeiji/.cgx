@@ -9,7 +9,7 @@ exec_always --no-startup-id feh --bg-fill ~/.cgx/img/wallpaper.png
 
 ### SCRATCHPAD
 ## Terminal
-exec $term -name auxterm
+exec $term -name auxterm -e /usr/bin/zsh
 for_window [instance="auxterm"] floating enable
 for_window [instance="auxterm"] resize set 80 ppt 80 ppt
 for_window [instance="auxterm"] move scratchpad
