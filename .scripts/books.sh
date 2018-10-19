@@ -7,7 +7,10 @@ main() {
 
     titles=$(echo "$page" | grep -o "title='' id=[^<]*" | sed 's/.*>//g; s/$/                            /g' | cut -c -29 | sed -e 's/$/ \|/g')
 
-    [[ 1 != $(echo "$titles" | wc --chars) ]] || (echo "Nothing found!" && exit)
+    [[ 1 != $(echo "$titles" | wc --chars) ]] || {
+        echo "The monkeys slipped on a banana and found nothing!"
+        exit
+    }
 
     authors=$(  echo "$page" | grep -o "=author'>[^ ][^<]*" | sed 's/.*>//g; s/$/            /g' | cut -c -13 | sed -e 's/$/ \|/g')
     years=$(    echo "$page" | grep -o "nowrap>[[:xdigit:]]\{,4\}<" | sed 's/.*>//g; s/<//g; s/$/     /g' | cut -c -4 | sed 's/$/ \|/g')
@@ -36,9 +39,11 @@ main() {
                 break ;;
             *)
                 echo 
-                echo Fetching: $option
-                echo "deploying bots to look for the file..."
-                curl -f -w 'Got: %{filename_effective}\n' -# -O -J -L $(curl -s 'http://download1.'${files[$REPLY]} | grep 'a href' | grep -m 1 -o "http://dl[^\']*") || echo Nothing found!
+                echo "Target locked on: $option"
+                echo "Deploying bots to look for the file..."
+                curl -f -w 'Got: %{filename_effective}\n' -# -O -J -L $(curl -s 'http://download1.'${files[$REPLY]} | grep 'a href' | grep -m 1 -o "http://dl[^\']*") || {
+                    echo "The bots went to Mordor and found nothing!"
+                }
                 break ;;
         esac
     done
