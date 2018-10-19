@@ -8,8 +8,8 @@ main() {
     #| sed -n '/lead/{n;p;}' | sed 's/ctx//g; s/Authors: //g'
     #echo "$page" | tr -d '\n' | grep -o "class='cite-link'[^>]*" | grep -o ", '[^']*" | sed -e 's/$/                                        /g' | cut -c 4-40 | sed 's/$/ \|/g'
 
-    links=("" $(echo "$page" | tr -d '\n' | grep -o "class='cite-link'[^>]*" | grep -o ".org/[^']*" | cut -c 6-))
-    titles=$(echo "$page" | tr -d '\n' | grep -o "class='cite-link'[^>]*" | grep -o ", '[^']*" | sed 's/$/                                        /g' | cut -c 4-40 | sed 's/$/ \|/g')
+    links=("" $(echo "$page" | grep -o "class='cite-link'[^>]*" | grep -o ".org/[^']*" | cut -c 6-))
+    titles=$(echo "$page" | grep -o "class='cite-link'[^>]*" | grep -o ", '[^']*" | sed "s/, '//g; s/$/                                        /g" | cut -c -37 | sed 's/$/ \|/g')
     authors=$(echo "$page" | tr -d '\n' | grep -o "class='item-data'[^%]*" | grep -o "Authors:[^<]*\|title\|item-data" | sed -n '/item-data/{n;p;}' | sed 's/title//g; s/Authors: //g' | sed 's/$/             /g' | cut -c -13 | sed 's/$/ \|/g' )
 
     [[ 1 != $(echo "$titles" | wc --chars) ]] || {
