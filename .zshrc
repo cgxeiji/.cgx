@@ -105,8 +105,9 @@ alias fw="cd ~/CGxWin && ls -a"
 alias ft="cd ~/Git/Thesis/doc && ls -a"
 alias cfx="cd ~/.cgx && ls -a"
 
-function papers() { curl -w 'Got: %{filename_effective}\n' -# -O $(curl -s http://sci-hub.tw/"$@" | grep location.href | grep -o 'http.*pdf') ;}
+books() {~/.cgx/.scripts/books.sh "$@"}
+papers() {~/.cgx/.scripts/papers.sh "$@"}
+pdf() {mupdf "$@" &}
 
 mergepdf() { gs -sDEVICE=pdfwrite -dNOPAUSE -dQUIET -dBATCH -dPDFSETTINGS=/prepress -sOutputFile=output.pdf "$@" ; echo output.pdf created!; }
 
-books() {~/.cgx/.scripts/books.sh "$@"}
