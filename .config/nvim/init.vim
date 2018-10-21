@@ -11,6 +11,8 @@ Plugin 'gmarik/vundle'
 Plugin 'tomasr/molokai'
 " load pretty status line
 Plugin 'vim-airline/vim-airline'
+" load surround option
+Plugin 'tpope/vim-surround'
 " load autocomplete
 Plugin 'Shougo/deoplete.nvim'
 " load file tree viewer
