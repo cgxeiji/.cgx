@@ -109,5 +109,6 @@ books() {~/.cgx/.scripts/books.sh "$@"}
 papers() {~/.cgx/.scripts/papers.sh "$@"}
 pdf() {mupdf "$@" &}
 
+# mergepdf w\ \({1..18}\).pdf
 mergepdf() { gs -sDEVICE=pdfwrite -dNOPAUSE -dQUIET -dBATCH -dPDFSETTINGS=/prepress -sOutputFile=output.pdf "$@" ; echo output.pdf created!; }
 
