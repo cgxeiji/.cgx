@@ -21,9 +21,7 @@ main() {
     titles=$(echo "$page" | grep -o "class='cite-link'[^>]*" | 
         grep -o ", '[^']*" | 
         tr -d '\200-\377' | 
-        sed "s/, '//g; s/$/                                        /g" |
-        cut -c -37 |
-        sed 's/$/ \|/g')
+        sed "s/, '//g" )
     authors=$(echo "$page" |
         tr -d '\n' |
         grep -o "class='item-data'[^%]*" |
@@ -31,10 +29,7 @@ main() {
         grep -o "Authors:[^<]*\|title\|item-data" |
         sed -n '/item-data/{n;p;}' |
         sed 's/title//g; s/Authors: //g' |
-        tr -d '\200-\377' | 
-        sed 's/$/             /g' |
-        cut -c -13 |
-        sed 's/$/ \|/g' )
+        tr '\200-\377' ' ' ) 
 
     [[ 1 != $(echo "$titles" | wc --chars) ]] || {
         echo "The monkeys slipped on a banana and found nothing!"
@@ -42,7 +37,11 @@ main() {
     }
 
 
-    labels=$(paste <(echo "") <(echo "$titles") <(echo "$authors") <(echo "$ilinks"))
+    labels=$(
+    paste <(echo "") <(
+        echo "$titles" | xargs -d '\n' printf "%-37.37s |\n") <(
+        echo "$authors" | xargs -d '\n' printf "%-13.13s |\n") <(
+        echo "$ilinks"))
 
     IFS=$'\n'
     names=($(echo "$labels"))
@@ -63,8 +62,9 @@ main() {
         }
         case $option in
             *)
+                ititles=($(echo "$titles"))
                 echo 
-                echo "Target locked on: $option"
+                echo "Target locked on: ""${ititles[$REPLY-1]}"
                 echo "Deploying bots to look for the file ""${links[$REPLY]}"
                 curl -f -w 'Got: %{filename_effective}\n' -# -O $(curl -s 'http://sci-hub.tw/'"${links[$REPLY]}" | grep location.href | grep -o 'http.*pdf') || {
                     echo "The bots went to Mordor and found nothing!"
