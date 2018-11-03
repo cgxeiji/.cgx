@@ -183,6 +183,8 @@ nnoremap ;; <Esc>/<++><Enter>ca<
 :    autocmd FileType plaintex,tex inoremap <buffer> ;cit \cite{}<++><Esc>F}i
 :    autocmd FileType plaintex,tex inoremap <buffer> ;fot \footnote{}<++><Esc>F}i
 :    autocmd FileType plaintex,tex inoremap <buffer> ;rf Figure~\ref{fig:}<++><Esc>F}i
+:    autocmd FileType plaintex,tex inoremap <buffer> ;fso \small\raggedleft\textit{Source: }<Esc>i
+:    autocmd FileType plaintex,tex inoremap <buffer> ;rc Chapter~\ref{cha:}<++><Esc>F}i
 :    autocmd FileType plaintex,tex inoremap <buffer> ;fig \begin{figure}<CR>\centering<CR>\includegraphics[width=0.7\textwidth]{}<CR>\caption[<++>]{<++>}<CR>\label{fig:<++>}<CR>\end{figure}<CR><++><Esc>4k$i
 :    autocmd FileType plaintex,tex inoremap <buffer> ;eq \begin{equation}<CR>\label{eq:}<CR><++><CR>\end{equation}<CR><++><Esc>3k$i
 :    autocmd FileType plaintex,tex inoremap <buffer> ;enum \begin{enumerate}[noitemsep]<CR>\item <CR><++><CR>\end{enumerate}<CR><++><Esc>3k$a
@@ -194,7 +196,7 @@ nnoremap ;; <Esc>/<++><Enter>ca<
 "" Markdown
 :augroup mdsnip
 :    autocmd!
-:    autocmd BufWritePost *.md !pandoc %:p -o %:r.pdf --template notes -V fontfamily=sans && pkill -HUP mupdf
+:    autocmd BufWritePost *.md silent! !pandoc %:p -o %:r.pdf --template notes -V fontfamily=sans && pkill -HUP mupdf &
 :    autocmd BufReadPre,FileReadPre *.md !mupdf %:r.pdf &
 :    autocmd FileType markdown,rmd inoremap <buffer> ;b ****<++><Esc>F*hi
 :    autocmd FileType markdown,rmd inoremap <buffer> ;i **<++><Esc>F*i
