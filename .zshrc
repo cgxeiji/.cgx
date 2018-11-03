@@ -100,6 +100,9 @@ source $ZSH/oh-my-zsh.sh
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
+export PATH=$PATH:/usr/local/go/bin
+export PATH=$PATH:$(go env GOPATH)/bin
+
 alias fd="cd ~/CGxWin/Downloads && ls -a"
 alias fw="cd ~/CGxWin && ls -a"
 alias ft="cd ~/Git/Thesis/doc && ls -a"
