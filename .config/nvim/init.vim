@@ -168,7 +168,7 @@ nnoremap ;; <Esc>/<++><Enter>ca<
 :augroup texsnip
 :    autocmd!
 :    autocmd BufRead,BufNewFile *.tex set filetype=tex
-:    autocmd FileType plaintex,tex nnoremap <buffer> <Leader>r :w<CR>:!rubber --pdf <C-r>=maintex<CR> && pkill -HUP mupdf<CR><CR>
+:    autocmd FileType plaintex,tex nnoremap <buffer> <Leader>r :w<CR>:!rubber --unsafe --pdf <C-r>=maintex<CR> && pkill -HUP mupdf<CR><CR>
 :    autocmd FileType plaintex,tex nnoremap <buffer> ;sm :let maintex=expand('%:t')<CR>:cd %:p:h<CR>
 :    autocmd FileType plaintex,tex nnoremap <buffer> <Leader>v :!mupdf %:r.pdf &<CR><CR>
 :    autocmd FileType plaintex,tex nnoremap <buffer> <Leader>f vipgq
