@@ -30,7 +30,7 @@
 
 !! URxvt Config
 ! set font
-URxvt*font: xft:DejaVu\ Sans\ Mono\ for\ Powerline:style=Book:size=9,xft:Inconsolata\ for\ Powerline:size=11
+URxvt*font: xft:DejaVu\ Sans\ Mono\ for\ Powerline:style=Book:size=9,xft:Material\ Icons:size=8:minspace=Dalse,xft:Inconsolata\ for\ Powerline:size=11, xft:Font\ Awesome:size=8
 ! remove scrollbar
 URxvt.scrollBar: false
 ! set cursor color to green

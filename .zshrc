@@ -107,6 +107,10 @@ alias fd="cd ~/CGxWin/Downloads && ls -a"
 alias fw="cd ~/CGxWin && ls -a"
 alias ft="cd ~/Git/Thesis/doc && ls -a"
 alias cfx="cd ~/.cgx && ls -a"
+alias pac="sudo pacman"
+alias pacs="sudo pacman -S"
+
+aur() {git clone https://aur.archlinux.org/"$@".git; cd "$@"; makepkg -sirc; cd ..}
 
 books() {~/.cgx/.scripts/books.sh "$@"}
 papers() {~/.cgx/.scripts/papers.sh "$@"}

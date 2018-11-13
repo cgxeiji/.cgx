@@ -6,6 +6,9 @@ set $mod Mod1
 ### INITIALIZATION
 exec_always --no-startup-id compton --config ~/.config/compton.conf -b
 exec_always --no-startup-id feh --bg-fill ~/.cgx/img/wallpaper.png
+exec_always --no-startup-id betterlockscreen -u ~/.cgx/img/wallpaper.png
+exec_always --no-startup-id ~/.cgx/.scripts/polybar_launch.sh
+exec --no-startup-id xss-lock -- betterlockscreen -l "dimblur"
 
 ### SCRATCHPAD
 ## Terminal
@@ -17,6 +20,7 @@ for_window [instance="auxterm"] border pixel 5
 # binding set to Shift+t
 
 ### CONTROL
+
 ## Mouse
 # use Mouse+$mod to drag floating windows to their wanted position
 floating_modifier $mod
@@ -27,14 +31,16 @@ focus_follows_mouse no
 # (q) kill window
 bindsym $mod+q kill
 # (p) launch a program
-bindsym $mod+p exec dmenu_run
+bindsym $mod+p exec rofi -show
 
 # (t) terminal
-bindsym $mod+t exec $term -e /usr/bin/zsh
+bindsym $mod+t exec $term 
 # (T) floating terminal
 bindsym $mod+Shift+t [instance="auxterm"] scratchpad show; [instance="auxterm"] move position center
 # (e) editor
 bindsym $mod+e exec $term -e nvim
+# (a) reference manager
+bindsym $mod+a exec $term -e scholar open
 # (x) file explorer
 bindsym $mod+x exec $term -e ranger
 # (i) internet
@@ -67,9 +73,9 @@ bindsym $mod+Shift+Up move up
 bindsym $mod+Shift+Right move right
 
 # (s) split horizontal
-bindsym $mod+s split h
+bindsym $mod+s split toggle
 # (v) split vertical
-bindsym $mod+v split v
+bindsym $mod+v layout toggle splith tabbed
 # (S) grow horizontal
 bindsym $mod+Shift+s resize grow width 10 px or 10 ppt 
 # (V) grow vertical
@@ -81,29 +87,54 @@ bindsym $mod+f fullscreen toggle
 bindsym $mod+Shift+f floating toggle
 
 # (y) open youtube
-bindsym $mod+y exec --no-startup-id workspace $wsYT; exec $term -e ranger #qutebrowser youtube.com
+bindsym $mod+y exec --no-startup-id exec google-chrome-stable "https://www.youtube.com"
 
 ## WORKSPACE
 # variables
-set $wsAll  "1"
-set $wsTerm ">_"
-set $wsYT   "YT"
+set $wsAll    "1:main"
+set $wsEdit   "2:edit"
+set $wsWeb    "3:web"
+set $wsMedia  "4:media"
+set $wsSecond "5:extra"
+
+workspace $wsSecond output HDMI1
 
 # switch to workspace
 bindsym $mod+1	workspace $wsAll
-bindsym $mod+2	workspace $wsTerm
-bindsym $mod+3	workspace $wsYT
+bindsym $mod+2	workspace $wsEdit
+bindsym $mod+3	workspace $wsWeb
+bindsym $mod+4	workspace $wsMedia
+bindsym $mod+0	workspace $wsSecond
 
 # move to workspace
-bindsym $mod+Shift+1	move container to workspace $wsAll
-bindsym $mod+Shift+2	move container to workspace $wsTerm
-bindsym $mod+Shift+3	move container to workspace $wsYT
+bindsym $mod+Shift+1	move container to workspace $wsAll; workspace $wsAll
+bindsym $mod+Shift+2	move container to workspace $wsEdit; workspace $wsEdit
+bindsym $mod+Shift+3	move container to workspace $wsWeb; workspace $wsWeb
+bindsym $mod+Shift+4	move container to workspace $wsMedia; workspace $wsMedia
+bindsym $mod+Shift+0	move container to workspace $wsSecond; workspace $wsSecond
+
+### APPLICATIONS
+## Floats
+for_window[class="^Pavucontrol$"] floating enable
+for_window[class="^Arandr$"] floating enable
+for_window[class="^Nm-connection-editor$"] floating enable
+
+## Workspace
+for_window[class="Google-chrome"] move to workspace $wsWeb
+for_window[class="Spotify"] move to workspace $wsMedia
 
 
 ## VOLUME
 # volume control
-bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume 2 +5%
-bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume 2 -5%
+bindsym XF86AudioRaiseVolume exec --no-startup-id amixer -q -D pulse sset Master 5%+ && pkill -RTMIN+10 i3blocks
+bindsym XF86AudioLowerVolume exec --no-startup-id amixer -q -D pulse sset Master 5%- && pkill -RTMIN+10 i3blocks
+bindsym XF86AudioMute exec --no-startup-id amixer -q -D pulse sset Master toggle && pkill -RTMIN+10 i3blocks
+
+## MONITOR
+# brightness control
+bindsym XF86MonBrightnessUp exec --no-startup-id xbacklight -inc 25
+bindsym XF86MonBrightnessDown exec --no-startup-id xbacklight -dec 25
+bindsym XF86Display exec --no-startup-id arandr
 
 ### LAYOUT
 ## Window Layout
@@ -151,21 +182,21 @@ client.urgent			$darkred		$darkred	$black		$darkred			$darkred
 client.background						$black
 
 ## Status Bar
-bar {
-	font pango:DejaVu Sans Mono 9
-	colors {
-			background $background
-			statusline $darkwhite
-			separator $cyan
-			focused_workspace  $darkwhite $darkblack $white
-        		active_workspace   $blue $blue $darkwhite
-      			inactive_workspace $background $background $darkblack
-        		urgent_workspace   $darkblack $darkblack $white
-		}
-	position top
-	status_command i3status
-	mode dock
-	modifier None
-}
+#bar {
+#	font pango:DejaVu Sans Mono 9
+#	colors {
+#			background $background
+#			statusline $darkwhite
+#			separator $cyan
+#			focused_workspace  $darkwhite $darkblack $white
+#        		active_workspace   $blue $blue $darkwhite
+#      			inactive_workspace $background $background $darkblack
+#        		urgent_workspace   $darkblack $darkblack $white
+#		}
+#	position top
+#	status_command SCRIPT_DIR=~/.config/i3blocks i3blocks
+#	mode dock
+#	modifier None
+#}
 
 
