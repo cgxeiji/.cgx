@@ -19,6 +19,8 @@ Plugin 'Shougo/deoplete.nvim'
 Plugin 'scrooloose/nerdtree'
 " load go helper
 Plugin 'fatih/vim-go'
+" load R-studio
+Plugin 'jalvesaq/Nvim-R'
 
 call vundle#end()
 filetype plugin indent on
@@ -207,4 +209,3 @@ nnoremap ;; <Esc>/<++><Enter>ca<
 :    autocmd FileType markdown,rmd inoremap <buffer> ;link [](<++>)<++><Esc>F]i
 :    autocmd FileType markdown,rmd nnoremap <buffer> <Leader>f vipgq
 :augroup END
-

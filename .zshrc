@@ -103,18 +103,17 @@ source $ZSH/oh-my-zsh.sh
 export PATH=$PATH:/usr/local/go/bin
 export PATH=$PATH:$(go env GOPATH)/bin
 
-alias fd="cd ~/CGxWin/Downloads && ls -a"
-alias fw="cd ~/CGxWin && ls -a"
-alias ft="cd ~/Git/Thesis/doc && ls -a"
+alias gfd="cd ~/Downloads && ls -a"
+alias gft="cd ~/docs/thesis/doc && ls -a"
 alias cfx="cd ~/.cgx && ls -a"
 alias pac="sudo pacman"
 alias pacs="sudo pacman -S"
 
-aur() {git clone https://aur.archlinux.org/"$@".git; cd "$@"; makepkg -sirc; cd ..}
+aur() {git clone https://aur.archlinux.org/"$@".git; cd "$@"; less PKGBUILD; makepkg -sirc; cd ..}
 
 books() {~/.cgx/.scripts/books.sh "$@"}
 papers() {~/.cgx/.scripts/papers.sh "$@"}
-pdf() {mupdf "$@" &}
+pdf() {mupdf "$@" 2>/dev/null &}
 
 # mergepdf w\ \({1..18}\).pdf
 mergepdf() { gs -sDEVICE=pdfwrite -dNOPAUSE -dQUIET -dBATCH -dPDFSETTINGS=/prepress -sOutputFile=output.pdf "$@" ; echo output.pdf created!; }

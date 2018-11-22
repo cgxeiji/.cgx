@@ -2,7 +2,9 @@
 ! special
 *foreground:	#ecf0f1
 *background:	#181818
-*cursorColor:	#d35400
+*cursorColor:	#00ff00
+*cursorfg:	#00ff00
+*reverse-cursor:	#d35400
 ! black
 *color0:	#34495e
 *color8:	#2c3e50
@@ -27,6 +29,17 @@
 ! white
 *color7:	#ecf0f1
 *color15:	#bdc3c7
+
+st.font: DejaVu Sans Mono:style=Book:pixelsize=12:antialias=true:autohint=true;
+st.bold_font: 1
+st.cursorblinkstyle: 1
+st.blinktimeout: 500
+st.cursorblinkontype: 0
+st.cursorshape: 2
+st.borderpx: 1
+st.cwscale: 1.00
+st.chscale: 1.00
+st.opacity: 200
 
 !! URxvt Config
 ! set font

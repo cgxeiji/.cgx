@@ -1,6 +1,6 @@
 #!/bin/sh
 
-if ! n=$(chechupdates 2> /dev/null | wc -l); then
+if ! n=$(checkupdates 2> /dev/null | wc -l); then
     n=0
 fi
 

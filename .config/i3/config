@@ -1,18 +1,19 @@
 ### VARIABLES
 
-set $term --no-startup-id urxvt 
+set $term --no-startup-id xst 
 set $mod Mod1
 
 ### INITIALIZATION
 exec_always --no-startup-id compton --config ~/.config/compton.conf -b
 exec_always --no-startup-id feh --bg-fill ~/.cgx/img/wallpaper.png
 exec_always --no-startup-id betterlockscreen -u ~/.cgx/img/wallpaper.png
+exec_always --no-startup-id ~/.cgx/.scripts/load_gif.sh
 exec_always --no-startup-id ~/.cgx/.scripts/polybar_launch.sh
 exec --no-startup-id xss-lock -- betterlockscreen -l "dimblur"
 
 ### SCRATCHPAD
 ## Terminal
-exec $term -name auxterm -e /usr/bin/zsh
+exec $term -n auxterm
 for_window [instance="auxterm"] floating enable
 for_window [instance="auxterm"] resize set 80 ppt 80 ppt
 for_window [instance="auxterm"] move scratchpad
@@ -30,6 +31,8 @@ focus_follows_mouse no
 ## Keyboard
 # (q) kill window
 bindsym $mod+q kill
+# (Q) system management
+bindsym $mod+Shift+q mode "$mode_system"
 # (p) launch a program
 bindsym $mod+p exec rofi -show
 
@@ -47,7 +50,7 @@ bindsym $mod+x exec $term -e ranger
 bindsym $mod+i exec qutebrowser
 
 # (R) restart settings
-bindsym $mod+Shift+r restart
+bindsym $mod+Shift+r mode "$mode_reload"
 
 # navigation
 # hjkl - vim-like motions
@@ -89,6 +92,28 @@ bindsym $mod+Shift+f floating toggle
 # (y) open youtube
 bindsym $mod+y exec --no-startup-id exec google-chrome-stable "https://www.youtube.com"
 
+## Modes
+set $mode_system System (l) lock, (e) logout, (r) reboot, (Shift+s) shutdown
+mode "$mode_system" {
+    bindsym l exec --no-startup-id betterlockscreen -l "dimblur", mode "default"
+    bindsym e exec --no-startup-id i3-msg exit, mode "default"
+    bindsym r exec --no-startup-id systemctl reboot, mode "default"
+    bindsym Shift+s exec --no-startup-id systemctl poweroff -i, mode "default"
+
+    bindsym Return mode "default"
+    bindsym Escape mode "default"
+}
+set $mode_reload (r) all, (p) polybar, (t) auxterm, (w) animated wallpaper
+mode "$mode_reload" {
+    bindsym w exec --no-startup-id ~/.cgx/.scripts/load_gif.sh; mode "default"
+    bindsym p exec --no-startup-id ~/.cgx/.scripts/polybar_launch.sh; mode "default"
+    bindsym r restart; mode "default"
+    bindsym t exec $term -n auxterm; mode "default"
+
+    bindsym Return mode "default"
+    bindsym Escape mode "default"
+}
+
 ## WORKSPACE
 # variables
 set $wsAll    "1:main"
@@ -118,6 +143,7 @@ bindsym $mod+Shift+0	move container to workspace $wsSecond; workspace $wsSecond
 for_window[class="^Pavucontrol$"] floating enable
 for_window[class="^Arandr$"] floating enable
 for_window[class="^Nm-connection-editor$"] floating enable
+for_window[class="^Uim-pref-gtk$"] floating enable
 
 ## Workspace
 for_window[class="Google-chrome"] move to workspace $wsWeb
