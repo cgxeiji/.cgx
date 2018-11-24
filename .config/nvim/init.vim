@@ -170,9 +170,9 @@ nnoremap ;; <Esc>/<++><Enter>ca<
 :augroup texsnip
 :    autocmd!
 :    autocmd BufRead,BufNewFile *.tex set filetype=tex
-:    autocmd FileType plaintex,tex nnoremap <buffer> <Leader>r :w<CR>:!rubber --unsafe --pdf <C-r>=maintex<CR> && pkill -HUP mupdf<CR><CR>
+:    autocmd FileType plaintex,tex nnoremap <buffer> <Leader>r :w<CR>:!rubber --unsafe --pdf <C-r>=maintex<CR><CR><CR>
 :    autocmd FileType plaintex,tex nnoremap <buffer> ;sm :let maintex=expand('%:t')<CR>:cd %:p:h<CR>
-:    autocmd FileType plaintex,tex nnoremap <buffer> <Leader>v :!mupdf %:r.pdf &<CR><CR>
+:    autocmd FileType plaintex,tex nnoremap <buffer> <Leader>v :!zathura %:r.pdf &<CR><CR>
 :    autocmd FileType plaintex,tex nnoremap <buffer> <Leader>f vipgq
 :    autocmd FileType plaintex,tex nnoremap <buffer> ;def "zyiw:!sdcv -u WordNet -n <C-r>z<CR>
 :    autocmd FileType plaintex,tex inoremap <buffer> ;it \textit{}<++><Esc>T{i
@@ -201,7 +201,7 @@ nnoremap ;; <Esc>/<++><Enter>ca<
 "" Markdown
 :augroup mdsnip
 :    autocmd!
-:    autocmd FileType markdown,rmd nnoremap <buffer> <Leader>r :w<CR>:!pandoc %:p -o %:r.pdf --template notes -V fontfamily=sans && pkill -HUP mupdf<CR><CR>
+:    autocmd FileType markdown,rmd nnoremap <buffer> <Leader>r :w<CR>:!pandoc %:p -o %:r.pdf --template notes -V fontfamily=sans<CR><CR>
 :    autocmd FileType markdown,rmd inoremap <buffer> ;b ****<++><Esc>F*hi
 :    autocmd FileType markdown,rmd inoremap <buffer> ;i **<++><Esc>F*i
 :    autocmd FileType markdown,rmd inoremap <buffer> ;t #<Space><Enter><++><Esc>kA

@@ -113,7 +113,7 @@ aur() {git clone https://aur.archlinux.org/"$@".git; cd "$@"; less PKGBUILD; mak
 
 books() {~/.cgx/.scripts/books.sh "$@"}
 papers() {~/.cgx/.scripts/papers.sh "$@"}
-pdf() {mupdf "$@" 2>/dev/null &}
+pdf() {zathura "$@" 2>/dev/null &}
 
 # mergepdf w\ \({1..18}\).pdf
 mergepdf() { gs -sDEVICE=pdfwrite -dNOPAUSE -dQUIET -dBATCH -dPDFSETTINGS=/prepress -sOutputFile=output.pdf "$@" ; echo output.pdf created!; }
