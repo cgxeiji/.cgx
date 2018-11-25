@@ -170,7 +170,7 @@ nnoremap ;; <Esc>/<++><Enter>ca<
 :augroup texsnip
 :    autocmd!
 :    autocmd BufRead,BufNewFile *.tex set filetype=tex
-:    autocmd FileType plaintex,tex nnoremap <buffer> <Leader>r :w<CR>:!rubber --unsafe --pdf <C-r>=maintex<CR><CR><CR>
+:    autocmd FileType plaintex,tex nnoremap <buffer> <Leader>r :w<CR>:!rubber --unsafe --pdf <C-r>=maintex<CR>&<CR><CR>
 :    autocmd FileType plaintex,tex nnoremap <buffer> ;sm :let maintex=expand('%:t')<CR>:cd %:p:h<CR>
 :    autocmd FileType plaintex,tex nnoremap <buffer> <Leader>v :!zathura %:r.pdf &<CR><CR>
 :    autocmd FileType plaintex,tex nnoremap <buffer> <Leader>f vipgq

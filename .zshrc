@@ -8,10 +8,37 @@ export ZSH="/home/cgx/.oh-my-zsh"
 # load a random theme each time oh-my-zsh is loaded, in which case,
 # to know which specific one was loaded, run: echo $RANDOM_THEME
 # See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
-ZSH_THEME="agnoster"
+ZSH_THEME="spaceship"
+# Settings for "agnoster"
 # remove user@hostname
-DEFAULT_USER=$USER
-prompt_context(){}
+#DEFAULT_USER=$USER
+#prompt_context(){}
+
+SPACESHIP_PROMPT_ORDER=(
+dir
+git
+golang
+venv
+pyenv
+exec_time
+line_sep
+char
+jobs
+exit_code
+)
+
+SPACESHIP_PROMPT_ADD_NEWLINE=false
+SPACESHIP_PROMPT_FIRST_PREFIX_SHOW=true
+
+SPACESHIP_CHAR_SYMBOL="$ "
+SPACESHIP_DIR_PREFIX="┌ "
+SPACESHIP_CHAR_PREFIX="└ "
+SPACESHIP_DIR_TRUNC=0
+SPACESHIP_DIR_COLOR="yellow"
+
+SPACESHIP_GIT_BRANCH_COLOR="yellow"
+
+SPACESHIP_GOLANG_SYMBOL="Go "
 
 # Set list of themes to pick from when loading at random
 # Setting this variable when ZSH_THEME=random will cause zsh to load
@@ -102,14 +129,24 @@ source $ZSH/oh-my-zsh.sh
 
 export PATH=$PATH:/usr/local/go/bin
 export PATH=$PATH:$(go env GOPATH)/bin
+export PATH=$PATH:$HOME/.gem/ruby/2.5.0/bin
 
-alias gfd="cd ~/Downloads && ls -a"
-alias gft="cd ~/docs/thesis/doc && ls -a"
-alias cfx="cd ~/.cgx && ls -a"
+source $(dirname $(gem which colorls))/tab_complete.sh
+
+alias gfd="cd ~/Downloads && colorls -al --sd"
+alias gft="cd ~/docs/thesis/doc && colorls -al --sd"
+alias gsc="cd ~/go/src/github.com/cgxeiji/scholar && colorls -al --sd"
+alias cfx="cd ~/.cgx && colorls -al --sd"
 alias pac="sudo pacman"
 alias pacs="sudo pacman -S"
 
+alias l='colorls --sd'
+alias la='colorls -a --sd'
+alias ll='colorls -la --sd'
+
+c() {clear; cd "$@"; pwd; l}
 aur() {git clone https://aur.archlinux.org/"$@".git; cd "$@"; less PKGBUILD; makepkg -sirc; cd ..}
+alias cx='c ..'
 
 books() {~/.cgx/.scripts/books.sh "$@"}
 papers() {~/.cgx/.scripts/papers.sh "$@"}

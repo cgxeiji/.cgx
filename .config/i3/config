@@ -10,6 +10,7 @@ exec_always --no-startup-id betterlockscreen -u ~/.cgx/img/wallpaper.png
 exec_always --no-startup-id ~/.cgx/.scripts/load_gif.sh
 exec_always --no-startup-id ~/.cgx/.scripts/polybar_launch.sh
 exec --no-startup-id xss-lock -- betterlockscreen -l "dimblur"
+exec --no-startup-id unclutter
 
 ### SCRATCHPAD
 ## Terminal
@@ -93,10 +94,11 @@ bindsym $mod+Shift+f floating toggle
 bindsym $mod+y exec --no-startup-id exec google-chrome-stable "https://www.youtube.com"
 
 ## Modes
-set $mode_system System (l) lock, (e) logout, (r) reboot, (Shift+s) shutdown
+set $mode_system System (l) lock, (e) logout, (s) suspend, (r) reboot, (Shift+s) shutdown
 mode "$mode_system" {
     bindsym l exec --no-startup-id betterlockscreen -l "dimblur", mode "default"
     bindsym e exec --no-startup-id i3-msg exit, mode "default"
+    bindsym s exec --no-startup-id systemctl suspend, mode "default"
     bindsym r exec --no-startup-id systemctl reboot, mode "default"
     bindsym Shift+s exec --no-startup-id systemctl poweroff -i, mode "default"
 
