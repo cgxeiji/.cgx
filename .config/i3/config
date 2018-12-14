@@ -16,7 +16,7 @@ exec --no-startup-id unclutter
 ## Terminal
 exec $term -n auxterm
 for_window [instance="auxterm"] floating enable
-for_window [instance="auxterm"] resize set 80 ppt 80 ppt
+for_window [instance="auxterm"] resize set 1000 px 600 px
 for_window [instance="auxterm"] move scratchpad
 for_window [instance="auxterm"] border pixel 5
 # binding set to Shift+t
@@ -36,6 +36,10 @@ bindsym $mod+q kill
 bindsym $mod+Shift+q mode "$mode_system"
 # (p) launch a program
 bindsym $mod+p exec rofi -show
+# (u) mount a drive
+bindsym $mod+u exec --no-startup-id ~/.cgx/.scripts/mount_drive.sh
+# (U) unmount a drive
+bindsym $mod+Shift+u exec --no-startup-id ~/.cgx/.scripts/unmount_drive.sh
 
 # (t) terminal
 bindsym $mod+t exec $term 
@@ -123,8 +127,16 @@ set $wsEdit   "2:edit"
 set $wsWeb    "3:web"
 set $wsMedia  "4:media"
 set $wsSecond "5:extra"
+set $wsThird  "6:extra2"
+set $wsFourth "7:extra3"
 
+workspace $wsAll output eDP1
+workspace $wsEdit output eDP1
+workspace $wsWeb output eDP1
+workspace $wsMedia output eDP1
 workspace $wsSecond output HDMI1
+workspace $wsThird output DVI-I-1-1
+workspace $wsFourth output DVI-I-2-2
 
 # switch to workspace
 bindsym $mod+1	workspace $wsAll
@@ -132,6 +144,8 @@ bindsym $mod+2	workspace $wsEdit
 bindsym $mod+3	workspace $wsWeb
 bindsym $mod+4	workspace $wsMedia
 bindsym $mod+0	workspace $wsSecond
+bindsym $mod+9	workspace $wsThird
+bindsym $mod+8	workspace $wsFourth
 
 # move to workspace
 bindsym $mod+Shift+1	move container to workspace $wsAll; workspace $wsAll
@@ -139,6 +153,8 @@ bindsym $mod+Shift+2	move container to workspace $wsEdit; workspace $wsEdit
 bindsym $mod+Shift+3	move container to workspace $wsWeb; workspace $wsWeb
 bindsym $mod+Shift+4	move container to workspace $wsMedia; workspace $wsMedia
 bindsym $mod+Shift+0	move container to workspace $wsSecond; workspace $wsSecond
+bindsym $mod+Shift+9	move container to workspace $wsThird; workspace $wsThird
+bindsym $mod+Shift+8	move container to workspace $wsFourth; workspace $wsFourth
 
 ### APPLICATIONS
 ## Floats
@@ -160,8 +176,8 @@ bindsym XF86AudioMute exec --no-startup-id amixer -q -D pulse sset Master toggle
 
 ## MONITOR
 # brightness control
-bindsym XF86MonBrightnessUp exec --no-startup-id xbacklight -inc 25
-bindsym XF86MonBrightnessDown exec --no-startup-id xbacklight -dec 25
+bindsym XF86MonBrightnessUp exec --no-startup-id xbacklight -inc 1
+bindsym XF86MonBrightnessDown exec --no-startup-id xbacklight -dec 1
 bindsym XF86Display exec --no-startup-id arandr
 
 ### LAYOUT

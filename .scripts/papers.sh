@@ -66,9 +66,12 @@ main() {
                 echo 
                 echo "Target locked on: ""${ititles[$REPLY-1]}"
                 echo "Deploying bots to look for the file ""${links[$REPLY]}"
-                curl -f -w 'Got: %{filename_effective}\n' -# -O $(curl -s 'http://sci-hub.tw/'"${links[$REPLY]}" | grep location.href | grep -o 'http.*pdf') || {
+                curl -f -# -O -J $(curl -s 'http://libgen.io/scimag/ads.php?doi='"${links[$REPLY]}"'&downloadname=' | grep -o "http://libgen.io[^\']*") || {
                     echo "The bots went to Mordor and found nothing!"
                 }
+                #curl -f -w 'Got: %{filename_effective}\n' -# -O $(curl -s 'http://sci-hub.tw/'"${links[$REPLY]}" | grep location.href | grep -o 'http.*pdf') || {
+                    #echo "The bots went to Mordor and found nothing!"
+                #}
                 break ;;
         esac
     done

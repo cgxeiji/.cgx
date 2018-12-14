@@ -30,7 +30,7 @@
 *color7:	#ecf0f1
 *color15:	#bdc3c7
 
-st.font: DejaVu Sans Mono:style=Book:pixelsize=12:antialias=true:autohint=true;
+st.font: DejaVu Sans Mono for Powerline:style=Book:pixelsize=12:antialias=true:autohint=true;Font Awesome 5 Free:style=Regular:pixelsize=12:antialias=true;
 st.bold_font: 1
 st.cursorblinkstyle: 1
 st.blinktimeout: 500
@@ -39,11 +39,12 @@ st.cursorshape: 2
 st.borderpx: 1
 st.cwscale: 1.00
 st.chscale: 1.00
-st.opacity: 200
+st.opacity: 220
 
 !! URxvt Config
 ! set font
-URxvt*font: xft:DejaVu\ Sans\ Mono\ for\ Powerline:style=Book:size=9,xft:Material\ Icons:size=8:minspace=Dalse,xft:Inconsolata\ for\ Powerline:size=11, xft:Font\ Awesome:size=8
+URxvt*font: xft:DejaVu\ Sans\ Mono\ for\ Powerline:style=Book:size=9,xft:Material Icons:style=Regular:size=12:minspace=False,xft:Inconsolata\ for\ Powerline:size=11, xft:FontAwesome:style=Regular:size=12
+URxvt*letterSpace: 1
 ! remove scrollbar
 URxvt.scrollBar: false
 ! set cursor color to green

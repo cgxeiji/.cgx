@@ -31,12 +31,18 @@ SPACESHIP_PROMPT_ADD_NEWLINE=false
 SPACESHIP_PROMPT_FIRST_PREFIX_SHOW=true
 
 SPACESHIP_CHAR_SYMBOL="$ "
+SPACESHIP_CHAR_COLOR_SUCCESS="yellow"
+SPACESHIP_CHAR_COLOR_SECONDARY="blue"
+SPACESHIP_EXEC_TIME_COLOR="red"
 SPACESHIP_DIR_PREFIX="┌ "
 SPACESHIP_CHAR_PREFIX="└ "
 SPACESHIP_DIR_TRUNC=0
 SPACESHIP_DIR_COLOR="yellow"
 
-SPACESHIP_GIT_BRANCH_COLOR="yellow"
+SPACESHIP_GIT_BRANCH_COLOR="green"
+SPACESHIP_GIT_STATUS_PREFIX=""
+SPACESHIP_GIT_STATUS_SUFFIX=""
+SPACESHIP_GIT_STATUS_COLOR="yellow"
 
 SPACESHIP_GOLANG_SYMBOL="Go "
 
@@ -135,6 +141,7 @@ source $(dirname $(gem which colorls))/tab_complete.sh
 
 alias gfd="cd ~/Downloads && colorls -al --sd"
 alias gft="cd ~/docs/thesis/doc && colorls -al --sd"
+alias gdt="cd ~/gdrive/Surface/Kansei\ Robot && colorls -al --sd"
 alias gsc="cd ~/go/src/github.com/cgxeiji/scholar && colorls -al --sd"
 alias cfx="cd ~/.cgx && colorls -al --sd"
 alias pac="sudo pacman"
@@ -150,7 +157,7 @@ alias cx='c ..'
 
 books() {~/.cgx/.scripts/books.sh "$@"}
 papers() {~/.cgx/.scripts/papers.sh "$@"}
-pdf() {zathura "$@" 2>/dev/null &}
+pdf() {zathura "$@" 2>/dev/null &!}
 
 # mergepdf w\ \({1..18}\).pdf
 mergepdf() { gs -sDEVICE=pdfwrite -dNOPAUSE -dQUIET -dBATCH -dPDFSETTINGS=/prepress -sOutputFile=output.pdf "$@" ; echo output.pdf created!; }

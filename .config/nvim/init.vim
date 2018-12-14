@@ -21,6 +21,8 @@ Plugin 'scrooloose/nerdtree'
 Plugin 'fatih/vim-go'
 " load R-studio
 Plugin 'jalvesaq/Nvim-R'
+" load Zen mode
+Plugin 'junegunn/goyo.vim'
 
 call vundle#end()
 filetype plugin indent on
@@ -153,6 +155,8 @@ nmap  <Leader>ocf :tabe ~/.config/nvim/init.vim<CR>
 " nerdtree mappings
 nmap <silent> <Leader>x :NERDTreeToggle<CR>
 nmap <silent> <Leader>h :NERDTreeFind<CR>
+" zen mode
+nmap <silent> <Leader>F :Goyo<CR>
 
 """ MACROS
 "" General
@@ -171,12 +175,14 @@ nnoremap ;; <Esc>/<++><Enter>ca<
 :    autocmd!
 :    autocmd BufRead,BufNewFile *.tex set filetype=tex
 :    autocmd FileType plaintex,tex nnoremap <buffer> <Leader>r :w<CR>:!rubber --unsafe --pdf <C-r>=maintex<CR>&<CR><CR>
+:    autocmd FileType plaintex,tex nnoremap <buffer> <Leader>c :w<CR>:!rubber --clean <C-r>=maintex<CR>&<CR><CR>
 :    autocmd FileType plaintex,tex nnoremap <buffer> ;sm :let maintex=expand('%:t')<CR>:cd %:p:h<CR>
 :    autocmd FileType plaintex,tex nnoremap <buffer> <Leader>v :!zathura %:r.pdf &<CR><CR>
 :    autocmd FileType plaintex,tex nnoremap <buffer> <Leader>f vipgq
 :    autocmd FileType plaintex,tex nnoremap <buffer> ;def "zyiw:!sdcv -u WordNet -n <C-r>z<CR>
 :    autocmd FileType plaintex,tex inoremap <buffer> ;it \textit{}<++><Esc>T{i
 :    autocmd FileType plaintex,tex inoremap <buffer> ;bf \textbf{}<++><Esc>T{i
+:    autocmd FileType plaintex,tex inoremap <buffer> ;su \textsubscript{}<++><Esc>T{i
 :    autocmd FileType plaintex,tex inoremap <buffer> ;ch \chapter{}<Enter><Enter><++><Esc>2kf}i
 :    autocmd FileType plaintex,tex inoremap <buffer> ;se \section{}<Enter><Enter><++><Esc>2kf}i
 :    autocmd FileType plaintex,tex inoremap <buffer> ;sse \subsection{}<Enter><Enter><++><Esc>2kf}i
