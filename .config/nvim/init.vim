@@ -23,6 +23,12 @@ Plugin 'fatih/vim-go'
 Plugin 'jalvesaq/Nvim-R'
 " load Zen mode
 Plugin 'junegunn/goyo.vim'
+" load Python's AutoPEP8
+Plugin 'tell-k/vim-autopep8'
+" load Csharp Helper
+Plugin 'OmniSharp/omnisharp-vim'
+" load linter
+Plugin 'w0rp/ale'
 
 call vundle#end()
 filetype plugin indent on
@@ -67,6 +73,34 @@ set encoding=utf8
 """ PLUGINS SETTINGS
 "" Deoplete
 let g:deoplete#enable_at_startup = 1
+let g:deoplete#auto_complete_delay = 5
+let g:deoplete#auto_refresh_delay = 30
+call deoplete#custom#option('min_pattern_length', 1)
+"call deoplete#custom#option('complete_method', 'omnifunc')
+" OmniSharp integration
+call deoplete#custom#option('sources', {
+    \ 'cs': ['omnisharp'],
+    \ })
+
+"" OmniSharp
+let g:OmniSharp_highlight_types = 1
+let g:OmniSharp_server_use_mono = 1
+let g:OmniSharp_timeout = 5
+set completeopt+=longest,menuone,preview
+let g:omnicomplete_fetch_full_documentation = 1
+
+"" ALE
+let g:ale_linters = {
+    \ 'cs': ['OmniSharp']
+    \}
+let g:ale_fixers = {
+            \ 'cs': ['uncrustify', 'remove_trailing_lines'],
+            \ '*': ['remove_trailing_lines', 'trim_whitespace'],
+            \}
+let g:ale_fix_on_save = 1
+let g:ale_cs_mcsc_assemblies = [
+            \ 'MonoGame.Framework.dll',
+            \]
 
 "" NerdTree
 let g:NERDTreeQuitOnOpen=1
@@ -96,6 +130,17 @@ let g:go_auto_sameids = 1
 if !exists('g:airline_symbols')
     let g:airline_symbols = {}
 endif
+
+"" Auto PEP8
+" Auto PEP8 on save of Python files
+:augroup pygroup
+:    autocmd!
+:    autocmd BufRead,BufNewFile *.py let g:autopep8_on_save = 1
+:    autocmd BufRead,BufNewFile *.py let g:autopep8_disable_show_diff = 1
+:
+:    autocmd BufRead,BufNewFile *.py let g:python_highlight_all = 1
+:    autocmd BufRead,BufNewFile *.py let g:python_slow_sync = 0
+:augroup END
 
 " unicode
 let g:airline_left_sep = '»'
@@ -142,16 +187,21 @@ nmap <silent> <Leader>t :wincmd w<CR>
 nmap <silent> <Leader>q :q<CR>
 " ESC from home row
 imap kj <ESC>
+" move through visual lines
+map <Up> gk
+map <Down> gj
+" search for spaces
+cnoremap <expr><space> '/?' =~ getcmdtype() ? '\_s*' : ' '
 
 "" File Manager
 " open file in new tab
-nmap  <Leader>ot :tabe 
+nmap  <Leader>ot :tabe<Space>
 " open file in vertical split
-nmap  <Leader>ov :vsplit 
+nmap  <Leader>ov :vsplit<Space>
 " open file in horizontal split
-nmap  <Leader>oh :split 
+nmap  <Leader>oh :split<Space>
 " open configuration (this) file
-nmap  <Leader>ocf :tabe ~/.config/nvim/init.vim<CR> 
+nmap  <Leader>ocf :tabe ~/.config/nvim/init.vim<CR>
 " nerdtree mappings
 nmap <silent> <Leader>x :NERDTreeToggle<CR>
 nmap <silent> <Leader>h :NERDTreeFind<CR>
@@ -160,9 +210,11 @@ nmap <silent> <Leader>F :Goyo<CR>
 
 """ MACROS
 "" General
-inoremap ;; <Esc>/<++><Enter>ca<
-vnoremap ;; <Esc>/<++><Enter>ca<
-nnoremap ;; <Esc>/<++><Enter>ca<
+"inoremap <Leader>, <Esc>/<++><Enter>ca<
+vnoremap <Leader>, <Esc>/<++><Enter>ca<
+nnoremap <Leader>, <Esc>/<++><Enter>ca<
+
+inoremap <C-h> <C-x><C-o>
 
 " spell check for Markdown and Latex files
 :augroup spellgroup
@@ -177,18 +229,21 @@ nnoremap ;; <Esc>/<++><Enter>ca<
 :    autocmd FileType plaintex,tex nnoremap <buffer> <Leader>r :w<CR>:!rubber --unsafe --pdf <C-r>=maintex<CR>&<CR><CR>
 :    autocmd FileType plaintex,tex nnoremap <buffer> <Leader>c :w<CR>:!rubber --clean <C-r>=maintex<CR>&<CR><CR>
 :    autocmd FileType plaintex,tex nnoremap <buffer> ;sm :let maintex=expand('%:t')<CR>:cd %:p:h<CR>
+:    autocmd FileType plaintex,tex nnoremap <buffer> ;; <Esc>/<++><Enter>ca<
+:    autocmd FileType plaintex,tex inoremap <buffer> ;; <Esc>/<++><Enter>ca<
 :    autocmd FileType plaintex,tex nnoremap <buffer> <Leader>v :!zathura %:r.pdf &<CR><CR>
-:    autocmd FileType plaintex,tex nnoremap <buffer> <Leader>f vipgq
+:    autocmd FileType plaintex,tex nnoremap <buffer> <Leader>f gqap
 :    autocmd FileType plaintex,tex nnoremap <buffer> ;def "zyiw:!sdcv -u WordNet -n <C-r>z<CR>
 :    autocmd FileType plaintex,tex inoremap <buffer> ;it \textit{}<++><Esc>T{i
 :    autocmd FileType plaintex,tex inoremap <buffer> ;bf \textbf{}<++><Esc>T{i
+:    autocmd FileType plaintex,tex inoremap <buffer> ;key \keyword{}<++><Esc>T{i
 :    autocmd FileType plaintex,tex inoremap <buffer> ;su \textsubscript{}<++><Esc>T{i
 :    autocmd FileType plaintex,tex inoremap <buffer> ;ch \chapter{}<Enter><Enter><++><Esc>2kf}i
 :    autocmd FileType plaintex,tex inoremap <buffer> ;se \section{}<Enter><Enter><++><Esc>2kf}i
 :    autocmd FileType plaintex,tex inoremap <buffer> ;sse \subsection{}<Enter><Enter><++><Esc>2kf}i
 :    autocmd FileType plaintex,tex inoremap <buffer> ;sss \subsubsection{}<Enter><Enter><++><Esc>2kf}i
 :    autocmd FileType plaintex,tex inoremap <buffer> ;ref \ref{}<++><Esc>F}i
-:    autocmd FileType plaintex,tex inoremap <buffer> ;cit \cite{}<++><Esc>F}i
+:    autocmd FileType plaintex,tex inoremap <buffer> ;cit ~\cite{}<++><Esc>F}i
 :    autocmd FileType plaintex,tex inoremap <buffer> ;fot \footnote{}<++><Esc>F}i
 :    autocmd FileType plaintex,tex inoremap <buffer> ;rf Figure~\ref{fig:}<++><Esc>F}i
 :    autocmd FileType plaintex,tex inoremap <buffer> ;fso \small\raggedleft\textit{Source: }<Esc>i
@@ -208,6 +263,8 @@ nnoremap ;; <Esc>/<++><Enter>ca<
 :augroup mdsnip
 :    autocmd!
 :    autocmd FileType markdown,rmd nnoremap <buffer> <Leader>r :w<CR>:!pandoc %:p -o %:r.pdf --template notes -V fontfamily=sans<CR><CR>
+:    autocmd FileType markdown,rmd nnoremap <buffer> ;; <Esc>/<++><Enter>ca<
+:    autocmd FileType markdown,rmd inoremap <buffer> ;; <Esc>/<++><Enter>ca<
 :    autocmd FileType markdown,rmd inoremap <buffer> ;b ****<++><Esc>F*hi
 :    autocmd FileType markdown,rmd inoremap <buffer> ;i **<++><Esc>F*i
 :    autocmd FileType markdown,rmd inoremap <buffer> ;t #<Space><Enter><++><Esc>kA
@@ -215,4 +272,11 @@ nnoremap ;; <Esc>/<++><Enter>ca<
 :    autocmd FileType markdown,rmd inoremap <buffer> ;sst ###<Space><Enter><++><Esc>kA
 :    autocmd FileType markdown,rmd inoremap <buffer> ;link [](<++>)<++><Esc>F]i
 :    autocmd FileType markdown,rmd nnoremap <buffer> <Leader>f vipgq
+:augroup END
+
+"" MonoGame
+:augroup mgsnip
+:    autocmd!
+:    autocmd FileType cs nnoremap <buffer> <Leader>r :w<CR>:!mono "$(mdtool build <Bar> grep -oe "/home.*exe")" <CR>
+:    autocmd FileType cs nnoremap <buffer> <Leader>i :OmniSharpDocumentation<CR>
 :augroup END
