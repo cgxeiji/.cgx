@@ -1,7 +1,7 @@
 ### VARIABLES
 
-set $term --no-startup-id xst 
-set $mod Mod1
+set $term --no-startup-id xst
+set $mod Mod4
 
 ### INITIALIZATION
 exec_always --no-startup-id compton --config ~/.config/compton.conf -b
@@ -31,9 +31,9 @@ focus_follows_mouse no
 
 ## Keyboard
 # (q) kill window
-bindsym $mod+q kill
+bindsym $mod+w kill
 # (Q) system management
-bindsym $mod+Shift+q mode "$mode_system"
+bindsym $mod+Shift+w mode "$mode_system"
 # (p) launch a program
 bindsym $mod+p exec rofi -show
 # (u) mount a drive
@@ -42,9 +42,9 @@ bindsym $mod+u exec --no-startup-id ~/.cgx/.scripts/mount_drive.sh
 bindsym $mod+Shift+u exec --no-startup-id ~/.cgx/.scripts/unmount_drive.sh
 
 # (t) terminal
-bindsym $mod+t exec $term 
+bindsym $mod+t exec $term
 # (T) floating terminal
-bindsym $mod+Shift+t [instance="auxterm"] scratchpad show; [instance="auxterm"] move position center
+bindsym $mod+n [instance="auxterm"] scratchpad show; [instance="auxterm"] move position center
 # (e) editor
 bindsym $mod+e exec $term -e nvim
 # (a) reference manager
@@ -85,7 +85,7 @@ bindsym $mod+s split toggle
 # (v) split vertical
 bindsym $mod+v layout toggle splith tabbed
 # (S) grow horizontal
-bindsym $mod+Shift+s resize grow width 10 px or 10 ppt 
+bindsym $mod+Shift+s resize grow width 10 px or 10 ppt
 # (V) grow vertical
 bindsym $mod+Shift+v resize grow height 10 px or 10 ppt
 
@@ -242,5 +242,3 @@ client.background						$black
 #	mode dock
 #	modifier None
 #}
-
-
