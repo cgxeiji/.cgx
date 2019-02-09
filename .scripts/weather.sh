@@ -1,4 +1,4 @@
-#!/usr/bin/sh
+#!/bin/bash
 
 info=$(
     curl -s "wttr.in/Tsukuba?0QT" | 

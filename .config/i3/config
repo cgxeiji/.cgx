@@ -7,7 +7,7 @@ set $mod Mod4
 exec_always --no-startup-id compton --config ~/.config/compton.conf -b
 exec_always --no-startup-id feh --bg-fill ~/.cgx/img/wallpaper.png
 exec_always --no-startup-id betterlockscreen -u ~/.cgx/img/wallpaper.png
-exec_always --no-startup-id ~/.cgx/.scripts/load_gif.sh
+#exec_always --no-startup-id ~/.cgx/.scripts/load_gif.sh
 exec_always --no-startup-id ~/.cgx/.scripts/polybar_launch.sh
 exec --no-startup-id xss-lock -- betterlockscreen -l "dimblur"
 exec --no-startup-id unclutter
@@ -35,7 +35,7 @@ bindsym $mod+w kill
 # (Q) system management
 bindsym $mod+Shift+w mode "$mode_system"
 # (p) launch a program
-bindsym $mod+p exec rofi -show
+bindsym $mod+p exec rofi -show drun
 # (u) mount a drive
 bindsym $mod+u exec --no-startup-id ~/.cgx/.scripts/mount_drive.sh
 # (U) unmount a drive

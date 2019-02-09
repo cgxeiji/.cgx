@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/zsh
 
 tryunmount() {\
     smount="$(echo -e "$drives" | rofi -dmenu -p "Select a drive to unmount" | awk '{print $1}')"

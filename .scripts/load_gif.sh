@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 pkill -f "mpv --x11-name wallpapergif"
 sleep 1

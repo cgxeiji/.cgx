@@ -9,6 +9,7 @@ export ZSH="/home/cgx/.oh-my-zsh"
 # to know which specific one was loaded, run: echo $RANDOM_THEME
 # See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
 ZSH_THEME="spaceship"
+#ZSH_THEME="agnoster"
 # Settings for "agnoster"
 # remove user@hostname
 #DEFAULT_USER=$USER

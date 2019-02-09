@@ -16,6 +16,12 @@ echo -e "...... ln -sf ~/.cgx/.config/i3/config ~/.config/i3/config"
 ln -sf ~/.cgx/.config/i3/config ~/.config/i3/config
 echo -e "...... done!"
 
+# polybar configuration
+echo -e "... creating symlink for polybar..."
+echo -e "...... ln -sf ~/.cgx/.config/polybar/config ~/.config/polybar/config"
+ln -sf ~/.cgx/.config/polybar/config ~/.config/polybar/config
+echo -e "...... done!"
+
 # ranger configuration
 echo -e "... creating symlink for ranger..."
 echo -e "...... ln -sf ~/.cgx/.config/ranger/rc.conf ~/.config/ranger/rc.conf"
