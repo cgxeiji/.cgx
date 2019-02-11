@@ -38,7 +38,8 @@ filetype plugin indent on
 "
 set backspace=indent,eol,start
 set textwidth=79
-set listchars=eol:$,tab:>-,trail:~,space:_
+set listchars=tab:>-,trail:~
+set list
 
 " tab (Recommendation x of :help tabstop)
 set tabstop=4
@@ -180,7 +181,7 @@ let mapleader = " "
 " remove search highlighting
 nmap <silent> <Leader><Leader> :noh<cr>
 " toggle list characters
-nmap <silent> <Leader>; :set list!<CR>:set number!<CR>
+nmap <silent> <Leader>; :set number!<CR>
 " (s)ave current file
 nmap <silent> <Leader>s :w<cr>
 " (z)oom in current pane
