@@ -165,3 +165,8 @@ pdf() {zathura "$@" 2>/dev/null &!}
 
 # mergepdf w\ \({1..18}\).pdf
 mergepdf() { gs -sDEVICE=pdfwrite -dNOPAUSE -dQUIET -dBATCH -dPDFSETTINGS=/prepress -sOutputFile=output.pdf "$@" ; echo output.pdf created!; }
+fpath=($fpath "/home/cgx/.zfunctions")
+
+  # Set Spaceship ZSH as a prompt
+  autoload -U promptinit; promptinit
+  prompt spaceship
