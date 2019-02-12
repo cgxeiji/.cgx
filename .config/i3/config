@@ -11,6 +11,7 @@ exec_always --no-startup-id ~/.cgx/.scripts/load_gif.sh
 exec_always --no-startup-id ~/.cgx/.scripts/polybar_launch.sh
 exec --no-startup-id xss-lock -- betterlockscreen -l "dimblur"
 exec --no-startup-id unclutter
+exec --no-startup-id xbindkeys
 
 ### SCRATCHPAD
 ## Terminal

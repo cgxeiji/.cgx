@@ -1,0 +1,22 @@
+// ASCII DOC - REVEAL.JS Slide
+// Slide Theme: white, black, night, serif
+:revealjs_theme: serif
+// General Settings
+:revealjs_controls: false
+:revealjs_progress: false
+// Path of Reveal.js
+:revealjsdir: https://revealjs.com
+// [transition=...]: fade, slide, convex, concave, zoom
+// [transition-speed=...]: fast, slow
+:icons: font
+
+// ##IMAGES##
+// ==IMAGES==
+
+= <++>: <++>
+<++>
+
+// Institution
+<++>
+
+<++>
