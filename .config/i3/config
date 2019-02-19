@@ -21,6 +21,13 @@ for_window [instance="auxterm"] resize set 1000 px 600 px
 for_window [instance="auxterm"] move scratchpad
 for_window [instance="auxterm"] border pixel 5
 # binding set to Shift+t
+## Whatsapp
+exec whatsapp-nativefier
+for_window [title="WhatsApp"] floating enable
+for_window [title="WhatsApp"] resize set 1000 px 600 px
+for_window [title="WhatsApp"] move scratchpad
+for_window [title="WhatsApp"] border pixel 5
+# binding set to n
 
 ### CONTROL
 
@@ -45,7 +52,9 @@ bindsym $mod+Shift+u exec --no-startup-id ~/.cgx/.scripts/unmount_drive.sh
 # (t) terminal
 bindsym $mod+t exec $term
 # (T) floating terminal
-bindsym $mod+n [instance="auxterm"] scratchpad show; [instance="auxterm"] move position center
+bindsym $mod+Shift+t [instance="auxterm"] scratchpad show; [instance="auxterm"] move position center
+# (n) floating whatsapp
+bindsym $mod+n [title="WhatsApp"] scratchpad show; [title="WhatsApp"] move position center
 # (e) editor
 bindsym $mod+e exec $term -e nvim
 # (a) reference manager
@@ -131,10 +140,10 @@ set $wsSecond "5:extra"
 set $wsThird  "6:extra2"
 set $wsFourth "7:extra3"
 
-workspace $wsAll output eDP1
-workspace $wsEdit output eDP1
-workspace $wsWeb output eDP1
-workspace $wsMedia output eDP1
+workspace $wsAll output eDP-1
+workspace $wsEdit output eDP-1
+workspace $wsWeb output eDP-1
+workspace $wsMedia output eDP-1
 workspace $wsSecond output HDMI1
 workspace $wsThird output DVI-I-1-1
 workspace $wsFourth output DVI-I-2-2
@@ -177,8 +186,8 @@ bindsym XF86AudioMute exec --no-startup-id amixer -q -D pulse sset Master toggle
 
 ## MONITOR
 # brightness control
-bindsym XF86MonBrightnessUp exec --no-startup-id xbacklight -inc 1
-bindsym XF86MonBrightnessDown exec --no-startup-id xbacklight -dec 1
+bindsym XF86MonBrightnessUp exec --no-startup-id xbacklight -inc 5
+bindsym XF86MonBrightnessDown exec --no-startup-id xbacklight -dec 5
 bindsym XF86Display exec --no-startup-id arandr
 
 ### LAYOUT

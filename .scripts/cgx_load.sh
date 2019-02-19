@@ -24,8 +24,8 @@ echo -e "...... done!"
 
 # ranger configuration
 echo -e "... creating symlink for ranger..."
-echo -e "...... ln -sf ~/.cgx/.config/ranger/rc.conf ~/.config/ranger/rc.conf"
-ln -sf ~/.cgx/.config/ranger/rc.conf ~/.config/ranger/rc.conf
+echo -e "...... ln -sf ~/.cgx/.config/ranger ~/.config"
+ln -sf ~/.cgx/.config/ranger ~/.config
 echo -e "...... done!"
 
 # compton configuration

@@ -20,6 +20,7 @@ font-2 = Termsynu:size=8:antialias=false;1
 font-3 = FontAwesome:size=10;2
 font-4 = SourceHanSans:size=10;3
 font-5 = Weather Icons:size=10;3
+font-6 = Material Design Icons:size=10;1
 
 modules-left = battery volume
 modules-center = media
@@ -50,7 +51,7 @@ font-4 = MaterialIcons:size=11;2
 font-5 = Termsynu:size=8:antialias=false;0
 
 modules-left = i3
-modules-right = cpu memory 
+modules-right = cpu memory
 
 [module/media]
 type = custom/script
@@ -99,13 +100,20 @@ bar-empty-foreground = #44
 
 [module/battery]
 type = internal/battery
-full-at = 75
-battery = BAT1
+full-at = 99
+battery = BAT0
 adapter = AC
 
-format-charging = <animation-charging> <bar-capacity>
-format-discharging = <ramp-capacity> <bar-capacity>
-format-full = <ramp-capacity> <bar-capacity>
+format-charging = <bar-capacity><label-charging>
+format-discharging = <bar-capacity> <label-discharging>
+format-full = <bar-capacity><label-full>
+
+time-format = %H:%M
+
+label-charging = 
+label-charging-font = 7
+label-discharging = %time%
+label-full = 
 
 ramp-capacity-0 = 
 ramp-capacity-0-foreground = #ff3d00
@@ -300,7 +308,7 @@ bar-progress-empty-foreground = #44
 
 [module/wireless-network]
 type = internal/network
-interface = wlp2s0
+interface = wlp3s0
 interval = 3.0
 ping-interval = 10
 
@@ -333,7 +341,7 @@ label-disconnected-foreground = #66
 [module/volume]
 type = internal/pulseaudio
 #sink = alsa_output.pci-0000_00_1b.0.analog-stereo
-sink = alsa_output.usb-DisplayLink_LAPDOCK_U3D2338234713-02.analog-stereo
+#sink = alsa_output.usb-DisplayLink_LAPDOCK_U3D2338234713-02.analog-stereo
 use-ui-max = true
 interval = 5
 
