@@ -30,7 +30,7 @@
 *color7:	#ecf0f1
 *color15:	#bdc3c7
 
-st.font: DejaVu Sans Mono for Powerline:style=Book:pixelsize=12:antialias=true:autohint=true;Font Awesome 5 Free:style=Regular:pixelsize=12:antialias=true;
+st.font: undefined medium:style=medium:pixelsize=10:antialias=true;DejaVu Sans Mono for Powerline:style=Book:pixelsize=12:antialias=true:autohint=true;Font Awesome 5 Free:style=Regular:pixelsize=12:antialias=true;
 st.bold_font: 1
 st.cursorblinkstyle: 1
 st.blinktimeout: 500

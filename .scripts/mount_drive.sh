@@ -17,7 +17,7 @@ trymount() {\
     #sudo -A mount "$smount" "$mp" && notify-send "$smount mounted to $mp." && exit 0
 }
 
-drives="$(lsblk -rpo "name,label,size,type,mountpoint" | awk '$1!~"sda"&&$4=="part"&&$5==""{printf "%s > %s (%s)\n",$1,$2,$3}')"
+drives="$(lsblk -rpo "name,label,size,type,mountpoint" | awk '$1!~"sda"&&$NF=="part"{printf "%s > %s (%s)\n",$1,$(NF-2),$(NF-1)}')"
 
 if [ -z "$drives" ]; then
     notify-send "No USB drive was detected" && exit 1

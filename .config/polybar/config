@@ -51,7 +51,12 @@ font-4 = MaterialIcons:size=11;2
 font-5 = Termsynu:size=8:antialias=false;0
 
 modules-left = i3
-modules-right = cpu memory
+modules-center = memory cpu
+
+tray-position = right
+tray-padding = 4
+tray-transparent = true
+tray-background = ${bar/bottom.background}
 
 [module/media]
 type = custom/script

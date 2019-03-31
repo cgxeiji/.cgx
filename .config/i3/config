@@ -1,5 +1,4 @@
 ### VARIABLES
-
 set $term --no-startup-id xst
 set $mod Mod4
 
@@ -7,11 +6,12 @@ set $mod Mod4
 exec_always --no-startup-id compton --config ~/.config/compton.conf -b
 exec_always --no-startup-id feh --bg-fill ~/.cgx/img/wallpaper.png
 exec_always --no-startup-id betterlockscreen -u ~/.cgx/img/wallpaper.png
-exec_always --no-startup-id ~/.cgx/.scripts/load_gif.sh
+#exec_always --no-startup-id ~/.cgx/.scripts/load_gif.sh
 exec_always --no-startup-id ~/.cgx/.scripts/polybar_launch.sh
 exec --no-startup-id xss-lock -- betterlockscreen -l "dimblur"
 exec --no-startup-id unclutter
 exec --no-startup-id xbindkeys
+exec --no-startup-id nm-applet
 
 ### SCRATCHPAD
 ## Terminal
@@ -53,6 +53,8 @@ bindsym $mod+Shift+u exec --no-startup-id ~/.cgx/.scripts/unmount_drive.sh
 bindsym $mod+t exec $term
 # (T) floating terminal
 bindsym $mod+Shift+t [instance="auxterm"] scratchpad show; [instance="auxterm"] move position center
+# (P) screenshot
+bindsym $mod+Shift+p exec flameshot gui
 # (n) floating whatsapp
 bindsym $mod+n [title="WhatsApp"] scratchpad show; [title="WhatsApp"] move position center
 # (e) editor
@@ -202,7 +204,7 @@ gaps outer 0
 # title
 font pango:DejaVu Sans Mono 8
 # border
-for_window [class="^.*"] border pixel 2
+for_window [class="^.*"] border pixel 1
 
 ## Colors
 exec_always --no-startup-id exec xrdb -load ~/.Xresources
@@ -229,7 +231,7 @@ set_from_resource $foreground		foreground #000000
 set $transparent				#00000000
 
 #                       BORDER			BACKGROUND	TEXT		INDICATOR			CHILD_BORDER
-client.focused			$red			$red		$magenta	$black				$darkblue
+client.focused			$red			$red		$magenta	$black				$darkwhite
 client.unfocused		$transparent	$blue		$white		$black				$transparent
 client.focused_inactive	$transparent	$blue		$white		$black				$darkblack
 client.urgent			$darkred		$darkred	$black		$darkred			$darkred
