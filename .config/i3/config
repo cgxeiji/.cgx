@@ -6,7 +6,7 @@ set $mod Mod4
 ### INITIALIZATION
 exec_always --no-startup-id compton --config ~/.config/compton.conf -b
 exec_always --no-startup-id feh --bg-fill ~/.cgx/img/wallpaper.png
-exec_always --no-startup-id betterlockscreen -u ~/.cgx/img/wallpaper.png
+#exec_always --no-startup-id betterlockscreen -u ~/.cgx/img/wallpaper.png
 exec_always --no-startup-id ~/.cgx/.scripts/load_gif.sh
 exec_always --no-startup-id ~/.cgx/.scripts/polybar_launch.sh
 exec --no-startup-id xss-lock -- betterlockscreen -l "dimblur"
@@ -21,6 +21,13 @@ for_window [instance="auxterm"] resize set 1000 px 600 px
 for_window [instance="auxterm"] move scratchpad
 for_window [instance="auxterm"] border pixel 5
 # binding set to Shift+t
+## Whatsapp
+exec whatsapp-nativefier
+for_window[title="WhatsApp"] floating enable
+for_window[title="WhatsApp"] resize set 1000 px 600 px
+for_window[title="WhatsApp"] move scratchpad
+for_window[title="WhatsApp"] border pixel 5
+# binding set to n
 
 ### CONTROL
 
@@ -45,7 +52,11 @@ bindsym $mod+Shift+u exec --no-startup-id ~/.cgx/.scripts/unmount_drive.sh
 # (t) terminal
 bindsym $mod+t exec $term
 # (T) floating terminal
-bindsym $mod+n [instance="auxterm"] scratchpad show; [instance="auxterm"] move position center
+bindsym $mod+Shift+t [instance="auxterm"] scratchpad show; [instance="auxterm"] move position center
+# (P) screenshot
+bindsym $mod+Shift+p exec flameshot gui
+# (n) floating whatsapp
+bindsym $mod+n [title="WhatsApp"] scratchpad show; [title="WhatsApp"] move position center
 # (e) editor
 bindsym $mod+e exec $term -e nvim
 # (a) reference manager
