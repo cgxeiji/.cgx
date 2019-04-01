@@ -66,7 +66,7 @@ set splitbelow
 set splitright
 
 " terminal
-let base16colorspace=256
+"let base16colorspace=256
 set t_Co=256
 set background=dark
 colorscheme molokai
@@ -223,6 +223,7 @@ nnoremap <Leader>, <Esc>/<++><Enter>ca<
 
 inoremap <C-h> <C-x><C-o>
 
+highlight Normal ctermbg=NONE
 "exec 'source '.custom.'latex.vim'
 "exec 'source '.custom.'markdown.vim'
 "exec 'source '.custom.'csharp.vim'
