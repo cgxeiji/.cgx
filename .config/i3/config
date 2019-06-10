@@ -12,6 +12,9 @@ exec --no-startup-id xss-lock -- betterlockscreen -l "dimblur"
 exec --no-startup-id unclutter
 exec --no-startup-id xbindkeys
 exec --no-startup-id nm-applet
+#exec --no-startup-id $term -e google-drive-ocamlfuse -label Tsukuba drives/Tsukuba
+#exec --no-startup-id $term -e google-drive-ocamlfuse -label PUCP drives/PUCP
+#exec --no-startup-id $term -e google-drive-ocamlfuse drives/CGx
 
 ### SCRATCHPAD
 ## Terminal
@@ -48,6 +51,10 @@ bindsym $mod+p exec rofi -show
 bindsym $mod+u exec --no-startup-id ~/.cgx/.scripts/mount_drive.sh
 # (U) unmount a drive
 bindsym $mod+Shift+u exec --no-startup-id ~/.cgx/.scripts/unmount_drive.sh
+# (g) mount a google drive
+bindsym $mod+g exec --no-startup-id ~/.cgx/.scripts/mount_gdrive.sh
+# (G) unmount a google drive
+bindsym $mod+Shift+g exec --no-startup-id ~/.cgx/.scripts/unmount_gdrive.sh
 
 # (t) terminal
 bindsym $mod+t exec $term
@@ -68,6 +75,8 @@ bindsym $mod+i exec qutebrowser
 
 # (R) restart settings
 bindsym $mod+Shift+r mode "$mode_reload"
+# (E) screen settings
+bindsym $mod+Shift+e mode "$mode_screen"
 
 # navigation
 # hjkl - vim-like motions
@@ -131,6 +140,15 @@ mode "$mode_reload" {
     bindsym Return mode "default"
     bindsym Escape mode "default"
 }
+set $mode_screen (w) workstation, (s) standalone, (p) presentation
+mode "$mode_screen" {
+    bindsym w exec --no-startup-id ~/.screenlayout/workstation.sh; mode "default"
+    bindsym s exec --no-startup-id ~/.screenlayout/standalone.sh; mode "default"
+    bindsym p exec --no-startup-id ~/.screenlayout/presentation.sh; mode "default"
+
+    bindsym Return mode "default"
+    bindsym Escape mode "default"
+}
 
 ## WORKSPACE
 # variables
@@ -174,9 +192,10 @@ for_window[class="^Pavucontrol$"] floating enable
 for_window[class="^Arandr$"] floating enable
 for_window[class="^Nm-connection-editor$"] floating enable
 for_window[class="^Uim-pref-gtk$"] floating enable
+for_window[instance="Godot_Engine"] floating enable
 
 ## Workspace
-for_window[class="Google-chrome"] move to workspace $wsWeb
+#for_window[class="Google-chrome"] move to workspace $wsWeb
 for_window[class="Spotify"] move to workspace $wsMedia
 
 

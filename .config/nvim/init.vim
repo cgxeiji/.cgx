@@ -3,6 +3,7 @@ filetype off
 
 set rtp +=~/.cgx/.config/nvim/bundle/Vundle.vim
 set rtp +=~/.cgx/.config/nvim/
+set rtp +=/usr/local/opt/fzf
 call vundle#begin()
 
 " load plugin manager
@@ -16,6 +17,8 @@ Plugin 'vim-airline/vim-airline'
 Plugin 'tpope/vim-surround'
 " load autocomplete
 Plugin 'Shougo/deoplete.nvim'
+" load fuzzy search
+Plugin 'junegunn/fzf.vim'
 " load file tree viewer
 Plugin 'scrooloose/nerdtree'
 " load go helper
@@ -30,6 +33,12 @@ Plugin 'tell-k/vim-autopep8'
 Plugin 'OmniSharp/omnisharp-vim'
 " load linter
 Plugin 'w0rp/ale'
+" load Godot integration
+Plugin 'calviken/vim-gdscript3'
+" load undotree
+Plugin 'mbbill/undotree'
+" load CrtlSF
+Plugin 'dyng/ctrlsf.vim'
 
 call vundle#end()
 filetype plugin indent on
@@ -40,6 +49,9 @@ set backspace=indent,eol,start
 set textwidth=79
 set listchars=tab:>-,trail:~
 set list
+set hidden
+set undofile
+set inccommand=nosplit
 
 " tab (Recommendation x of :help tabstop)
 set tabstop=4
@@ -113,8 +125,21 @@ let g:ale_cs_mcsc_assemblies = [
 let g:NERDTreeQuitOnOpen=1
 let NERDTreeShowHidden=1
 
+"" CtrlSF
+let g:ctrlsf_auto_close = {
+    \ "normal" : 1,
+    \ "compact" : 1
+    \ }
+let g:ctrlsf_auto_focus = {
+    \ "at" : "start"
+    \ }
+let g:ctrlsf_default_view_mode = 'compact'
+
 "" Airline
 let g:airline_powerline_fonts = 1
+
+"" Goyo
+let g:goyo_width = 81
 
 "" Vim-Go
 let g:go_highlight_operators = 1
@@ -147,6 +172,7 @@ endif
 :
 :    autocmd BufRead,BufNewFile *.py let g:python_highlight_all = 1
 :    autocmd BufRead,BufNewFile *.py let g:python_slow_sync = 0
+:    autocmd BufRead,BufNewFile *.py set textwidth=0
 :augroup END
 
 " unicode
@@ -190,13 +216,22 @@ nmap <silent> <Leader>z :wincmd \|<CR> :wincmd _<CR>
 nmap <silent> <Leader>a :wincmd =<CR>
 " (t)ab to next pane
 nmap <silent> <Leader>t :wincmd w<CR>
-" (q)uit current file
+" switch to (b)uffer
+nmap <silent> <Leader>b :ls<CR>:b<Space>
+" (q)uit current window
 nmap <silent> <Leader>q :q<CR>
+" toggle (u)ndo tree
+nmap <silent> <Leader>u :UndotreeToggle<CR>
 " ESC from home row
 imap kj <ESC>
 " move through visual lines
 map <Up> gk
 map <Down> gj
+" move through windows
+nnoremap <C-h> <C-w>h
+nnoremap <C-j> <C-w>j
+nnoremap <C-k> <C-w>k
+nnoremap <C-l> <C-w>l
 " search for spaces
 cnoremap <expr><space> '/?' =~ getcmdtype() ? '\_s*' : ' '
 
@@ -207,6 +242,10 @@ nmap  <Leader>ot :tabe<Space>
 nmap  <Leader>ov :vsplit<Space>
 " open file in horizontal split
 nmap  <Leader>oh :split<Space>
+" open file in current window
+nmap  <Leader>oe :Rg<CR>
+" ctrlsf mappings
+nmap  <Leader>os <Plug>CtrlSFPrompt
 " open configuration (this) file
 nmap  <Leader>ocf :tabe ~/.config/nvim/init.vim<CR>
 " nerdtree mappings
@@ -223,7 +262,7 @@ nnoremap <Leader>, <Esc>/<++><Enter>ca<
 
 inoremap <C-h> <C-x><C-o>
 
-highlight Normal ctermbg=NONE
+"highlight Normal ctermbg=NONE
 "exec 'source '.custom.'latex.vim'
 "exec 'source '.custom.'markdown.vim'
 "exec 'source '.custom.'csharp.vim'

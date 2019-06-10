@@ -137,6 +137,7 @@ export PATH=$PATH:/usr/local/go/bin
 export PATH=$PATH:$(go env GOPATH)/bin
 export PATH=$PATH:$HOME/.gem/ruby/2.5.0/bin
 export PATH=$PATH:$HOME/.gem/ruby/2.6.0/bin
+export PATH=$PATH:$HOME/.local/bin
 
 export UNCRUSTIFY_CONFIG=$HOME/.uncrustify
 
@@ -161,6 +162,8 @@ alias cx='c ..'
 books() {~/.cgx/.scripts/books.sh "$@"}
 papers() {~/.cgx/.scripts/papers.sh "$@"}
 pdf() {zathura "$@" 2>/dev/null &!}
+
+kp() {~/.cgx/.scripts/killprocess.sh}
 
 # mergepdf w\ \({1..18}\).pdf
 mergepdf() { gs -sDEVICE=pdfwrite -dNOPAUSE -dQUIET -dBATCH -dPDFSETTINGS=/prepress -sOutputFile=output.pdf "$@" ; echo output.pdf created!; }
