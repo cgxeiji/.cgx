@@ -117,7 +117,7 @@ time-format = %H:%M
 
 label-charging = 
 label-charging-font = 7
-label-discharging = %time%
+label-discharging = %time% (%percentage%% at %consumption%W)
 label-full = 
 
 ramp-capacity-0 = 

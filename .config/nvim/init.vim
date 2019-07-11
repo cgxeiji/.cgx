@@ -39,6 +39,8 @@ Plugin 'calviken/vim-gdscript3'
 Plugin 'mbbill/undotree'
 " load CrtlSF
 Plugin 'dyng/ctrlsf.vim'
+" load unimpaired
+Plugin 'tpope/vim-unimpaired'
 
 call vundle#end()
 filetype plugin indent on
@@ -60,7 +62,7 @@ set shiftwidth=4
 set expandtab
 set shiftround
 set autoindent
-set smartindent
+"set smartindent
 
 " fold
 setlocal foldmethod=syntax
@@ -125,6 +127,37 @@ let g:ale_cs_mcsc_assemblies = [
 let g:NERDTreeQuitOnOpen=1
 let NERDTreeShowHidden=1
 
+"" FZF
+let g:fzf_colors = {
+    \ 'fg':      ['fg', 'Normal'],
+    \ 'bg':      ['bg', 'Normal'],
+    \ 'hl':      ['fg', 'Comment'],
+    \ 'fg+':     ['fg', 'CursorLine', 'CursorColumn', 'Normal'],
+    \ 'bg+':     ['bg', 'CursorLine', 'CursorColumn'],
+    \ 'hl+':     ['fg', 'Statement'],
+    \ 'info':    ['fg', 'PreProc'],
+    \ 'border':  ['fg', 'Ignore'],
+    \ 'prompt':  ['fg', 'Conditional'],
+    \ 'pointer': ['fg', 'Exception'],
+    \ 'marker':  ['fg', 'Keyword'],
+    \ 'spinner': ['fg', 'Label'],
+    \ 'header':  ['fg', 'Comment'] }
+
+" Rg with preview window
+command! -bang -nargs=* Rg
+    \ call fzf#vim#grep(
+    \   'rg --column --line-number --no-heading --color=always --smart-case '.shellescape(<q-args>), 1,
+    \   <bang>0 ? fzf#vim#with_preview('up:60%')
+    \           : fzf#vim#with_preview('right:50%', '?'),
+    \   <bang>0)
+
+" layout
+let g:fzf_layout = { 'down': '~40%' }
+
+" Files with
+command! -bang -nargs=? -complete=dir Files
+    \ call fzf#vim#files(<q-args>, fzf#vim#with_preview(), <bang>0)
+
 "" CtrlSF
 let g:ctrlsf_auto_close = {
     \ "normal" : 1,
@@ -133,7 +166,8 @@ let g:ctrlsf_auto_close = {
 let g:ctrlsf_auto_focus = {
     \ "at" : "start"
     \ }
-let g:ctrlsf_default_view_mode = 'compact'
+let g:ctrlsf_default_view_mode = 'normal'
+let g:ctrlsf_position = 'right'
 
 "" Airline
 let g:airline_powerline_fonts = 1

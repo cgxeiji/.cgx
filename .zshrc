@@ -99,7 +99,7 @@ DISABLE_LS_COLORS="true"
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
 plugins=(
-  git
+  git docker docker-compose
 )
 
 source $ZSH/oh-my-zsh.sh
@@ -155,6 +155,8 @@ alias l='colorls --sd'
 alias la='colorls -a --sd'
 alias ll='colorls -la --sd'
 
+alias sudocker='sudo docker'
+
 c() {clear; cd "$@"; pwd; l}
 aur() {git clone https://aur.archlinux.org/"$@".git; cd "$@"; less PKGBUILD; makepkg -sirc; cd ..}
 alias cx='c ..'
@@ -162,6 +164,8 @@ alias cx='c ..'
 books() {~/.cgx/.scripts/books.sh "$@"}
 papers() {~/.cgx/.scripts/papers.sh "$@"}
 pdf() {zathura "$@" 2>/dev/null &!}
+
+rpigo() {sudo docker run --rm -ti -v "$HOME/go/src":/go/src rpi-zero-opencv-bin /usr/bin/qemu-arm-static /bin/sh -c "cd $(pwd | grep -o 'src.*'); go build -o $@ -v" && scp "$@" pi@192.168.11.30:~/sandbox}
 
 kp() {~/.cgx/.scripts/killprocess.sh}
 

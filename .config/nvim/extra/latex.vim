@@ -6,6 +6,7 @@
 :    autocmd BufRead,BufNewFile *.tex setlocal spell
 :    autocmd FileType plaintex,tex nnoremap <buffer> <Leader>r :w<CR>:!rubber --unsafe --pdf <C-r>=maintex<CR>&<CR><CR>
 :    autocmd FileType plaintex,tex nnoremap <buffer> <Leader>c :w<CR>:!rubber --clean <C-r>=maintex<CR>&<CR><CR>
+:    autocmd FileType plaintex,tex nnoremap <buffer> <Leader>d :w<CR>:!latexdiff old.tex <C-r>=maintex<CR> > diff.tex && rubber --unsafe --pdf diff.tex &<CR><CR>
 :    autocmd FileType plaintex,tex nnoremap <buffer> ;sm :let maintex=expand('%:t')<CR>:cd %:p:h<CR>
 :    autocmd FileType plaintex,tex nnoremap <buffer> ;; <Esc>/<++><Enter>ca<
 :    autocmd FileType plaintex,tex inoremap <buffer> ;; <Esc>/<++><Enter>ca<

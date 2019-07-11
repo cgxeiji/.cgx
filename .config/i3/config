@@ -150,6 +150,16 @@ mode "$mode_screen" {
     bindsym Escape mode "default"
 }
 
+# avoid misclicking titlebars on tabbed mode
+set $mode_change_tab Double-click to select tab
+mode "$mode_change_tab" {
+    bindsym button1 focus, mode "default"
+    # back to normal: Enter or Escape
+    bindsym Return mode "default"
+    bindsym Escape mode "default"
+}
+bindsym button1 mode "$mode_change_tab", exec --no-startup-id "sleep 0.3 && i3-msg mode 'default'"
+
 ## WORKSPACE
 # variables
 set $wsAll    "1:main"
@@ -192,7 +202,7 @@ for_window[class="^Pavucontrol$"] floating enable
 for_window[class="^Arandr$"] floating enable
 for_window[class="^Nm-connection-editor$"] floating enable
 for_window[class="^Uim-pref-gtk$"] floating enable
-for_window[instance="Godot_Engine"] floating enable
+#for_window[instance="Godot_Engine"] floating enable
 
 ## Workspace
 #for_window[class="Google-chrome"] move to workspace $wsWeb
@@ -250,9 +260,9 @@ set_from_resource $foreground		foreground #000000
 set $transparent				#00000000
 
 #                       BORDER			BACKGROUND	TEXT		INDICATOR			CHILD_BORDER
-client.focused			$red			$red		$magenta	$black				$darkwhite
-client.unfocused		$transparent	$blue		$white		$black				$transparent
-client.focused_inactive	$transparent	$blue		$white		$black				$darkblack
+client.focused			$darkwhite		$foreground	$black		$black				$white
+client.unfocused		$darkwhite		$background	$foreground	$black				$transparent
+client.focused_inactive	$darkblack		$darkwhite	$black		$black				$darkwhite
 client.urgent			$darkred		$darkred	$black		$darkred			$darkred
 client.background						$black
 
