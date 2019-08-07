@@ -140,6 +140,7 @@ export PATH=$PATH:$HOME/.gem/ruby/2.6.0/bin
 export PATH=$PATH:$HOME/.local/bin
 
 export UNCRUSTIFY_CONFIG=$HOME/.uncrustify
+export SCONS_CACHE=$HOME/.scons/build_cache
 
 source $(dirname $(gem which colorls))/tab_complete.sh
 
@@ -165,7 +166,7 @@ books() {~/.cgx/.scripts/books.sh "$@"}
 papers() {~/.cgx/.scripts/papers.sh "$@"}
 pdf() {zathura "$@" 2>/dev/null &!}
 
-rpigo() {sudo docker run --rm -ti -v "$HOME/go/src":/go/src rpi-zero-opencv-bin /usr/bin/qemu-arm-static /bin/sh -c "cd $(pwd | grep -o 'src.*'); go build -o $@ -v" && scp "$@" pi@192.168.11.30:~/sandbox}
+rpigo() {sudo docker run --rm -ti -v $(go env GOCACHE):/root/.cache/go-build -v "$HOME/go/src":/go/src rpi-zero-opencv-bin /usr/bin/qemu-arm-static /bin/sh -c "cd $(pwd | grep -o 'src.*'); go build -o $@ -v" && scp "$@" pi@192.168.11.30:~/sandbox}
 
 kp() {~/.cgx/.scripts/killprocess.sh}
 

@@ -3,7 +3,7 @@
 :augroup adocsnip
 :    autocmd!
 :    autocmd BufRead,BufNewFile *.adoc setlocal spell
-:    autocmd FileType asciidoc,adoc nnoremap <buffer> <Leader>r :w<CR>:!asciidoctor-pdf -r asciidoctor-bibtex %:p<CR><CR>
+:    autocmd FileType asciidoc,adoc nnoremap <buffer> <Leader>r :w<CR>:!asciidoctor-pdf -r asciidoctor-bibtex -r asciidoctor-mathematical %:p<CR><CR>
 :    autocmd FileType asciidoc,adoc nnoremap <buffer> <Leader>w :w<CR>:!asciidoctor %:p<CR><CR>
 :    autocmd FileType asciidoc,adoc nnoremap <buffer> <Leader>p :w<CR>:!asciidoctor-revealjs %:p <CR><CR>
 :    autocmd FileType asciidoc,adoc nnoremap <buffer> <Leader>v :!zathura %:r.pdf &<CR><CR>
@@ -17,7 +17,7 @@
 :    autocmd FileType asciidoc,adoc inoremap <buffer> ;ifp ifdef::backend-revealjs[]<CR><CR>endif::backend-revealjs[]<Up>
 :    autocmd FileType asciidoc,adoc inoremap <buffer> ;ifr ifdef::backend-pdf[]<CR><CR>endif::backend-pdf[]<Up>
 :    autocmd FileType asciidoc,adoc inoremap <buffer> ;ifw ifdef::backend-html5[]<CR><CR>endif::backend-html5[]<Up>
-:    autocmd FileType asciidoc,adoc inoremap <buffer> ;img image::{<++>}[canvas, size=contain]<Esc>/##IMAGES##<CR>o:img-: <++><Esc>F:i
+:    autocmd FileType asciidoc,adoc inoremap <buffer> ;img image::{img-<++>}[canvas, size=contain]<Esc>/##IMAGES##<CR>o:img-: <++><Esc>F:i
 :    autocmd FileType asciidoc,adoc inoremap <buffer> ;not [NOTE.speaker]<CR>--<CR><CR>--<Up>
 :    autocmd FileType asciidoc,adoc inoremap <buffer> ;cit cite:[]<++><Esc>F]i
 :    autocmd FileType asciidoc,adoc inoremap <buffer> ;t ==<Space><Enter><++><Esc>kA

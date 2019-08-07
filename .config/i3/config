@@ -24,6 +24,14 @@ for_window [instance="auxterm"] resize set 1000 px 600 px
 for_window [instance="auxterm"] move scratchpad
 for_window [instance="auxterm"] border pixel 5
 # binding set to Shift+t
+## NVim Text
+for_window [instance="textterm"] floating enable
+for_window [instance="textterm"] resize set 1000 px 600 px
+for_window [instance="textterm"] move scratchpad
+for_window [instance="textterm"] border pixel 5
+for_window [instance="textterm"] scratchpad show
+for_window [instance="textterm"] move position center
+# binding set to m
 ## Whatsapp
 exec whatsapp-nativefier
 for_window [title="WhatsApp"] floating enable
@@ -31,6 +39,13 @@ for_window [title="WhatsApp"] resize set 1000 px 600 px
 for_window [title="WhatsApp"] move scratchpad
 for_window [title="WhatsApp"] border pixel 5
 # binding set to n
+## Thunar
+exec thunar
+for_window [title="(.*)File Manager$"] floating enable
+for_window [title="(.*)File Manager$"] resize set 1000 px 600 px
+for_window [title="(.*)File Manager$"] move scratchpad
+for_window [title="(.*)File Manager$"] border pixel 5
+# binding set to x
 
 ### CONTROL
 
@@ -60,6 +75,8 @@ bindsym $mod+Shift+g exec --no-startup-id ~/.cgx/.scripts/unmount_gdrive.sh
 bindsym $mod+t exec $term
 # (T) floating terminal
 bindsym $mod+Shift+t [instance="auxterm"] scratchpad show; [instance="auxterm"] move position center
+# (m) floating text terminal
+bindsym $mod+m exec --no-startup-id ~/.cgx/.scripts/texter.sh;
 # (P) screenshot
 bindsym $mod+Shift+p exec flameshot gui
 # (n) floating whatsapp
@@ -69,7 +86,7 @@ bindsym $mod+e exec $term -e nvim
 # (a) reference manager
 bindsym $mod+a exec $term -e scholar open
 # (x) file explorer
-bindsym $mod+x exec $term -e ranger
+bindsym $mod+x [title="(.*)File Manager$"] scratchpad show; [title="(.*)File Manager"] move position center
 # (i) internet
 bindsym $mod+i exec qutebrowser
 
@@ -142,9 +159,9 @@ mode "$mode_reload" {
 }
 set $mode_screen (w) workstation, (s) standalone, (p) presentation
 mode "$mode_screen" {
-    bindsym w exec --no-startup-id ~/.screenlayout/workstation.sh; mode "default"
-    bindsym s exec --no-startup-id ~/.screenlayout/standalone.sh; mode "default"
-    bindsym p exec --no-startup-id ~/.screenlayout/presentation.sh; mode "default"
+    bindsym w exec --no-startup-id ~/.screenlayout/workstation.sh; mode "default"; exec "sleep 1 && i3-msg restart"
+    bindsym s exec --no-startup-id ~/.screenlayout/standalone.sh; mode "default"; exec "sleep 1 && i3-msg restart"
+    bindsym p exec --no-startup-id ~/.screenlayout/presentation.sh; mode "default"; exec "sleep 1 && i3-msg restart"
 
     bindsym Return mode "default"
     bindsym Escape mode "default"
