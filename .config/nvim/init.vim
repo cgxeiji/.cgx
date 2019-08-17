@@ -41,6 +41,12 @@ Plugin 'mbbill/undotree'
 Plugin 'dyng/ctrlsf.vim'
 " load unimpaired
 Plugin 'tpope/vim-unimpaired'
+" load fugitive
+Plugin 'tpope/vim-fugitive'
+" load tabular
+Plugin 'godlygeek/tabular'
+" load UltiSnips
+Plugin 'SirVer/ultisnips'
 
 call vundle#end()
 filetype plugin indent on
@@ -102,6 +108,13 @@ call deoplete#custom#option('min_pattern_length', 1)
 call deoplete#custom#option('sources', {
     \ 'cs': ['omnisharp'],
     \ })
+
+"" UltiSnips
+let g:UltiSnipsExpandTrigger="<tab>"
+let g:UltiSnipsJumpForwardTrigger="<tab>"
+let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
+let g:UltiSnipsEditSplit="vertical"
+let g:UltiSnipsSnippetsDir="~/.config/nvim/UltiSnips"
 
 "" OmniSharp
 let g:OmniSharp_highlight_types = 1
@@ -238,10 +251,8 @@ let g:airline_symbols.linenr = ''
 let mapleader = " "
 
 "" Edition
-" remove search highlighting
-nmap <silent> <Leader><Leader> :noh<cr>
 " toggle list characters
-nmap <silent> <Leader>; :set number!<CR>
+nmap <silent> <Leader>; :set number!<CR>:set relativenumber!<CR>
 " (s)ave current file
 nmap <silent> <Leader>s :w<cr>
 " (z)oom in current pane
@@ -268,6 +279,10 @@ nnoremap <C-k> <C-w>k
 nnoremap <C-l> <C-w>l
 " search for spaces
 cnoremap <expr><space> '/?' =~ getcmdtype() ? '\_s*' : ' '
+
+"" Terminal
+" remap Esc
+tnoremap <Leader><Esc> <C-\><C-n>
 
 "" File Manager
 " open file in new tab

@@ -46,6 +46,9 @@ SPACESHIP_GIT_STATUS_COLOR="yellow"
 
 SPACESHIP_GOLANG_SYMBOL="Go "
 
+ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=10"
+ZSH_AUTOSUGGEST_STRATEGY=(history completion)
+
 # Set list of themes to pick from when loading at random
 # Setting this variable when ZSH_THEME=random will cause zsh to load
 # a theme from this variable instead of looking in ~/.oh-my-zsh/themes/
@@ -99,7 +102,7 @@ DISABLE_LS_COLORS="true"
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
 plugins=(
-  git docker docker-compose
+  git docker docker-compose zsh-autosuggestions
 )
 
 source $ZSH/oh-my-zsh.sh
@@ -167,6 +170,7 @@ papers() {~/.cgx/.scripts/papers.sh "$@"}
 pdf() {zathura "$@" 2>/dev/null &!}
 
 rpigo() {sudo docker run --rm -ti -v $(go env GOCACHE):/root/.cache/go-build -v "$HOME/go/src":/go/src rpi-zero-opencv-bin /usr/bin/qemu-arm-static /bin/sh -c "cd $(pwd | grep -o 'src.*'); go build -o $@ -v" && scp "$@" pi@192.168.11.30:~/sandbox}
+rpi() {ssh -t pi@192.168.11.30 "$@"}
 
 kp() {~/.cgx/.scripts/killprocess.sh}
 
