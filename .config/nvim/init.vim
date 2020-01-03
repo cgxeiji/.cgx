@@ -37,8 +37,6 @@ Plugin 'w0rp/ale'
 Plugin 'calviken/vim-gdscript3'
 " load undotree
 Plugin 'mbbill/undotree'
-" load CrtlSF
-Plugin 'dyng/ctrlsf.vim'
 " load unimpaired
 Plugin 'tpope/vim-unimpaired'
 " load fugitive
@@ -47,9 +45,14 @@ Plugin 'tpope/vim-fugitive'
 Plugin 'godlygeek/tabular'
 " load UltiSnips
 Plugin 'SirVer/ultisnips'
+" load signature
+Plugin 'kshenoy/vim-signature'
+" load csv
+Plugin 'chrisbra/csv.vim'
 
 call vundle#end()
 filetype plugin indent on
+syntax on
 
 """ EDITOR
 "
@@ -72,7 +75,28 @@ set autoindent
 
 " fold
 setlocal foldmethod=syntax
-set nofoldenable
+set foldenable
+set foldcolumn=4
+setlocal foldlevelstart=99
+
+function! FoldText()
+    let line = getline(v:foldstart)
+
+    let nucolwidth = &fdc + &number * &numberwidth
+    let windowwidth = winwidth(0) - nucolwidth
+    let n_lines = v:foldend - v:foldstart + 1
+    let n_lines_text = printf("[ %3s lines ]", n_lines)
+
+    let endline = substitute(getline(v:foldend), '^\s*"\?\s*\|\s*"\?s*{{' . '{\d*\s*', '', 'g')
+    " expand tabs into spaces
+    let onetab = strpart('>---', 0, &tabstop)
+    let line = substitute(line, '\t', onetab, 'g') . ' »»» ' . endline . ' |'
+
+    let line = strpart(line, 0, windowwidth - 2 - len(n_lines))
+    let fillcharcount = windowwidth - len(line) - len(n_lines_text) + 2
+    return line . repeat("÷",fillcharcount) . n_lines_text . ' '
+endfunction
+set foldtext=FoldText()
 
 " search
 set ignorecase
@@ -95,6 +119,45 @@ set encoding=utf8
 :augroup recolor
 :   autocmd!
 :   autocmd ColorScheme * highlight Visual cterm=reverse
+:   autocmd ColorScheme * highlight Folded ctermfg=0 ctermbg=NONE
+:   autocmd ColorScheme * highlight FoldColumn cterm=bold ctermfg=0 ctermbg=232
+:augroup END
+
+highlight Visual cterm=reverse
+highlight Folded ctermfg=0 ctermbg=NONE
+highlight FoldColumn cterm=bold ctermfg=0 ctermbg=232
+
+:augroup foldcol
+:   autocmd!
+:   autocmd InsertEnter * highlight FoldColumn ctermfg=232
+:   autocmd InsertLeave * highlight FoldColumn ctermfg=0
+:augroup END
+
+":augroup foldcol
+":   autocmd!
+":   autocmd BufWritePre ?* mkview | filetype detect
+":   autocmd BufReadPost ?* silent! loadview | filetype detect
+":augroup END
+
+:augroup vimconfig
+:   autocmd!
+:   autocmd BufWritePost $MYVIMRC source % | echom "Sourced " . $MYVIMRC
+:augroup END
+
+fun! FindTagsFileInGitDir(file)
+  let path = fnamemodify(a:file, ':p:h')
+  while path != '/'
+    let fname = path . '/.git/tags'
+    if filereadable(fname)
+      silent! exec 'set tags+=' . fname
+    endif
+    let path = fnamemodify(path, ':h')
+  endwhile
+endfun
+
+:augroup CtagsGroup
+:  autocmd!
+:  autocmd BufRead * call FindTagsFileInGitDir(expand("<afile>"))
 :augroup END
 
 """ PLUGINS SETTINGS
@@ -171,17 +234,6 @@ let g:fzf_layout = { 'down': '~40%' }
 command! -bang -nargs=? -complete=dir Files
     \ call fzf#vim#files(<q-args>, fzf#vim#with_preview(), <bang>0)
 
-"" CtrlSF
-let g:ctrlsf_auto_close = {
-    \ "normal" : 1,
-    \ "compact" : 1
-    \ }
-let g:ctrlsf_auto_focus = {
-    \ "at" : "start"
-    \ }
-let g:ctrlsf_default_view_mode = 'normal'
-let g:ctrlsf_position = 'right'
-
 "" Airline
 let g:airline_powerline_fonts = 1
 
@@ -251,6 +303,8 @@ let g:airline_symbols.linenr = ''
 let mapleader = " "
 
 "" Edition
+" remove search highlighting
+nmap <silent> <Leader><Leader> :noh<cr>
 " toggle list characters
 nmap <silent> <Leader>; :set number!<CR>:set relativenumber!<CR>
 " (s)ave current file
@@ -267,6 +321,8 @@ nmap <silent> <Leader>b :ls<CR>:b<Space>
 nmap <silent> <Leader>q :q<CR>
 " toggle (u)ndo tree
 nmap <silent> <Leader>u :UndotreeToggle<CR>
+" (g)et (t)ODOs
+nmap <silent> <Leader>gt :copen<CR>:silent grep TODO -r .<CR>
 " ESC from home row
 imap kj <ESC>
 " move through visual lines
@@ -293,15 +349,16 @@ nmap  <Leader>ov :vsplit<Space>
 nmap  <Leader>oh :split<Space>
 " open file in current window
 nmap  <Leader>oe :Rg<CR>
-" ctrlsf mappings
-nmap  <Leader>os <Plug>CtrlSFPrompt
 " open configuration (this) file
-nmap  <Leader>ocf :tabe ~/.config/nvim/init.vim<CR>
+nmap  <Leader>ocf :vs $MYVIMRC<CR>
 " nerdtree mappings
 nmap <silent> <Leader>x :NERDTreeToggle<CR>
 nmap <silent> <Leader>h :NERDTreeFind<CR>
 " zen mode
 nmap <silent> <Leader>F :Goyo<CR>
+" navigation
+nmap  H ^
+nmap  L $
 
 """ MACROS
 "" General

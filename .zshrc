@@ -145,6 +145,11 @@ export PATH=$PATH:$HOME/.local/bin
 export UNCRUSTIFY_CONFIG=$HOME/.uncrustify
 export SCONS_CACHE=$HOME/.scons/build_cache
 
+export GITHUB_TOKEN=$(cat $HOME/.github_token)
+
+export QT_QPA_PLATFORMTHEME=gtk2
+
+
 source $(dirname $(gem which colorls))/tab_complete.sh
 
 alias gfd="cd ~/Downloads && colorls -al --sd"
@@ -176,3 +181,6 @@ kp() {~/.cgx/.scripts/killprocess.sh}
 
 # mergepdf w\ \({1..18}\).pdf
 mergepdf() { gs -sDEVICE=pdfwrite -dNOPAUSE -dQUIET -dBATCH -dPDFSETTINGS=/prepress -sOutputFile=output.pdf "$@" ; echo output.pdf created!; }
+
+# opam configuration
+test -r /home/cgx/.opam/opam-init/init.zsh && . /home/cgx/.opam/opam-init/init.zsh > /dev/null 2> /dev/null || true

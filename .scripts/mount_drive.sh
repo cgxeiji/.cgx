@@ -1,7 +1,6 @@
 #!/bin/zsh
 
 getmp() {\
-    [ -z "$smount" ] && exit 1
     mp="$(find $1 | rofi -dmenu -i -p "Type mount point")"
     [ "$mp" = "" ] && exit 1
     if [ ! -d "$mp" ]; then
@@ -12,7 +11,11 @@ getmp() {\
 
 trymount() {\
     smount="$(echo -e "$drives" | rofi -dmenu -p "Select a drive to mount" | awk '{print $1}')"
-    notify-send "$(udisksctl mount -b "$smount")" && exit 0
+    if [ -z "$smount" ]; then
+        exit 1
+    else
+        notify-send "$(udisksctl mount -b "$smount")" && exit 0
+    fi
     #getmp "/mnt -maxdepth 1 -type d"
     #sudo -A mount "$smount" "$mp" && notify-send "$smount mounted to $mp." && exit 0
 }

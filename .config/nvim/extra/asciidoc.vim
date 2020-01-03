@@ -3,7 +3,8 @@
 :augroup adocsnip
 :    autocmd!
 :    autocmd BufRead,BufNewFile *.adoc setlocal spell
-:    autocmd FileType asciidoc,adoc nnoremap <buffer> <Leader>r :w<CR>:!asciidoctor-pdf -r asciidoctor-bibtex -r asciidoctor-mathematical %:p<CR><CR>
+:    autocmd FileType asciidoc,adoc nnoremap <buffer> <Leader>r :w<CR>:!asciidoctor-pdf -r asciidoctor-mathematical %:p<CR>
+:    autocmd FileType asciidoc,adoc nnoremap <buffer> <Leader>;r :w<CR>:!asciidoctor-pdf -r asciidoctor-bibtex -r asciidoctor-mathematical %:p<CR><CR>
 :    autocmd FileType asciidoc,adoc nnoremap <buffer> <Leader>w :w<CR>:!asciidoctor %:p<CR><CR>
 :    autocmd FileType asciidoc,adoc nnoremap <buffer> <Leader>p :w<CR>:!asciidoctor-revealjs %:p <CR><CR>
 :    autocmd FileType asciidoc,adoc nnoremap <buffer> <Leader>v :!zathura %:r.pdf &<CR><CR>

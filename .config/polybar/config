@@ -15,12 +15,12 @@ padding-left = 2
 module-margin = 3
 
 font-0 = NotoSans-Regular:size=8;2
-font-1 = MaterialIcons:size=10;3
+font-1 = Material Design Icons:size=10;1
 font-2 = Termsynu:size=8:antialias=false;1
 font-3 = FontAwesome:size=10;2
 font-4 = SourceHanSans:size=10;3
 font-5 = Weather Icons:size=10;3
-font-6 = Material Design Icons:size=10;1
+font-6 = MaterialIcons:size=10;3
 
 modules-left = battery volume
 modules-center = media
@@ -51,7 +51,7 @@ font-4 = MaterialIcons:size=11;2
 font-5 = Termsynu:size=8:antialias=false;0
 
 modules-left = i3
-modules-center = memory cpu
+modules-center = memory cpu temperature
 
 tray-position = right
 tray-padding = 4
@@ -69,14 +69,14 @@ format = <label>
 type = custom/script
 exec = ~/.cgx/.scripts/pacman_updates.sh
 interval = 3600
-format =   <label>
+format =  <label>
 
 [module/weather]
 type = custom/script
 exec = ~/.cgx/.scripts/weather.sh
 interval = 600
 format = <label>
-click-left = notify-send 'Weather' "$(echo $(curl "wttr.in/Tsukuba?0qT"))"
+click-left = notify-send 'Weather' "$(curl 'wttr.in/Tsukuba?0qT')"
 
 [module/drive]
 type = custom/script
@@ -105,20 +105,19 @@ bar-empty-foreground = #44
 
 [module/battery]
 type = internal/battery
-full-at = 99
+full-at = 80
 battery = BAT0
 adapter = AC
 
 format-charging = <bar-capacity><label-charging>
-format-discharging = <bar-capacity> <label-discharging>
+format-discharging = <bar-capacity><label-discharging>
 format-full = <bar-capacity><label-full>
 
 time-format = %H:%M
 
-label-charging = 
-label-charging-font = 7
-label-discharging = %time% (%percentage%% at %consumption%W)
-label-full = 
+label-charging = T-%time% (%percentage_raw%%)
+label-discharging = %time% (%percentage_raw%% at %consumption%W)
+label-full = (%percentage_raw%%)
 
 ramp-capacity-0 = 
 ramp-capacity-0-foreground = #ff3d00
@@ -260,6 +259,11 @@ ramp-coreload-7 = █
 ramp-coreload-7-font = 2
 ramp-coreload-7-foreground = #ff5555
 
+[module/temperature]
+type = internal/temperature
+interval = 0.5
+label = %temperature-c%
+
 [module/date]
 type = internal/date
 date =   %%{F#99}HE1%Y-%m-%d%%{F-}  %%{F#fff}%H:%M%%{F-}
@@ -318,7 +322,7 @@ interval = 3.0
 ping-interval = 10
 
 format-connected = %{A:nm-connection-editor&:}<ramp-signal> <label-connected>%{A}
-label-connected = %essid% (%local_ip%)
+label-connected = %essid% (%local_ip% @ %downspeed%)
 label-disconnected =    not connected
 format-disconnected = %{A:nm-connection-editor&:}<label-disconnected>%{A}
 label-disconnected-foreground = #66

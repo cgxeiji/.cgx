@@ -1,5 +1,5 @@
 ### VARIABLES
-set $term --no-startup-id xst
+set $term --no-startup-id st
 set $mod Mod4
 
 ### INITIALIZATION
@@ -18,7 +18,7 @@ exec --no-startup-id nm-applet
 
 ### SCRATCHPAD
 ## Terminal
-exec $term -n auxterm
+exec $term -n auxterm -f "undefined medium:style=medium:pixelsize=10:antialias=true"
 for_window [instance="auxterm"] floating enable
 for_window [instance="auxterm"] resize set 1000 px 600 px
 for_window [instance="auxterm"] move scratchpad
@@ -39,6 +39,12 @@ for_window [title="WhatsApp"] resize set 1000 px 600 px
 for_window [title="WhatsApp"] move scratchpad
 for_window [title="WhatsApp"] border pixel 5
 # binding set to n
+## LINE
+for_window [class="Google_chrome" instance="crx_ophjlpahpchlmihnnnihgmmeilfjmjjc"] floating enable
+for_window [class="Google_chrome" instance="crx_ophjlpahpchlmihnnnihgmmeilfjmjjc"] resize set 1000 px 600 px
+for_window [class="Google_chrome" instance="crx_ophjlpahpchlmihnnnihgmmeilfjmjjc"] move scratchpad
+for_window [class="Google_chrome" instance="crx_ophjlpahpchlmihnnnihgmmeilfjmjjc"] border pixel 5
+# binding set to N
 ## Thunar
 exec thunar
 for_window [title="(.*)File Manager$"] floating enable
@@ -54,6 +60,9 @@ for_window [title="(.*)File Manager$"] border pixel 5
 floating_modifier $mod
 # disable focus change when moving the mouse
 focus_follows_mouse no
+
+## Floating Windows
+floating_maximum_size 1000 x 600
 
 ## Keyboard
 # (q) kill window
@@ -81,6 +90,8 @@ bindsym $mod+m exec --no-startup-id ~/.cgx/.scripts/texter.sh;
 bindsym $mod+Shift+p exec flameshot gui
 # (n) floating whatsapp
 bindsym $mod+n [title="WhatsApp"] scratchpad show; [title="WhatsApp"] move position center
+# (N) floating LINE
+bindsym $mod+Shift+n [class="Google-chrome" instance="crx_ophjlpahpchlmihnnnihgmmeilfjmjjc"] scratchpad show
 # (e) editor
 bindsym $mod+e exec $term -e nvim
 # (a) reference manager
@@ -152,7 +163,7 @@ mode "$mode_reload" {
     bindsym w exec --no-startup-id ~/.cgx/.scripts/load_gif.sh; mode "default"
     bindsym p exec --no-startup-id ~/.cgx/.scripts/polybar_launch.sh; mode "default"
     bindsym r restart; mode "default"
-    bindsym t exec $term -n auxterm; mode "default"
+    bindsym t exec $term -n 'auxterm' -f 'undefined medium:style=medium:pixelsize=10:antialias=true'; mode "default"
 
     bindsym Return mode "default"
     bindsym Escape mode "default"
@@ -277,8 +288,8 @@ set_from_resource $foreground		foreground #000000
 set $transparent				#00000000
 
 #                       BORDER			BACKGROUND	TEXT		INDICATOR			CHILD_BORDER
-client.focused			$darkwhite		$foreground	$black		$black				$white
-client.unfocused		$darkwhite		$background	$foreground	$black				$transparent
+client.focused			$darkwhite		$background	$foreground	$black				$white
+client.unfocused		$darkwhite		#808080		$white		$black				$transparent
 client.focused_inactive	$darkblack		$darkwhite	$black		$black				$darkwhite
 client.urgent			$darkred		$darkred	$black		$darkred			$darkred
 client.background						$black
