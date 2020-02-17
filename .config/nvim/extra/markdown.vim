@@ -3,9 +3,10 @@
 :augroup mdsnip
 :    autocmd!
 :    autocmd BufRead,BufNewFile *.md setlocal spell
-:    autocmd FileType markdown,rmd nnoremap <buffer> <Leader>r :w<CR>:!pandoc %:p -o %:r.pdf --template=default.latex<CR><CR>
+:    autocmd FileType markdown,rmd nnoremap <buffer> <Leader>r :w<CR>:!pandoc %:p -o %:r.pdf --template eisvogel --listings --pdf-engine xelatex &<CR><CR>
 :    autocmd FileType markdown,rmd nnoremap <buffer> <Leader>v :!zathura %:r.pdf &<CR><CR>
 :    autocmd FileType markdown,rmd nnoremap <buffer> ;; <Esc>/<++><Enter>ca<
+:    autocmd FileType markdown,rmd nnoremap <buffer> ;def "zyiw:!sdcv -u WordNet -n <C-r>z<CR>
 :    autocmd FileType markdown,rmd inoremap <buffer> ;; <Esc>/<++><Enter>ca<
 :    autocmd FileType markdown,rmd inoremap <buffer> ;b ****<++><Esc>F*hi
 :    autocmd FileType markdown,rmd inoremap <buffer> ;i **<++><Esc>F*i

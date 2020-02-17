@@ -136,11 +136,15 @@ source $ZSH/oh-my-zsh.sh
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
+setopt histignorespace
+
 export PATH=$PATH:/usr/local/go/bin
 export PATH=$PATH:$(go env GOPATH)/bin
 export PATH=$PATH:$HOME/.gem/ruby/2.5.0/bin
 export PATH=$PATH:$HOME/.gem/ruby/2.6.0/bin
+export PATH=$PATH:$HOME/.gem/ruby/2.7.0/bin
 export PATH=$PATH:$HOME/.local/bin
+export PATH=$PATH:$HOME/.npm/bin
 
 export UNCRUSTIFY_CONFIG=$HOME/.uncrustify
 export SCONS_CACHE=$HOME/.scons/build_cache
@@ -166,9 +170,12 @@ alias ll='colorls -la --sd'
 
 alias sudocker='sudo docker'
 
+alias def='/usr/bin/sdcv'
+
 c() {clear; cd "$@"; pwd; l}
 aur() {git clone https://aur.archlinux.org/"$@".git; cd "$@"; less PKGBUILD; makepkg -sirc; cd ..}
 alias cx='c ..'
+alias units='units --verbose --one-line'
 
 books() {~/.cgx/.scripts/books.sh "$@"}
 papers() {~/.cgx/.scripts/papers.sh "$@"}
@@ -184,3 +191,7 @@ mergepdf() { gs -sDEVICE=pdfwrite -dNOPAUSE -dQUIET -dBATCH -dPDFSETTINGS=/prepr
 
 # opam configuration
 test -r /home/cgx/.opam/opam-init/init.zsh && . /home/cgx/.opam/opam-init/init.zsh > /dev/null 2> /dev/null || true
+
+if systemctl -q is-active graphical.target && [[ ! $DISPLAY && $XDG_VTNR -eq 1 ]]; then
+    exec startx
+fi

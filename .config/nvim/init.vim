@@ -49,6 +49,10 @@ Plugin 'SirVer/ultisnips'
 Plugin 'kshenoy/vim-signature'
 " load csv
 Plugin 'chrisbra/csv.vim'
+" load polyglot
+Plugin 'sheerun/vim-polyglot'
+" load Arduino snippets
+Plugin 'sudar/vim-arduino-snippets'
 
 call vundle#end()
 filetype plugin indent on
@@ -63,6 +67,7 @@ set list
 set hidden
 set undofile
 set inccommand=nosplit
+set title
 
 " tab (Recommendation x of :help tabstop)
 set tabstop=4
@@ -368,7 +373,7 @@ nnoremap <Leader>, <Esc>/<++><Enter>ca<
 
 inoremap <C-h> <C-x><C-o>
 
-"highlight Normal ctermbg=NONE
+highlight Normal ctermbg=NONE
 "exec 'source '.custom.'latex.vim'
 "exec 'source '.custom.'markdown.vim'
 "exec 'source '.custom.'csharp.vim'

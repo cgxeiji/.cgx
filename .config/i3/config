@@ -40,18 +40,23 @@ for_window [title="WhatsApp"] move scratchpad
 for_window [title="WhatsApp"] border pixel 5
 # binding set to n
 ## LINE
-for_window [class="Google_chrome" instance="crx_ophjlpahpchlmihnnnihgmmeilfjmjjc"] floating enable
-for_window [class="Google_chrome" instance="crx_ophjlpahpchlmihnnnihgmmeilfjmjjc"] resize set 1000 px 600 px
-for_window [class="Google_chrome" instance="crx_ophjlpahpchlmihnnnihgmmeilfjmjjc"] move scratchpad
-for_window [class="Google_chrome" instance="crx_ophjlpahpchlmihnnnihgmmeilfjmjjc"] border pixel 5
+for_window [title="LINE"] floating enable
+for_window [title="LINE"] resize set 1000 px 600 px
+for_window [title="LINE"] move scratchpad
+for_window [title="LINE"] border pixel 1
 # binding set to N
 ## Thunar
 exec thunar
 for_window [title="(.*)File Manager$"] floating enable
 for_window [title="(.*)File Manager$"] resize set 1000 px 600 px
 for_window [title="(.*)File Manager$"] move scratchpad
-for_window [title="(.*)File Manager$"] border pixel 5
+for_window [title="(.*)File Manager$"] border pixel 1
 # binding set to x
+
+
+## Bluetooth Manager
+for_window [class="Blueman-manager"] floating enable
+for_window [class="Blueman-manager"] move position center
 
 ### CONTROL
 
@@ -91,7 +96,7 @@ bindsym $mod+Shift+p exec flameshot gui
 # (n) floating whatsapp
 bindsym $mod+n [title="WhatsApp"] scratchpad show; [title="WhatsApp"] move position center
 # (N) floating LINE
-bindsym $mod+Shift+n [class="Google-chrome" instance="crx_ophjlpahpchlmihnnnihgmmeilfjmjjc"] scratchpad show
+bindsym $mod+Shift+n [title="LINE"] scratchpad show; [title="LINE"] move position center
 # (e) editor
 bindsym $mod+e exec $term -e nvim
 # (a) reference manager
@@ -100,11 +105,15 @@ bindsym $mod+a exec $term -e scholar open
 bindsym $mod+x [title="(.*)File Manager$"] scratchpad show; [title="(.*)File Manager"] move position center
 # (i) internet
 bindsym $mod+i exec qutebrowser
+# (d) Windows 10 Virtual Machine
+bindsym $mod+d exec virt-manager --connect qemu:///system --show-domain-console win10
 
 # (R) restart settings
 bindsym $mod+Shift+r mode "$mode_reload"
 # (E) screen settings
 bindsym $mod+Shift+e mode "$mode_screen"
+# (b) bluetooth connections
+bindsym $mod+b mode "$mode_bt"
 
 # navigation
 # hjkl - vim-like motions
@@ -177,6 +186,16 @@ mode "$mode_screen" {
     bindsym Return mode "default"
     bindsym Escape mode "default"
 }
+# bluetooth connections
+set $mode_bt Connect to: (h) headphones, (m) mouse, (e) earphones
+mode "$mode_bt" {
+    bindsym h exec --no-startup-id bluetoothctl connect 38:18:4C:3D:E4:F4; mode "default"
+    bindsym m exec --no-startup-id bluetoothctl connect E9:BD:5C:D4:DB:FC; mode "default"
+    bindsym e exec --no-startup-id bluetoothctl connect 28:83:35:49:DE:9D; mode "default"
+
+    bindsym Return mode "default"
+    bindsym Escape mode "default"
+}
 
 # avoid misclicking titlebars on tabbed mode
 set $mode_change_tab Double-click to select tab
@@ -198,10 +217,10 @@ set $wsSecond "5:extra"
 set $wsThird  "6:extra2"
 set $wsFourth "7:extra3"
 
-workspace $wsAll output eDP-1
-workspace $wsEdit output eDP-1
-workspace $wsWeb output eDP-1
-workspace $wsMedia output eDP-1
+workspace $wsAll output eDP1
+workspace $wsEdit output eDP1
+workspace $wsWeb output eDP1
+workspace $wsMedia output eDP1
 workspace $wsSecond output HDMI1
 workspace $wsThird output DVI-I-1-1
 workspace $wsFourth output DVI-I-2-2
