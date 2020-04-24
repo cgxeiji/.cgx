@@ -168,6 +168,8 @@ alias l='colorls --sd'
 alias la='colorls -a --sd'
 alias ll='colorls -la --sd'
 
+#alias clear='[ $[$RANDOM % 10] = 0 ] && timeout 2 cbeams -o; clear || clear'
+
 alias sudocker='sudo docker'
 
 alias def='/usr/bin/sdcv'

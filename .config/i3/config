@@ -16,6 +16,9 @@ exec --no-startup-id nm-applet
 #exec --no-startup-id $term -e google-drive-ocamlfuse -label PUCP drives/PUCP
 #exec --no-startup-id $term -e google-drive-ocamlfuse drives/CGx
 
+# Avoid general focus stealing
+# no_focus [class=".*"]
+
 ### SCRATCHPAD
 ## Terminal
 exec $term -n auxterm -f "undefined medium:style=medium:pixelsize=10:antialias=true"
@@ -40,10 +43,10 @@ for_window [title="WhatsApp"] move scratchpad
 for_window [title="WhatsApp"] border pixel 5
 # binding set to n
 ## LINE
-for_window [title="LINE"] floating enable
-for_window [title="LINE"] resize set 1000 px 600 px
-for_window [title="LINE"] move scratchpad
-for_window [title="LINE"] border pixel 1
+for_window [title="^LINE$"] floating enable
+for_window [title="^LINE$"] resize set 1000 px 600 px
+for_window [title="^LINE$"] move scratchpad
+for_window [title="^LINE$"] border pixel 1
 # binding set to N
 ## Thunar
 exec thunar
@@ -75,7 +78,7 @@ bindsym $mod+w kill
 # (Q) system management
 bindsym $mod+Shift+w mode "$mode_system"
 # (p) launch a program
-bindsym $mod+p exec rofi -show
+bindsym $mod+p exec rofi -show drun -show-icons
 # (u) mount a drive
 bindsym $mod+u exec --no-startup-id ~/.cgx/.scripts/mount_drive.sh
 # (U) unmount a drive
@@ -97,8 +100,6 @@ bindsym $mod+Shift+p exec flameshot gui
 bindsym $mod+n [title="WhatsApp"] scratchpad show; [title="WhatsApp"] move position center
 # (N) floating LINE
 bindsym $mod+Shift+n [title="LINE"] scratchpad show; [title="LINE"] move position center
-# (e) editor
-bindsym $mod+e exec $term -e nvim
 # (a) reference manager
 bindsym $mod+a exec $term -e scholar open
 # (x) file explorer
@@ -114,6 +115,8 @@ bindsym $mod+Shift+r mode "$mode_reload"
 bindsym $mod+Shift+e mode "$mode_screen"
 # (b) bluetooth connections
 bindsym $mod+b mode "$mode_bt"
+# (e) vpn settings
+bindsym $mod+e mode "$mode_vpn"
 
 # navigation
 # hjkl - vim-like motions
@@ -187,11 +190,26 @@ mode "$mode_screen" {
     bindsym Escape mode "default"
 }
 # bluetooth connections
-set $mode_bt Connect to: (h) headphones, (m) mouse, (e) earphones
+set $mode_bt Connect to: (h) headphones, (m) mouse, (e) earphones, (o) on, (w) off
 mode "$mode_bt" {
-    bindsym h exec --no-startup-id bluetoothctl connect 38:18:4C:3D:E4:F4; mode "default"
+    bindsym h exec --no-startup-id bluetoothctl connect 38:18:4C:3D:E4:F4; exec --no-startup-id notify-send -i audio-headphones "Bluetooth" "Headphones connected"; mode "default"
     bindsym m exec --no-startup-id bluetoothctl connect E9:BD:5C:D4:DB:FC; mode "default"
     bindsym e exec --no-startup-id bluetoothctl connect 28:83:35:49:DE:9D; mode "default"
+    bindsym w exec --no-startup-id bluetoothctl power off; exec --no-startup-id notify-send -i blueman-disabled "Bluetooth" "OFF"; mode "default"
+    bindsym o exec --no-startup-id bluetoothctl power on; exec --no-startup-id notify-send -i blueman-enabled "Bluetooth" "ON"; mode "default"
+
+    bindsym Return mode "default"
+    bindsym Escape mode "default"
+}
+# vpn connections
+set $mode_vpn Connect to: (j) Japan, (u) USA, (n) Netherlands, (d) default, (s) select, (w) disconnect
+mode "$mode_vpn" {
+    bindsym j exec --no-startup-id ~/.cgx/.scripts/vpn.sh connect Japan; mode "default"
+    bindsym u exec --no-startup-id ~/.cgx/.scripts/vpn.sh connect United_States; mode "default"
+    bindsym n exec --no-startup-id ~/.cgx/.scripts/vpn.sh connect Netherlands; mode "default"
+    bindsym d exec --no-startup-id ~/.cgx/.scripts/vpn.sh connect; mode "default"
+    bindsym s exec --no-startup-id ~/.cgx/.scripts/vpn.sh select; mode "default"
+    bindsym w exec --no-startup-id ~/.cgx/.scripts/vpn.sh disconnect; mode "default"
 
     bindsym Return mode "default"
     bindsym Escape mode "default"
