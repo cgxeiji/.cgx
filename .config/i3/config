@@ -155,8 +155,8 @@ bindsym $mod+f fullscreen toggle
 # (F) toggle tiling or floating window
 bindsym $mod+Shift+f floating toggle
 
-# (y) open youtube
-bindsym $mod+y exec --no-startup-id exec google-chrome-stable "https://www.youtube.com"
+# (y) translate selected text
+bindsym $mod+y exec --no-startup-id ~/.cgx/.scripts/translate.sh
 
 ## Modes
 set $mode_system System (l) lock, (e) logout, (s) suspend, (r) reboot, (Shift+s) shutdown
@@ -180,11 +180,12 @@ mode "$mode_reload" {
     bindsym Return mode "default"
     bindsym Escape mode "default"
 }
-set $mode_screen (w) workstation, (s) standalone, (p) presentation
+set $mode_screen (w) workstation, (s) standalone, (p) presentation, (h) home
 mode "$mode_screen" {
     bindsym w exec --no-startup-id ~/.screenlayout/workstation.sh; mode "default"; exec "sleep 1 && i3-msg restart"
     bindsym s exec --no-startup-id ~/.screenlayout/standalone.sh; mode "default"; exec "sleep 1 && i3-msg restart"
     bindsym p exec --no-startup-id ~/.screenlayout/presentation.sh; mode "default"; exec "sleep 1 && i3-msg restart"
+    bindsym h exec --no-startup-id ~/.screenlayout/home.sh; mode "default"; exec "sleep 1 && i3-msg restart"
 
     bindsym Return mode "default"
     bindsym Escape mode "default"
