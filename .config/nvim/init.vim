@@ -45,6 +45,8 @@ Plugin 'tpope/vim-fugitive'
 Plugin 'godlygeek/tabular'
 " load UltiSnips
 Plugin 'SirVer/ultisnips'
+" load snippets
+Plugin 'honza/vim-snippets'
 " load signature
 Plugin 'kshenoy/vim-signature'
 " load csv
@@ -53,6 +55,8 @@ Plugin 'chrisbra/csv.vim'
 Plugin 'sheerun/vim-polyglot'
 " load Arduino snippets
 Plugin 'sudar/vim-arduino-snippets'
+" load Colorizer
+Plugin 'chrisbra/Colorizer'
 
 call vundle#end()
 filetype plugin indent on
@@ -68,6 +72,12 @@ set hidden
 set undofile
 set inccommand=nosplit
 set title
+
+" japanese
+"set formatoptions+=mM
+"set ambiwidth=double
+"set display+=lastline
+set matchpairs+=「:」,（:）,【:】
 
 " tab (Recommendation x of :help tabstop)
 set tabstop=4
@@ -168,9 +178,11 @@ endfun
 """ PLUGINS SETTINGS
 "" Deoplete
 let g:deoplete#enable_at_startup = 1
-let g:deoplete#auto_complete_delay = 5
-let g:deoplete#auto_refresh_delay = 30
-call deoplete#custom#option('min_pattern_length', 1)
+call deoplete#custom#option({
+    \ 'auto_complete_delay': 5,
+    \ 'auto_refresh_delay': 30,
+    \ 'min_pattern_length': 1,
+\ })
 "call deoplete#custom#option('complete_method', 'omnifunc')
 " OmniSharp integration
 call deoplete#custom#option('sources', {

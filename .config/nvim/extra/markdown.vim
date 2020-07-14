@@ -17,4 +17,5 @@
 :    autocmd FileType markdown,rmd inoremap <buffer> ;sst ###<Space><Enter><++><Esc>kA
 :    autocmd FileType markdown,rmd inoremap <buffer> ;link [](<++>)<++><Esc>F]i
 :    autocmd FileType markdown,rmd nnoremap <buffer> <Leader>f vipgq
+:    autocmd FileType markdown,rmd nnoremap <buffer> <Leader>jap :setlocal formatoptions+=mM<CR>:setlocal ambiwidth=double<CR>:setlocal display+=lastline<CR>
 :augroup END

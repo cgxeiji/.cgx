@@ -60,6 +60,8 @@ for_window [title="(.*)File Manager$"] border pixel 1
 ## Bluetooth Manager
 for_window [class="Blueman-manager"] floating enable
 for_window [class="Blueman-manager"] move position center
+## MS Teams
+for_window [title="Microsoft Teams Notification"] floating enable
 
 ### CONTROL
 
@@ -185,7 +187,7 @@ mode "$mode_screen" {
     bindsym w exec --no-startup-id ~/.screenlayout/workstation.sh; mode "default"; exec "sleep 1 && i3-msg restart"
     bindsym s exec --no-startup-id ~/.screenlayout/standalone.sh; mode "default"; exec "sleep 1 && i3-msg restart"
     bindsym p exec --no-startup-id ~/.screenlayout/presentation.sh; mode "default"; exec "sleep 1 && i3-msg restart"
-    bindsym h exec --no-startup-id ~/.screenlayout/home.sh; mode "default"; exec "sleep 1 && i3-msg restart"
+    bindsym h exec --no-startup-id ~/.screenlayout/home.sh; mode "default"; exec "sleep 1 && i3-msg restart && i3-msg workspace 7:extra3 && i3-msg move workspace to output right"
 
     bindsym Return mode "default"
     bindsym Escape mode "default"
@@ -225,6 +227,7 @@ mode "$mode_change_tab" {
     bindsym Escape mode "default"
 }
 bindsym button1 mode "$mode_change_tab", exec --no-startup-id "sleep 0.3 && i3-msg mode 'default'"
+for_window [class=".*"] title_format "<span font='undefined 8'> %title</span>"
 
 ## WORKSPACE
 # variables

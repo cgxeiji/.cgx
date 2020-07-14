@@ -185,6 +185,7 @@ pdf() {zathura "$@" 2>/dev/null &!}
 
 rpigo() {sudo docker run --rm -ti -v $(go env GOCACHE):/root/.cache/go-build -v "$HOME/go/src":/go/src rpi-zero-opencv-bin /usr/bin/qemu-arm-static /bin/sh -c "cd $(pwd | grep -o 'src.*'); go build -o $@ -v" && scp "$@" pi@192.168.11.30:~/sandbox}
 rpi() {ssh -t pi@192.168.11.30 "$@"}
+vps() {ssh -t cgx@vps.onchi.me "$@"}
 
 kp() {~/.cgx/.scripts/killprocess.sh}
 
