@@ -34,7 +34,7 @@ Plugin 'OmniSharp/omnisharp-vim'
 " load linter
 Plugin 'w0rp/ale'
 " load Godot integration
-Plugin 'calviken/vim-gdscript3'
+Plugin 'clktmr/vim-gdscript3'
 " load undotree
 Plugin 'mbbill/undotree'
 " load unimpaired
@@ -72,6 +72,7 @@ set hidden
 set undofile
 set inccommand=nosplit
 set title
+set eadirection="hor"
 
 " japanese
 "set formatoptions+=mM
@@ -216,6 +217,11 @@ let g:ale_cs_mcsc_assemblies = [
             \ 'MonoGame.Framework.dll',
             \]
 
+augroup remotes
+    autocmd!
+    autocmd BufRead,BufNew ~/remotes/**/* ALEDisableBuffer
+augroup END
+
 "" NerdTree
 let g:NERDTreeQuitOnOpen=1
 let NERDTreeShowHidden=1
@@ -268,12 +274,15 @@ let g:go_highlight_fields = 1
 let g:go_highlight_format_strings = 1
 let g:go_highlight_variable_declarations = 1
 let g:go_highlight_variable_assignments = 1
+let g:go_highlight_build_constraints = 1
 
 let g:go_fmt_command = "goimports"
 let g:go_addtags_transform = "camelcase"
 let g:go_metalinter_autosave = 1
 let g:go_metalinter_autosave_enabled = ['golint']
-let g:go_auto_sameids = 1
+let g:go_auto_sameids = 0
+let g:go_auto_type_info = 1
+set updatetime=100
 
 if !exists('g:airline_symbols')
     let g:airline_symbols = {}
@@ -285,6 +294,7 @@ endif
 :    autocmd!
 :    autocmd BufRead,BufNewFile *.py let g:autopep8_on_save = 1
 :    autocmd BufRead,BufNewFile *.py let g:autopep8_disable_show_diff = 1
+:    autocmd BufRead,BufNewFile *.py let g:autopep8_ignore = "E226,E24,W6,E402"
 :
 :    autocmd BufRead,BufNewFile *.py let g:python_highlight_all = 1
 :    autocmd BufRead,BufNewFile *.py let g:python_slow_sync = 0
@@ -345,6 +355,12 @@ imap kj <ESC>
 " move through visual lines
 map <Up> gk
 map <Down> gj
+" resize panes
+nnoremap <silent> <C-Left> <C-w><
+nnoremap <silent> <C-Right> <C-w>>
+nnoremap <silent> <C-Down> <C-w>+
+nnoremap <silent> <C-Up> <C-w>+
+nnoremap <silent> <C-Down> <C-w>-
 " move through windows
 nnoremap <C-h> <C-w>h
 nnoremap <C-j> <C-w>j

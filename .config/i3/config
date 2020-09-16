@@ -15,6 +15,7 @@ exec --no-startup-id nm-applet
 #exec --no-startup-id $term -e google-drive-ocamlfuse -label Tsukuba drives/Tsukuba
 #exec --no-startup-id $term -e google-drive-ocamlfuse -label PUCP drives/PUCP
 #exec --no-startup-id $term -e google-drive-ocamlfuse drives/CGx
+exec --no-startup-id ~/.screenlayout/workstation.sh; exec "sleep 1 && i3-msg restart"
 
 # Avoid general focus stealing
 # no_focus [class=".*"]
@@ -62,6 +63,8 @@ for_window [class="Blueman-manager"] floating enable
 for_window [class="Blueman-manager"] move position center
 ## MS Teams
 for_window [title="Microsoft Teams Notification"] floating enable
+## Zoom
+for_window [title="zoom"] floating enable
 
 ### CONTROL
 
@@ -106,8 +109,8 @@ bindsym $mod+Shift+n [title="LINE"] scratchpad show; [title="LINE"] move positio
 bindsym $mod+a exec $term -e scholar open
 # (x) file explorer
 bindsym $mod+x [title="(.*)File Manager$"] scratchpad show; [title="(.*)File Manager"] move position center
-# (i) internet
-bindsym $mod+i exec qutebrowser
+# (i) audio input sink
+bindsym $mod+i exec --no-startup-id ~/.cgx/.scripts/audio-sink.sh
 # (d) Windows 10 Virtual Machine
 bindsym $mod+d exec virt-manager --connect qemu:///system --show-domain-console win10
 
@@ -239,13 +242,13 @@ set $wsSecond "5:extra"
 set $wsThird  "6:extra2"
 set $wsFourth "7:extra3"
 
-workspace $wsAll output eDP1
-workspace $wsEdit output eDP1
-workspace $wsWeb output eDP1
-workspace $wsMedia output eDP1
+workspace $wsAll output DP-3
+workspace $wsEdit output DP-3
+workspace $wsWeb output DP-3
+workspace $wsMedia output DP-3
 workspace $wsSecond output HDMI1
-workspace $wsThird output DVI-I-1-1
-workspace $wsFourth output DVI-I-2-2
+workspace $wsThird output DP-3
+workspace $wsFourth output HDMI-0
 
 # switch to workspace
 bindsym $mod+1	workspace $wsAll

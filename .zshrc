@@ -8,7 +8,7 @@ export ZSH="/home/cgx/.oh-my-zsh"
 # load a random theme each time oh-my-zsh is loaded, in which case,
 # to know which specific one was loaded, run: echo $RANDOM_THEME
 # See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
-ZSH_THEME="spaceship"
+#ZSH_THEME="spaceship"
 # Settings for "agnoster"
 # remove user@hostname
 #DEFAULT_USER=$USER
@@ -109,7 +109,6 @@ source $ZSH/oh-my-zsh.sh
 
 # User configuration
 
-# export MANPATH="/usr/local/man:$MANPATH"
 
 # You may need to manually set your language environment
 # export LANG=en_US.UTF-8
@@ -145,6 +144,14 @@ export PATH=$PATH:$HOME/.gem/ruby/2.6.0/bin
 export PATH=$PATH:$HOME/.gem/ruby/2.7.0/bin
 export PATH=$PATH:$HOME/.local/bin
 export PATH=$PATH:$HOME/.npm/bin
+export NPM_PACKAGES="${HOME}/.npm-packages"
+export NODE_PATH="$NPM_PACKAGES/lib/node_moduls:$NODE_PATH"
+export PATH=$PATH:$NPM_PACKAGES/bin
+export PATH=$PATH:$HOME/.portable/bin
+
+export STARDICT_DATA_DIR=$HOME/.local/share/stardict
+
+export MANPATH="$NPM_PACKAGES/share/man:$MANPATH"
 
 export UNCRUSTIFY_CONFIG=$HOME/.uncrustify
 export SCONS_CACHE=$HOME/.scons/build_cache
@@ -174,6 +181,8 @@ alias sudocker='sudo docker'
 
 alias def='/usr/bin/sdcv'
 
+alias unzipjp='unzip -O shift-jis'
+
 c() {clear; cd "$@"; pwd; l}
 aur() {git clone https://aur.archlinux.org/"$@".git; cd "$@"; less PKGBUILD; makepkg -sirc; cd ..}
 alias cx='c ..'
@@ -183,11 +192,15 @@ books() {~/.cgx/.scripts/books.sh "$@"}
 papers() {~/.cgx/.scripts/papers.sh "$@"}
 pdf() {zathura "$@" 2>/dev/null &!}
 
-rpigo() {sudo docker run --rm -ti -v $(go env GOCACHE):/root/.cache/go-build -v "$HOME/go/src":/go/src rpi-zero-opencv-bin /usr/bin/qemu-arm-static /bin/sh -c "cd $(pwd | grep -o 'src.*'); go build -o $@ -v" && scp "$@" pi@192.168.11.30:~/sandbox}
-rpi() {ssh -t pi@192.168.11.30 "$@"}
+rpigo() {sudo docker run --rm -ti -v $(go env GOCACHE):/root/.cache/go-build -v "$HOME/go/src":/go/src rpi-zero-opencv-bin /usr/bin/qemu-arm-static /bin/sh -c "cd $(pwd | grep -o 'src.*'); go build --ldflags '-extldflags \"-static\"' -o $@ -v"}
+# && scp "$@" pi@192.168.11.30:~/sandbox}
+rpi() {ssh -t pi@192.168.0.105 "$@"}
 vps() {ssh -t cgx@vps.onchi.me "$@"}
 
 kp() {~/.cgx/.scripts/killprocess.sh}
+
+alias tensor='sudo docker run -u $(id -u):$(id -g) --gpus all -i --rm tensorflow/tensorflow:latest-gpu-jupyter python < '
+alias tensorsh='sudo docker run -u $(id -u):$(id -g) --gpus all -it -p 8888:8888 --rm tensorflow/tensorflow:latest-gpu-jupyter bash'
 
 # mergepdf w\ \({1..18}\).pdf
 mergepdf() { gs -sDEVICE=pdfwrite -dNOPAUSE -dQUIET -dBATCH -dPDFSETTINGS=/prepress -sOutputFile=output.pdf "$@" ; echo output.pdf created!; }
@@ -198,3 +211,8 @@ test -r /home/cgx/.opam/opam-init/init.zsh && . /home/cgx/.opam/opam-init/init.z
 if systemctl -q is-active graphical.target && [[ ! $DISPLAY && $XDG_VTNR -eq 1 ]]; then
     exec startx
 fi
+fpath=($fpath "/home/cgx/.zfunctions")
+
+# Set Spaceship ZSH as a prompt
+autoload -U promptinit; promptinit
+prompt spaceship

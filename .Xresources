@@ -40,7 +40,7 @@ st*borderpx: 1
 st*cwscale: 1.00
 st*chscale: 1.00
 st*opacity: 220
-st*alpha: 0.8
+st*alpha: 0.90
 
 !! URxvt Config
 ! set font

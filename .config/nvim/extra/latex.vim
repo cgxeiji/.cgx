@@ -13,6 +13,7 @@
 :    autocmd FileType plaintex,tex nnoremap <buffer> <Leader>v :!zathura %:r.pdf &<CR><CR>
 :    autocmd FileType plaintex,tex nnoremap <buffer> <Leader>f gqap
 :    autocmd FileType plaintex,tex nnoremap <buffer> ;def "zyiw:!sdcv -u WordNet -n <C-r>z<CR>
+:    autocmd FileType plaintex,tex nnoremap <buffer> ;syn "zyiw:!sdcv -u "English Thesaurus" -n <C-r>z<CR>
 :    autocmd FileType plaintex,tex inoremap <buffer> ;it \textit{}<++><Esc>T{i
 :    autocmd FileType plaintex,tex inoremap <buffer> ;bf \textbf{}<++><Esc>T{i
 :    autocmd FileType plaintex,tex inoremap <buffer> ;key \keyword{}<++><Esc>T{i

@@ -4,7 +4,7 @@ stat() {
     vpn=$(nordvpn status | awk -F ': ' '{if(NR==3 || NR==4 || NR==5) print $NF}' | tr "\n" ":" | awk -F ':' '{printf("VPN: %s, %s (%s)\n",$1, $2, $3)}')
 
     if [ -z "$vpn" ]; then
-        #echo "(public: $(curl -s ifconfig.me))"
+        #echo "public: ($(curl -4 -sf ifconfig.co))"
         echo ""
     else
         echo "$vpn"

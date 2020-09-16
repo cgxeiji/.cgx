@@ -1,5 +1,5 @@
 [bar/top]
-monitor = eDP1
+monitor = DP-3
 width = 100%
 height = 18
 
@@ -15,21 +15,22 @@ padding-left = 2
 module-margin = 3
 
 font-0 = NotoSans-Regular:size=8;2
-font-1 = Material Design Icons:size=10;1
+font-1 = Material Design Icons:size=10;3
 font-2 = Termsynu:size=8:antialias=false;1
 font-3 = FontAwesome:size=10;2
 font-4 = SourceHanSans:size=10;3
 font-5 = DejaVu-Regular:size=8;2
-font-6 = Weather Icons:size=10;3
-font-7 = MaterialIcons:size=10;3
+font-6 = Weather Icons:size=10;2
+font-9 = Material Design Icons:size=10;3
 font-8 = DejaVu Sans Mono:size=7.5;2
+font-7 = NotoSansCJK-Regular:size=7.5;2
 
 modules-left = volume news
 modules-center = media
 modules-right = updates weather wireless-network vpn wired-network date
 
 [bar/bottom]
-monitor = eDP1
+monitor = DP-3
 bottom = true
 width = 100%
 height = 24
@@ -49,17 +50,20 @@ font-0 = NotoSans-Regular:size=8;0
 font-1 = unifont:size=6;-3
 font-2 = FontAwesome:size=8;-2
 font-3 = NotoSans-Regular:size=8;-1
-font-4 = MaterialIcons:size=11;2
+font-4 = Material Design Icons:size=11;1
 font-5 = Termsynu:size=8:antialias=false;0
 
 modules-left = i3
-modules-center = memory cpu temperature
+modules-center = memory cpu temperature gpu filesystem
 modules-right = battery
 
 tray-position = right
 tray-padding = 4
 tray-transparent = true
 tray-background = ${bar/bottom.background}
+tray-offset-y = 0
+tray-maxsize = 14
+tray-scale = 1.0
 
 [module/news]
 type = custom/script
@@ -68,6 +72,13 @@ format = <label>
 format-font = 9
 interval = 0
 tail = true
+
+[module/filesystem]
+type = custom/script
+
+interval = 30
+click-left = duc gui /home/cgx/
+exec = duc index --fs-exclude=fuse.google-drive-ocamlfuse --fs-exclude=fuse.sshfs /home/cgx 2>/dev/null && echo "󰄦 $(df -h --output=avail,target | grep '/home$' | awk {'print $1'})"
 
 [module/media]
 type = custom/script
@@ -80,7 +91,7 @@ format = <label>
 type = custom/script
 exec = ~/.cgx/.scripts/pacman_updates.sh
 interval = 3600
-format =  <label>
+format = 󰇚 <label>
 
 [module/weather]
 type = custom/script
@@ -92,7 +103,7 @@ interval = 600
 [module/vpn]
 type = custom/script
 exec = ~/.cgx/.scripts/vpn.sh status
-interval = 5
+interval = 30
 format = <label>
 click-left = notify-send 'NordVPN' "$(nordvpn status)"
 
@@ -171,14 +182,14 @@ type = internal/i3
 index-sort = true
 fuzzy-match = true
 
-ws-icon-0 = main;
-ws-icon-1 = web;
-ws-icon-2 = edit;
-ws-icon-3 = media;
+ws-icon-0 = main;󰨇
+ws-icon-1 = web;󰖟
+ws-icon-2 = edit;󰞷
+ws-icon-3 = media;󰐍
 ws-icon-4 = irssi;
 ws-icon-5 = msg;
-ws-icon-6 = extra;
-ws-icon-default = 
+ws-icon-6 = extra;󰄙
+ws-icon-default = 󰀟
 
 format = <label-state> <label-mode>
 
@@ -246,6 +257,13 @@ label-occupied-padding = 1
 label-empty = 
 label-empty-padding = 1
 
+[module/gpu]
+type = custom/script
+tail = true
+interval = 0.5
+exec-if = nvidia-smi
+exec = nvidia-smi --query-gpu=temperature.gpu,utilization.gpu,utilization.memory --format=csv,noheader,nounits | awk -F ", " '{printf("GPU 󰨅%02d%% 󰘚%02d%% 󰔏%02d°C\n" ,$3 ,$2 ,$1)}'
+
 [module/cpu]
 type = internal/cpu
 interval = 0.5
@@ -253,27 +271,35 @@ format = <label> <ramp-coreload>
 label = CPU
 
 ramp-coreload-0 = ▁
+#󰪞
 ramp-coreload-0-font = 2
 ramp-coreload-0-foreground = #aaff77
 ramp-coreload-1 = ▂
+#󰪟
 ramp-coreload-1-font = 2
 ramp-coreload-1-foreground = #aaff77
 ramp-coreload-2 = ▃
+#󰪠
 ramp-coreload-2-font = 2
 ramp-coreload-2-foreground = #aaff77
 ramp-coreload-3 = ▄
+#󰪡
 ramp-coreload-3-font = 2
 ramp-coreload-3-foreground = #aaff77
 ramp-coreload-4 = ▅
+#󰪢
 ramp-coreload-4-font = 2
 ramp-coreload-4-foreground = #fba922
 ramp-coreload-5 = ▆
+#󰪣
 ramp-coreload-5-font = 2
 ramp-coreload-5-foreground = #fba922
 ramp-coreload-6 = ▇
+#󰪤
 ramp-coreload-6-font = 2
 ramp-coreload-6-foreground = #ff5555
 ramp-coreload-7 = █
+#󰪥
 ramp-coreload-7-font = 2
 ramp-coreload-7-foreground = #ff5555
 
@@ -281,10 +307,11 @@ ramp-coreload-7-foreground = #ff5555
 type = internal/temperature
 interval = 0.5
 label = %temperature-c%
+hwmon-path = /sys/devices/pci0000:00/0000:00:18.3/hwmon/hwmon1/temp1_input
 
 [module/date]
 type = internal/date
-date =   %%{F#99}HE1%Y-%m-%d%%{F-}  %%{F#fff}%H:%M%%{F-}
+date = 󰨲  %%{F#99}HE1%Y-%m-%d%%{F-}  %%{F#fff}%H:%M%%{F-}
 date-alt = %%{F#fff}%A, %d %B %Y  %%{F#fff}%H:%M%%{F#666}:%%{F#fba922}%S%%{F-}
 
 [module/memory]
@@ -292,14 +319,15 @@ type = internal/memory
 format = <label> <bar-used>
 label = RAM
 
-bar-used-width = 30
+bar-used-width = 20
 bar-used-foreground-0 = #aaff77
 bar-used-foreground-1 = #aaff77
 bar-used-foreground-2 = #fba922
 bar-used-foreground-3 = #ff5555
-bar-used-indicator = |
+bar-used-indicator = ●
+#|
 bar-used-indicator-font = 6
-bar-used-indicator-foreground = #ff
+bar-used-indicator-foreground = #aaff77
 bar-used-fill = ─
 bar-used-fill-font = 6
 bar-used-empty = ─
@@ -335,21 +363,21 @@ bar-progress-empty-foreground = #44
 
 [module/wireless-network]
 type = internal/network
-interface = wlp3s0
+interface = wlan0
 interval = 3.0
 ping-interval = 10
 
 format-connected = %{A:nm-connection-editor&:}<ramp-signal> <label-connected>%{A}
 label-connected = %essid% (%local_ip% @ %downspeed%)
-label-disconnected =    not connected
+label-disconnected = 󰤮   not connected
 format-disconnected = %{A:nm-connection-editor&:}<label-disconnected>%{A}
 label-disconnected-foreground = #66
 
-ramp-signal-0 = 
-ramp-signal-1 = 
-ramp-signal-2 = 
-ramp-signal-3 = 
-ramp-signal-4 = 
+ramp-signal-0 = 󰤯
+ramp-signal-1 = 󰤟
+ramp-signal-2 = 󰤢
+ramp-signal-3 = 󰤥
+ramp-signal-4 = 󰤨
 
 animation-packetloss-0 = 
 animation-packetloss-0-foreground = #ffa64c
@@ -375,13 +403,14 @@ interval = 5
 click-right = pavucontrol &
 
 format-volume = <ramp-volume> <label-volume>
-label-muted =   muted
+label-muted = 󰪑  muted
 label-muted-foreground = #66
 
-ramp-volume-0 = 
-ramp-volume-1 = 
-ramp-volume-2 = 
-ramp-volume-3 = 
+ramp-volume-0 = 󰏄
+ramp-volume-1 = 󰫄
+ramp-volume-2 = 󰫅
+ramp-volume-3 = 󰫆
+ramp-volume-4 = 󰫈
 
 [module/powermenu]
 type = custom/menu
