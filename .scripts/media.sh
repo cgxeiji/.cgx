@@ -18,8 +18,8 @@ then
         echo -n "󰂚 ";
     fi
 
-    echo -n $(playerctl metadata xesam:title);
-    echo -n "  -  ";
+    title=$(echo -n $(playerctl metadata xesam:title) | cut -c -40)
+    echo -n "$title  -  ";
     echo -n $(playerctl metadata xesam:artist);
     echo -n "%{F-}";
 fi

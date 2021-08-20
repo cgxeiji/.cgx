@@ -1,5 +1,6 @@
 [bar/top]
 monitor = DP-3
+#monitor = HDMI-0
 width = 100%
 height = 18
 
@@ -26,11 +27,12 @@ font-8 = DejaVu Sans Mono:size=7.5;2
 font-7 = NotoSansCJK-Regular:size=7.5;2
 
 modules-left = volume news
-modules-center = media
+#modules-center = media
 modules-right = updates weather wireless-network vpn wired-network date
 
 [bar/bottom]
 monitor = DP-3
+#monitor = HDMI-0
 bottom = true
 width = 100%
 height = 24
@@ -54,7 +56,7 @@ font-4 = Material Design Icons:size=11;1
 font-5 = Termsynu:size=8:antialias=false;0
 
 modules-left = i3
-modules-center = memory cpu temperature gpu filesystem
+modules-center = memory cpu temperature gpu filesystem filesystem_extra
 modules-right = battery
 
 tray-position = right
@@ -76,9 +78,16 @@ tail = true
 [module/filesystem]
 type = custom/script
 
-interval = 30
+interval = 3600
 click-left = duc gui /home/cgx/
 exec = duc index --fs-exclude=fuse.google-drive-ocamlfuse --fs-exclude=fuse.sshfs /home/cgx 2>/dev/null && echo "󰄦 $(df -h --output=avail,target | grep '/home$' | awk {'print $1'})"
+
+[module/filesystem_extra]
+type = custom/script
+
+interval = 3600
+click-left = duc gui /mnt/extra/cgx_extra/
+exec = duc index /mnt/extra/cgx_extra 2>/dev/null && echo "󰄦 $(df -h --output=avail,target | grep '/mnt/extra$' | awk {'print $1'})"
 
 [module/media]
 type = custom/script

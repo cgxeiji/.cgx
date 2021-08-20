@@ -1,9 +1,10 @@
 ### VARIABLES
 set $term --no-startup-id st
 set $mod Mod4
+set $alt Mod1
 
 ### INITIALIZATION
-exec_always --no-startup-id compton --config ~/.config/compton.conf -b
+exec_always --no-startup-id picom --config ~/.config/picom/picom.conf -b
 exec_always --no-startup-id feh --bg-fill ~/.cgx/img/wallpaper.png
 exec_always --no-startup-id betterlockscreen -u ~/.cgx/img/wallpaper.png
 #exec_always --no-startup-id ~/.cgx/.scripts/load_gif.sh
@@ -38,10 +39,10 @@ for_window [instance="textterm"] move position center
 # binding set to m
 ## Whatsapp
 exec whatsapp-nativefier
-for_window [title="WhatsApp"] floating enable
-for_window [title="WhatsApp"] resize set 1000 px 600 px
-for_window [title="WhatsApp"] move scratchpad
-for_window [title="WhatsApp"] border pixel 5
+for_window [class="whatsapp-nativefier*"] floating enable
+for_window [class="whatsapp-nativefier*"] resize set 1000 px 800 px
+for_window [class="whatsapp-nativefier*"] move scratchpad
+for_window [class="whatsapp-nativefier*"] border pixel 5
 # binding set to n
 ## LINE
 for_window [title="^LINE$"] floating enable
@@ -51,10 +52,10 @@ for_window [title="^LINE$"] border pixel 1
 # binding set to N
 ## Thunar
 exec thunar
-for_window [title="(.*)File Manager$"] floating enable
-for_window [title="(.*)File Manager$"] resize set 1000 px 600 px
-for_window [title="(.*)File Manager$"] move scratchpad
-for_window [title="(.*)File Manager$"] border pixel 1
+for_window [class="Thunar" window_type="normal"] floating enable
+for_window [class="Thunar" window_type="normal"] resize set 1000 px 600 px
+for_window [class="Thunar" window_type="normal"] move scratchpad
+for_window [class="Thunar" window_type="normal"] border pixel 1
 # binding set to x
 
 
@@ -65,6 +66,8 @@ for_window [class="Blueman-manager"] move position center
 for_window [title="Microsoft Teams Notification"] floating enable
 ## Zoom
 for_window [title="zoom"] floating enable
+## Davinci Resolve
+for_window [class="resolve"] move position center
 
 ### CONTROL
 
@@ -75,7 +78,7 @@ floating_modifier $mod
 focus_follows_mouse no
 
 ## Floating Windows
-floating_maximum_size 1000 x 600
+floating_maximum_size 1000 x 1000
 
 ## Keyboard
 # (q) kill window
@@ -102,13 +105,13 @@ bindsym $mod+m exec --no-startup-id ~/.cgx/.scripts/texter.sh;
 # (P) screenshot
 bindsym $mod+Shift+p exec flameshot gui
 # (n) floating whatsapp
-bindsym $mod+n [title="WhatsApp"] scratchpad show; [title="WhatsApp"] move position center
+bindsym $mod+n [class="whatsapp-nativefier*"] scratchpad show; [class="whatsapp-nativefier*"] move position center
 # (N) floating LINE
 bindsym $mod+Shift+n [title="LINE"] scratchpad show; [title="LINE"] move position center
 # (a) reference manager
 bindsym $mod+a exec $term -e scholar open
 # (x) file explorer
-bindsym $mod+x [title="(.*)File Manager$"] scratchpad show; [title="(.*)File Manager"] move position center
+bindsym $mod+x [class="Thunar" window_type="normal"] scratchpad show; [class="Thunar" window_type="normal"] move position center
 # (i) audio input sink
 bindsym $mod+i exec --no-startup-id ~/.cgx/.scripts/audio-sink.sh
 # (d) Windows 10 Virtual Machine
@@ -160,8 +163,12 @@ bindsym $mod+f fullscreen toggle
 # (F) toggle tiling or floating window
 bindsym $mod+Shift+f floating toggle
 
-# (y) translate selected text
-bindsym $mod+y exec --no-startup-id ~/.cgx/.scripts/translate.sh
+# (Y) translate selected text
+bindsym $mod+Shift+y exec --no-startup-id ~/.cgx/.scripts/translate.sh
+# (y) ready currently selected text
+bindsym $mod+y exec --no-startup-id ~/.cgx/.scripts/speech.sh
+# (alt+n) read the news aloud
+bindsym $mod+$alt+n exec --no-startup-id ~/.cgx/.scripts/speak_news.sh
 
 ## Modes
 set $mode_system System (l) lock, (e) logout, (s) suspend, (r) reboot, (Shift+s) shutdown
@@ -332,9 +339,9 @@ set_from_resource $foreground		foreground #000000
 set $transparent				#00000000
 
 #                       BORDER			BACKGROUND	TEXT		INDICATOR			CHILD_BORDER
-client.focused			$darkwhite		$background	$foreground	$black				$white
-client.unfocused		$darkwhite		#808080		$white		$black				$transparent
-client.focused_inactive	$darkblack		$darkwhite	$black		$black				$darkwhite
+client.focused			$darkwhite		#404040		$white		$black				$white
+client.unfocused		$transparent	$background	#808080		$black				$transparent
+client.focused_inactive	$transparent	#404040		#A0A0A0		$black				$transparent
 client.urgent			$darkred		$darkred	$black		$darkred			$darkred
 client.background						$black
 

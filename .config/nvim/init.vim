@@ -12,7 +12,7 @@ Plugin 'gmarik/vundle'
 " load colorscheme
 Plugin 'tomasr/molokai'
 " load pretty status line
-Plugin 'vim-airline/vim-airline'
+" Plugin 'vim-airline/vim-airline'
 " load surround option
 Plugin 'tpope/vim-surround'
 " load autocomplete
@@ -34,7 +34,7 @@ Plugin 'OmniSharp/omnisharp-vim'
 " load linter
 Plugin 'w0rp/ale'
 " load Godot integration
-Plugin 'clktmr/vim-gdscript3'
+Plugin 'habamax/vim-godot'
 " load undotree
 Plugin 'mbbill/undotree'
 " load unimpaired
@@ -55,8 +55,22 @@ Plugin 'chrisbra/csv.vim'
 Plugin 'sheerun/vim-polyglot'
 " load Arduino snippets
 Plugin 'sudar/vim-arduino-snippets'
+" load Arduino helper
+Plugin 'stevearc/vim-arduino'
 " load Colorizer
 Plugin 'chrisbra/Colorizer'
+" load Emmet
+Plugin 'mattn/emmet-vim'
+" load matchit
+Plugin 'tmhedberg/matchit'
+" load coloresque
+Plugin 'gko/vim-coloresque'
+" load ejs syntax
+Plugin 'nikvdp/ejs-syntax'
+" load autoformat
+Plugin 'Chiel92/vim-autoformat'
+" load eunuch
+Plugin 'tpope/vim-eunuch'
 
 call vundle#end()
 filetype plugin indent on
@@ -73,6 +87,7 @@ set undofile
 set inccommand=nosplit
 set title
 set eadirection="hor"
+set scrolloff=999
 
 " japanese
 "set formatoptions+=mM
@@ -127,7 +142,7 @@ set splitright
 
 " terminal
 "let base16colorspace=256
-set t_Co=256
+" set t_Co=256
 set background=dark
 colorscheme molokai
 set encoding=utf8
@@ -206,7 +221,9 @@ let g:omnicomplete_fetch_full_documentation = 1
 
 "" ALE
 let g:ale_linters = {
-    \ 'cs': ['OmniSharp']
+    \ 'cs': ['OmniSharp'],
+    \ 'cpp': ['ccls', '--log-file=/tmp/cc.log'],
+    \ 'tex': ['chktex']
     \}
 let g:ale_fixers = {
             \ 'cs': ['uncrustify', 'remove_trailing_lines'],
@@ -299,6 +316,29 @@ endif
 :    autocmd BufRead,BufNewFile *.py let g:python_highlight_all = 1
 :    autocmd BufRead,BufNewFile *.py let g:python_slow_sync = 0
 :    autocmd BufRead,BufNewFile *.py set textwidth=0
+:    autocmd FileType python,py nnoremap <buffer> <Leader>r :w<CR>:!python %:r.py<CR>
+:augroup END
+
+"" Arduino
+function! ArduinoStatusLine()
+  let port = arduino#GetPort()
+  let line = '%f [' . g:arduino_board . '] [' . g:arduino_programmer . ']'
+  if !empty(port)
+    let line = line . ' (' . port . ':' . g:arduino_serial_baud . ')'
+  endif
+  return line
+endfunction
+
+"" EJS
+:augroup ejsgroup
+:   autocmd!
+:   autocmd BufRead,BufNewFile *.ejs set filetype=ejs.html
+:augroup END
+
+"" JSX
+:augroup jsxgroup
+:   autocmd!
+:   autocmd BufRead,BufNewFile *.jsx set filetype=javascriptreact.html
 :augroup END
 
 " unicode
@@ -343,7 +383,8 @@ nmap <silent> <Leader>a :wincmd =<CR>
 " (t)ab to next pane
 nmap <silent> <Leader>t :wincmd w<CR>
 " switch to (b)uffer
-nmap <silent> <Leader>b :ls<CR>:b<Space>
+nmap <silent> <Leader>B :ls<CR>:b<Space>
+nmap <silent> <tab> <C-^>
 " (q)uit current window
 nmap <silent> <Leader>q :q<CR>
 " toggle (u)ndo tree
@@ -402,7 +443,3 @@ nnoremap <Leader>, <Esc>/<++><Enter>ca<
 inoremap <C-h> <C-x><C-o>
 
 highlight Normal ctermbg=NONE
-"exec 'source '.custom.'latex.vim'
-"exec 'source '.custom.'markdown.vim'
-"exec 'source '.custom.'csharp.vim'
-runtime! extra/*.vim

@@ -160,11 +160,16 @@ export GITHUB_TOKEN=$(cat $HOME/.github_token)
 
 export QT_QPA_PLATFORMTHEME=gtk2
 
+export PG_OF_PATH="/opt/openFrameworks"
+
 
 source $(dirname $(gem which colorls))/tab_complete.sh
 
+source $HOME/.local/bin/virtualenvwrapper.sh
+
 alias gfd="cd ~/Downloads && colorls -al --sd"
 alias gft="cd ~/docs/thesis/doc && colorls -al --sd"
+alias gfe="cd /mnt/extra/cgx_extra && colorls -al --sd"
 alias gdt="cd ~/gdrive/Surface/Kansei\ Robot && colorls -al --sd"
 alias gsc="cd ~/go/src/github.com/cgxeiji/scholar && colorls -al --sd"
 alias cfx="cd ~/.cgx && colorls -al --sd"
@@ -192,15 +197,24 @@ books() {~/.cgx/.scripts/books.sh "$@"}
 papers() {~/.cgx/.scripts/papers.sh "$@"}
 pdf() {zathura "$@" 2>/dev/null &!}
 
-rpigo() {sudo docker run --rm -ti -v $(go env GOCACHE):/root/.cache/go-build -v "$HOME/go/src":/go/src rpi-zero-opencv-bin /usr/bin/qemu-arm-static /bin/sh -c "cd $(pwd | grep -o 'src.*'); go build --ldflags '-extldflags \"-static\"' -o $@ -v"}
+rpigo() {sudo docker run --rm -ti -v $(go env GOPATH)/pkg/mod:/go/pkg/mod -v $(go env GOCACHE):/root/.cache/go-build -v "$HOME/go/src":/go/src rpi-zero-opencv-bin /usr/bin/qemu-arm-static /bin/sh -c "cd $(pwd | grep -o 'src.*'); export GOSUMDB=off; go build -o $@ -v"}
 # && scp "$@" pi@192.168.11.30:~/sandbox}
 rpi() {ssh -t pi@192.168.0.105 "$@"}
 vps() {ssh -t cgx@vps.onchi.me "$@"}
 
 kp() {~/.cgx/.scripts/killprocess.sh}
 
+speak() { echo "$@" > /tmp/speech && pico2wave -w /tmp/speech.wav < /tmp/speech && play -q /tmp/speech.wav gain -2 bass +2 treble +10}
+
 alias tensor='sudo docker run -u $(id -u):$(id -g) --gpus all -i --rm tensorflow/tensorflow:latest-gpu-jupyter python < '
 alias tensorsh='sudo docker run -u $(id -u):$(id -g) --gpus all -it -p 8888:8888 --rm tensorflow/tensorflow:latest-gpu-jupyter bash'
+
+alias jupyr='sudo docker run -u 0:$(id -g) -p 8888:8888 -e JUPYTER_ENABLE_LAB=yes -e GRANT_SUDO=yes -v "$PWD":/home/jovyan/work -v /home/cgx/.jupyterRlibs:/home/jovyan/extra --gpus all -i --rm jupyter/r-notebook'
+alias jupytorch='sudo docker run -u $(id -u):$(id -g) -v $PWD:/workspace --gpus all -it -p 8888:8888 --name pytorch-notebook --rm jupyter-pytorch'
+
+tomov() {ffmpeg -i "$1"."$2" -c:v dnxhd -vf "scale=1920:1080,fps=30000/1001,format=yuv422p10" -b:v 175M -c:a pcm_s16le "$1".mov }
+
+ofnew() {projectGenerator -a"$2" ./"$1" && cd "$1" && ctags -R $PG_OF_PATH && compiledb -n make }
 
 # mergepdf w\ \({1..18}\).pdf
 mergepdf() { gs -sDEVICE=pdfwrite -dNOPAUSE -dQUIET -dBATCH -dPDFSETTINGS=/prepress -sOutputFile=output.pdf "$@" ; echo output.pdf created!; }
