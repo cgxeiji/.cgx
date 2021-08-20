@@ -93,7 +93,7 @@ endfunction
 function! statusline#encoding(active) " {{{1
   " Returns: 'encoding[lineendings]' in the same width as statusline#cursorinfo()
   let linedigits = float2nr(ceil(log10(line('$') + 1)))
-  let stl_typeinfo = (&fileencoding ? &fileencoding : &encoding) . '[' . &fileformat . ']'
+  let stl_typeinfo = (&fileencoding ? &fileencoding : &encoding) . ' [' . &fileformat . ']'
   "let stl_typeinfo .= repeat(' ', 14 + 2 * linedigits - len(stl_typeinfo))
   return stl_typeinfo
 endfunction

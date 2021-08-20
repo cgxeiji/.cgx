@@ -7,7 +7,7 @@ set $alt Mod1
 exec_always --no-startup-id picom --config ~/.config/picom/picom.conf -b
 exec_always --no-startup-id feh --bg-fill ~/.cgx/img/wallpaper.png
 exec_always --no-startup-id betterlockscreen -u ~/.cgx/img/wallpaper.png
-#exec_always --no-startup-id ~/.cgx/.scripts/load_gif.sh
+exec_always --no-startup-id ~/.cgx/.scripts/load_gif.sh ~/.cgx/img/wall_vertical.gif ~/.cgx/img/wall_horizontal.mp4
 exec_always --no-startup-id ~/.cgx/.scripts/polybar_launch.sh
 exec --no-startup-id xss-lock -- betterlockscreen -l "dimblur"
 exec --no-startup-id unclutter

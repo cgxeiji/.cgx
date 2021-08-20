@@ -20,7 +20,9 @@ Plugin 'Shougo/deoplete.nvim'
 " load fuzzy search
 Plugin 'junegunn/fzf.vim'
 " load file tree viewer
-Plugin 'scrooloose/nerdtree'
+" Plugin 'scrooloose/nerdtree'
+" load vinegar
+Plugin 'tpope/vim-vinegar'
 " load go helper
 Plugin 'fatih/vim-go'
 " load R-studio
@@ -426,8 +428,8 @@ nmap  <Leader>oe :Rg<CR>
 " open configuration (this) file
 nmap  <Leader>ocf :vs $MYVIMRC<CR>
 " nerdtree mappings
-nmap <silent> <Leader>x :NERDTreeToggle<CR>
-nmap <silent> <Leader>h :NERDTreeFind<CR>
+" nmap <silent> <Leader>x :NERDTreeToggle<CR>
+" nmap <silent> <Leader>h :NERDTreeFind<CR>
 " zen mode
 nmap <silent> <Leader>F :Goyo<CR>
 " navigation
