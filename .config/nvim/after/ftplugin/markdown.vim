@@ -6,8 +6,8 @@ endif
 "" Markdown
 setlocal spell
 
-nnoremap <buffer> <Leader>r :w<CR>:!pandoc %:p -o %:r.pdf --template eisvogel --listings --pdf-engine xelatex &<CR><CR>
-nnoremap <buffer> <Leader>v :!zathura %:r.pdf &<CR><CR>
+nnoremap <buffer> <Leader>r :w<CR>:!pandoc "%:p" -o "%:r.pdf" --template eisvogel --listings --pdf-engine xelatex -V CJKmainfont="Noto Sans CJK JP" &<CR><CR>
+nnoremap <buffer> <Leader>v :!zathura "%:r.pdf" &<CR><CR>
 nnoremap <buffer> ;; <Esc>/<++><Enter>ca<
 nnoremap <buffer> ;def "zyiw:!sdcv -u WordNet -n <C-r>z<CR>
 inoremap <buffer> ;; <Esc>/<++><Enter>ca<
