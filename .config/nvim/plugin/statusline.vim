@@ -23,8 +23,8 @@ function! statusline#active() abort " {{{1
     "let statuslinetext .= v:lua.ts_statusline()
   "endif
   let statuslinetext .= statusline#errors(1)
-  let statuslinetext .= '%#stlTypeInfo#%y '  " type info
-  let statuslinetext .= '%{statusline#encoding(0)} %*'
+  let statuslinetext .= '%#stlTypeInfo#%{statusline#encoding(0)}'
+  let statuslinetext .= ' %y%*'  " type info
   " let statuslinetext .= statusline#plugins(1)
   let statuslinetext .= statusline#cursorinfo(1)
   return statuslinetext
@@ -35,8 +35,8 @@ function! statusline#inactive() abort " {{{1
   let statuslinetext .= '%{statusline#dirinfo(0)}'
   let statuslinetext .= statusline#fileinfo(0)
   let statuslinetext .= '%#stlInactive#%='
-  let statuslinetext .= '%y '
-  let statuslinetext .= '%{statusline#encoding(0)} '
+  let statuslinetext .= ' %{statusline#encoding(0)} '
+  let statuslinetext .= '%y'
   let statuslinetext .= statusline#cursorinfo(0)
   return statuslinetext
 endfunction
@@ -93,7 +93,7 @@ endfunction
 function! statusline#encoding(active) " {{{1
   " Returns: 'encoding[lineendings]' in the same width as statusline#cursorinfo()
   let linedigits = float2nr(ceil(log10(line('$') + 1)))
-  let stl_typeinfo = (&fileencoding ? &fileencoding : &encoding) . ' [' . &fileformat . ']'
+  let stl_typeinfo = &fileformat . ' | ' . (&fileencoding ? &fileencoding : &encoding)
   "let stl_typeinfo .= repeat(' ', 14 + 2 * linedigits - len(stl_typeinfo))
   return stl_typeinfo
 endfunction
@@ -102,12 +102,12 @@ function! statusline#cursorinfo(active) abort " {{{1
   " Returns: '%line/lines ☰ lineno/lines : colnum'
   let linedigits = float2nr(ceil(log10(line('$') + 1)))
   let nwid = '%' . linedigits . '.' . linedigits
-  let statuslinetext = ''
+  let statuslinetext = ' %3p%% '
   if a:active
     let statuslinetext .= s:modecolor()
   endif
   "let statuslinetext .= ' [' . nwid . 'l]:[%2c] (%3p%%) %*'
-  let statuslinetext .= ' [%4l]:[%2c] (%3p%%) %*'
+  let statuslinetext .= ' %3l:%-3c %*'
   return statuslinetext
 endfunction
 

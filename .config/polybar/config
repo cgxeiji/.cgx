@@ -26,8 +26,8 @@ font-9 = Material Design Icons:size=10;3
 font-8 = DejaVu Sans Mono:size=7.5;2
 font-7 = NotoSansCJK-Regular:size=7.5;2
 
-modules-left = volume news
-#modules-center = media
+modules-left = volume news bt-devices
+modules-center = media
 modules-right = updates weather wireless-network vpn wired-network date
 
 [bar/bottom]
@@ -94,6 +94,12 @@ type = custom/script
 exec = ~/.cgx/.scripts/media.sh
 click-left = playerctl play-pause 2>/dev/null
 interval = 1
+format = <label>
+
+[module/bt-devices]
+type = custom/script
+exec = ~/.cgx/.scripts/bt_devices.sh
+interval = 10
 format = <label>
 
 [module/updates]
@@ -320,8 +326,8 @@ hwmon-path = /sys/devices/pci0000:00/0000:00:18.3/hwmon/hwmon1/temp1_input
 
 [module/date]
 type = internal/date
-date = 󰨲  %%{F#99}HE1%Y-%m-%d%%{F-}  %%{F#fff}%H:%M%%{F-}
-date-alt = %%{F#fff}%A, %d %B %Y  %%{F#fff}%H:%M%%{F#666}:%%{F#fba922}%S%%{F-}
+date = %{A1:/home/cgx/.cgx/.scripts/cal_term.sh:}󰨲  %%{F#99}HE1%Y-%m-%d%%{F-}  %%{F#fff}%H:%M%%{F#666}:%%{F#fba922}%S%%{F-}%{A}
+#date-alt = %%{F#fff}%A, %d %B %Y  %%{F#fff}%H:%M%%{F#666}:%%{F#fba922}%S%%{F-}
 
 [module/memory]
 type = internal/memory

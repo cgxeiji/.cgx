@@ -385,8 +385,8 @@ nmap <silent> <Leader>a :wincmd =<CR>
 " (t)ab to next pane
 nmap <silent> <Leader>t :wincmd w<CR>
 " switch to (b)uffer
-nmap <silent> <Leader>B :ls<CR>:b<Space>
 nmap <silent> <tab> <C-^>
+nmap <silent> <S-tab> :ls<CR>:b<Space>
 " (q)uit current window
 nmap <silent> <Leader>q :q<CR>
 " toggle (u)ndo tree

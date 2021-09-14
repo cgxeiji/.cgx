@@ -87,7 +87,7 @@ bindsym $mod+w kill
 # (Q) system management
 bindsym $mod+Shift+w mode "$mode_system"
 # (p) launch a program
-bindsym $mod+p exec rofi -show drun -show-icons
+bindsym $mod+p exec rofi -show drun -show-icons -theme '/usr/share/rofi/themes/gruvbox-dark-hard.rasi'
 # (u) mount a drive
 bindsym $mod+u exec --no-startup-id ~/.cgx/.scripts/mount_drive.sh
 # (U) unmount a drive
@@ -186,7 +186,7 @@ mode "$mode_system" {
 }
 set $mode_reload (r) all, (p) polybar, (t) auxterm, (w) animated wallpaper
 mode "$mode_reload" {
-    bindsym w exec --no-startup-id ~/.cgx/.scripts/load_gif.sh; mode "default"
+    bindsym w exec --no-startup-id ~/.cgx/.scripts/load_gif.sh ~/.cgx/img/wall_vertical.gif ~/.cgx/img/wall_horizontal.mp4; mode "default"
     bindsym p exec --no-startup-id ~/.cgx/.scripts/polybar_launch.sh; mode "default"
     bindsym r restart; mode "default"
     bindsym t exec $term -n 'auxterm' -f 'undefined medium:style=medium:pixelsize=10:antialias=true'; mode "default"
