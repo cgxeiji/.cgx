@@ -39,11 +39,16 @@ for_window [instance="textterm"] scratchpad show
 for_window [instance="textterm"] move position center
 # binding set to m
 ## Whatsapp
-exec whatsapp-nativefier
-for_window [class="whatsapp-nativefier*"] floating enable
-for_window [class="whatsapp-nativefier*"] resize set 1000 px 800 px
-for_window [class="whatsapp-nativefier*"] move scratchpad
-for_window [class="whatsapp-nativefier*"] border pixel 5
+# exec whatsapp-nativefier
+exec whatsapp-for-linux
+for_window [class="Whatsapp-for-linux"] floating enable
+for_window [class="Whatsapp-for-linux"] resize set 1000 px 800 px
+for_window [class="Whatsapp-for-linux"] move scratchpad
+for_window [class="Whatsapp-for-linux"] border pixel 5
+# for_window [class="whatsapp-nativefier*"] floating enable
+# for_window [class="whatsapp-nativefier*"] resize set 1000 px 800 px
+# for_window [class="whatsapp-nativefier*"] move scratchpad
+# for_window [class="whatsapp-nativefier*"] border pixel 5
 # binding set to n
 ## LINE
 for_window [title="^LINE$"] floating enable
@@ -106,7 +111,8 @@ bindsym $mod+m exec --no-startup-id ~/.cgx/.scripts/texter.sh;
 # (P) screenshot
 bindsym $mod+Shift+p exec flameshot gui
 # (n) floating whatsapp
-bindsym $mod+n [class="whatsapp-nativefier*"] scratchpad show; [class="whatsapp-nativefier*"] move position center
+bindsym $mod+n [class="Whatsapp-for-linux"] scratchpad show; [class="Whatsapp-for-linux"] move position center
+# bindsym $mod+n [class="whatsapp-nativefier*"] scratchpad show; [class="whatsapp-nativefier*"] move position center
 # (N) floating LINE
 bindsym $mod+Shift+n [title="LINE"] scratchpad show; [title="LINE"] move position center
 # (a) reference manager

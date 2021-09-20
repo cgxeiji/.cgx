@@ -209,7 +209,7 @@ speak() { echo "$@" > /tmp/speech && pico2wave -w /tmp/speech.wav < /tmp/speech 
 alias tensor='sudo docker run -u $(id -u):$(id -g) --gpus all -i --rm tensorflow/tensorflow:latest-gpu-jupyter python < '
 alias tensorsh='sudo docker run -u $(id -u):$(id -g) --gpus all -it -p 8888:8888 --rm tensorflow/tensorflow:latest-gpu-jupyter bash'
 
-alias jupyr='sudo docker run -u 0:$(id -g) -p 8888:8888 -e JUPYTER_ENABLE_LAB=yes -e GRANT_SUDO=yes -v "$PWD":/home/jovyan/work -v /home/cgx/.jupyterRlibs:/home/jovyan/extra --gpus all -i --rm jupyter/r-notebook'
+alias jupyr='sudo docker run -u 0:$(id -g) -p 8889:8888 -e JUPYTER_ENABLE_LAB=yes -e GRANT_SUDO=yes -v "$PWD":/home/jovyan/work -v /home/cgx/.jupyterRlibs:/home/jovyan/extra --gpus all -i --rm jupyter/r-notebook'
 alias jupytorch='sudo docker run -u $(id -u):$(id -g) -v $PWD:/workspace --gpus all -it -p 8888:8888 --name pytorch-notebook --rm jupyter-pytorch'
 
 tomov() {ffmpeg -i "$1"."$2" -c:v dnxhd -vf "scale=1920:1080,fps=30000/1001,format=yuv422p10" -b:v 175M -c:a pcm_s16le "$1".mov }

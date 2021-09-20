@@ -4,13 +4,14 @@ endif
 
 """ CONFIGURATION FILE FOR LATEX
 "" Latex
+let g:tex_flavor = "latex"
 " set filetype=tex
 setlocal spell
 
-if argc() == 1 && argv(0) ==# 'main.tex'
-    let maintex=expand('%:t')
-    cd %:p:h
-endif
+"if argc() == 1 && argv(0) ==# 'main.tex'
+    "let maintex=expand('%:t')
+    "cd %:p:h
+"endif
 
 nnoremap <buffer> <Leader>r :w<CR>:!rubber --unsafe --pdf --module xelatex <C-r>=maintex<CR><CR>
 nnoremap <buffer> <Leader>c :w<CR>:!rubber --clean <C-r>=maintex<CR>&<CR><CR>
