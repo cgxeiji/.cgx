@@ -13,7 +13,7 @@ setlocal spell
     "cd %:p:h
 "endif
 
-nnoremap <buffer> <Leader>r :w<CR>:!rubber --unsafe --pdf --module xelatex <C-r>=maintex<CR><CR>
+nnoremap <buffer> <Leader>r :w<CR>:!rubber --unsafe --pdf --module xelatex <C-r>=maintex<CR> && echo "word count: $(detex <C-r>=maintex<CR> <bar> wc -w)"<CR>
 nnoremap <buffer> <Leader>c :w<CR>:!rubber --clean <C-r>=maintex<CR>&<CR><CR>
 nnoremap <buffer> <Leader>d :w<CR>:!latexdiff old.tex <C-r>=maintex<CR> > diff.tex && rubber --unsafe --pdf diff.tex &<CR><CR>
 nnoremap <buffer> ;sm :let maintex=expand('%:t')<CR>:cd %:p:h<CR>
